@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const crypto = require('crypto');
 const { connectDB, sequelize } = require('./config/db');
 
 // Load environment variables from .env file
@@ -33,9 +34,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure Express Session
+let sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  if (process.env.NODE_ENV === 'production') {
+    console.warn('WARNING: SESSION_SECRET is not set in production. Generating a random fallback secret.');
+    sessionSecret = crypto.randomBytes(32).toString('hex');
+  } else {
+    sessionSecret = 'campus_compass_secret_key_12345';
+  }
+}
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || (process.env.NODE_ENV === 'production' ? (() => { throw new Error('SESSION_SECRET environment variable is required in production!'); })() : 'campus_compass_secret_key_12345'),
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     cookie: {

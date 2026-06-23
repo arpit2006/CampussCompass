@@ -28,13 +28,20 @@ if (process.env.DATABASE_URL) {
   console.log('--- Database Setup ---');
   console.log('Using Free, Portable SQLite Database (Local Mode)');
   
-  // Ensure the data directory exists
-  const dbDir = path.join(__dirname, '../data');
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
+  let dbPath;
+  if (process.env.VERCEL) {
+    // Vercel serverless environment is read-only, write SQLite DB to /tmp
+    dbPath = '/tmp/database.sqlite';
+    console.log('Serverless environment detected (Vercel). Writing SQLite database to /tmp.');
+  } else {
+    // Ensure the data directory exists locally
+    const dbDir = path.join(__dirname, '../data');
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
+    dbPath = path.join(dbDir, 'database.sqlite');
   }
 
-  const dbPath = path.join(dbDir, 'database.sqlite');
   console.log(`Database File: ${dbPath}`);
 
   sequelize = new Sequelize({
