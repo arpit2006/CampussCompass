@@ -24,24 +24,25 @@ if (process.env.DATABASE_URL) {
   }
 
   sequelize = new Sequelize(process.env.DATABASE_URL, options);
+} else if (process.env.VERCEL) {
+  console.log('--- Database Setup ---');
+  console.log('Vercel environment detected but DATABASE_URL is missing. Using PostgreSQL placeholder connection.');
+  
+  // Use postgres dialect placeholder to avoid sqlite3 compilation/load error on Vercel
+  sequelize = new Sequelize('postgres://localhost:5432/placeholder', {
+    dialect: 'postgres',
+    logging: false
+  });
 } else {
   console.log('--- Database Setup ---');
   console.log('Using Free, Portable SQLite Database (Local Mode)');
   
-  let dbPath;
-  if (process.env.VERCEL) {
-    // Vercel serverless environment is read-only, write SQLite DB to /tmp
-    dbPath = '/tmp/database.sqlite';
-    console.log('Serverless environment detected (Vercel). Writing SQLite database to /tmp.');
-  } else {
-    // Ensure the data directory exists locally
-    const dbDir = path.join(__dirname, '../data');
-    if (!fs.existsSync(dbDir)) {
-      fs.mkdirSync(dbDir, { recursive: true });
-    }
-    dbPath = path.join(dbDir, 'database.sqlite');
+  // Ensure the data directory exists locally
+  const dbDir = path.join(__dirname, '../data');
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
   }
-
+  const dbPath = path.join(dbDir, 'database.sqlite');
   console.log(`Database File: ${dbPath}`);
 
   sequelize = new Sequelize({
@@ -52,6 +53,10 @@ if (process.env.DATABASE_URL) {
 }
 
 const connectDB = async () => {
+  if (process.env.VERCEL && !process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL environment variable is missing. Please configure your remote PostgreSQL database connection string in your Vercel Project settings.');
+  }
+
   try {
     await sequelize.authenticate();
     console.log('Database Status: ACTIVE (Connection established successfully)');
