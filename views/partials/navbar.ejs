@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <i class="fa-solid fa-compass compass-logo"></i>
+      <span>Campus<span class="text-gradient">Compass</span></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="nav-menu" id="navMenu">
+      <% if (isLoggedIn) { %>
+        <a href="/dashboard" class="nav-link"><i class="fa-solid fa-chart-simple"></i> Dashboard</a>
+        <a href="/social" class="nav-link"><i class="fa-solid fa-users"></i> Social</a>
+        <a href="/profile" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+        <a href="/logout" class="btn btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      <% } else { %>
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/#how-it-works" class="nav-link">How It Works</a>
+        <a href="/#testimonials" class="nav-link">Testimonials</a>
+        <a href="/#faq" class="nav-link">FAQ</a>
+        <div class="nav-auth-buttons">
+          <a href="/login" class="nav-link btn btn-login">Log In</a>
+          <a href="/register" class="btn btn-primary btn-signup">Sign Up</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</nav>

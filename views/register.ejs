@@ -1,0 +1,104 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <div class="auth-split-layout">
+      
+      <!-- Form Side -->
+      <div class="auth-form-side">
+        <div class="auth-card">
+          <div class="auth-header">
+            <div class="auth-logo-circle">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <h2>Create Account</h2>
+            <p>Register to build your student profile and unlock your career roadmap</p>
+          </div>
+
+          <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-danger">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span><%= error %></span>
+            </div>
+          <% } %>
+
+          <form action="/register" method="POST" class="auth-form">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="student@college.edu" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password (min. 6 characters)</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="••••••••" minlength="6" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" minlength="6" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Register <i class="fa-solid fa-user-plus"></i></button>
+          </form>
+
+          <div class="auth-divider">
+            <span>or connect with</span>
+          </div>
+
+          <div class="social-auth-buttons">
+            <a href="/auth/github" class="btn btn-social-login btn-github-login">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="/auth/leetcode" class="btn btn-social-login btn-leetcode-login">
+              <i class="fa-solid fa-code"></i> LeetCode
+            </a>
+          </div>
+
+          <div class="auth-footer">
+            <p>Already have an account? <a href="/login" class="text-link">Log in here</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info/Promo Side (Sign-up Specific Copy) -->
+      <div class="auth-info-side">
+        <div class="auth-info-content">
+          <span class="info-tag">Join CampusCompass</span>
+          <h2>Start navigating your college journey today.</h2>
+          <p>Create your student profile and instantly unlock a tailored, semester-by-semester learning path to hit your career goals.</p>
+          
+          <div class="info-features">
+            <div class="info-feature-item">
+              <div class="info-feature-icon"><i class="fa-solid fa-user-gear"></i></div>
+              <div>
+                <h5>Interactive Profile Setup</h5>
+                <p>Log your current year, college, CGPA, and interests to customize your dashboard.</p>
+              </div>
+            </div>
+            
+            <div class="info-feature-item">
+              <div class="info-feature-icon"><i class="fa-solid fa-list-check"></i></div>
+              <div>
+                <h5>Progress Checklists</h5>
+                <p>Cross-reference your active skills against the roadmap and check off topics in real-time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

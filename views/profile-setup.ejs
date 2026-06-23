@@ -1,0 +1,126 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="profile-setup-page">
+  <div class="profile-setup-container">
+    <div class="profile-setup-card">
+      <div class="profile-setup-header">
+        <h2>Complete Your Student Profile</h2>
+        <p>Tell us a bit about your college life and career goals to initialize your roadmap.</p>
+      </div>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span><%= error %></span>
+        </div>
+      <% } %>
+
+      <form action="/profile/setup" method="POST" class="setup-form">
+        <div class="form-grid">
+          
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="fullName">Full Name <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Amit Patel" required>
+            </div>
+          </div>
+
+          <!-- College Name -->
+          <div class="form-group">
+            <label for="collegeName">College Name <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-building-columns"></i>
+              <input type="text" id="collegeName" name="collegeName" placeholder="e.g. Delhi Technological University" required>
+            </div>
+          </div>
+
+          <!-- Branch -->
+          <div class="form-group">
+            <label for="branch">Branch/Major <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <input type="text" id="branch" name="branch" placeholder="e.g. Computer Science" required>
+            </div>
+          </div>
+
+          <!-- Current Year -->
+          <div class="form-group">
+            <label for="currentYear">Current Year <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-calendar-days"></i>
+              <select id="currentYear" name="currentYear" required>
+                <option value="" disabled selected>Select current year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CGPA -->
+          <div class="form-group">
+            <label for="cgpa">Current CGPA</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-chart-bar"></i>
+              <input type="number" id="cgpa" name="cgpa" placeholder="e.g. 8.5" step="0.01" min="0" max="10">
+            </div>
+          </div>
+
+          <!-- Career Goal -->
+          <div class="form-group">
+            <label for="careerGoal">Target Career Goal <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-bullseye"></i>
+              <select id="careerGoal" name="careerGoal" required>
+                <option value="" disabled selected>Select career track</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="AI Engineer">AI Engineer</option>
+                <option value="Cyber Security">Cyber Security</option>
+                <option value="Cloud Engineer">Cloud Engineer</option>
+                <option value="Data Scientist">Data Scientist</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="form-group col-span-2">
+            <label for="skills">Current Skills <span class="label-hint">(Comma-separated list)</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              <input type="text" id="skills" name="skills" placeholder="e.g. Python, Git, HTML, CSS (These will match and update your roadmap progress!)">
+            </div>
+            <p class="form-hint-text">Entering skills you already know will automatically mark corresponding topics as completed on your dashboard.</p>
+          </div>
+
+          <!-- Interests -->
+          <div class="form-group col-span-2">
+            <label for="interests">Interests <span class="label-hint">(Comma-separated list)</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-heart"></i>
+              <input type="text" id="interests" name="interests" placeholder="e.g. Open Source, Machine Learning, Web Design, Blogging">
+            </div>
+          </div>
+
+          <!-- Daily Study Hours -->
+          <div class="form-group">
+            <label for="dailyStudyHours">Daily Study Hours</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-clock"></i>
+              <input type="number" id="dailyStudyHours" name="dailyStudyHours" placeholder="e.g. 4" min="0" max="24">
+            </div>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large btn-submit">Save & Go to Dashboard <i class="fa-solid fa-circle-arrow-right"></i></button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

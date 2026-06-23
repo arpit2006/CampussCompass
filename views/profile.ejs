@@ -1,0 +1,158 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="profile-page-main">
+  <div class="profile-container">
+    
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span><%= error %></span>
+      </div>
+    <% } %>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success">
+        <i class="fa-solid fa-circle-check"></i>
+        <span><%= success %></span>
+      </div>
+    <% } %>
+
+    <div class="profile-layout-grid">
+      
+      <!-- Left Column: Quick view info card -->
+      <section class="profile-sidebar">
+        <div class="card profile-avatar-card">
+          <div class="avatar-circle">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h3><%= user.profile.fullName %></h3>
+          <span class="profile-email-badge"><%= user.email %></span>
+          <div class="sidebar-meta">
+            <span class="track-tag"><i class="fa-solid fa-compass"></i> <%= user.profile.careerGoal %></span>
+            <span class="year-tag"><%= user.profile.currentYear %></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Edit Profile Form -->
+      <section class="profile-form-section">
+        <div class="card profile-form-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-user-gear"></i> Account & Profile Settings</h3>
+            <p>Update your details below to adjust your roadmap progress calculator</p>
+          </div>
+          <div class="card-body">
+            <form action="/profile/update" method="POST" class="setup-form">
+              <div class="form-grid">
+                
+                <!-- Full Name -->
+                <div class="form-group">
+                  <label for="fullName">Full Name <span class="required">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="fullName" name="fullName" value="<%= user.profile.fullName %>" required>
+                  </div>
+                </div>
+
+                <!-- College Name -->
+                <div class="form-group">
+                  <label for="collegeName">College Name <span class="required">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <input type="text" id="collegeName" name="collegeName" value="<%= user.profile.collegeName %>" required>
+                  </div>
+                </div>
+
+                <!-- Branch -->
+                <div class="form-group">
+                  <label for="branch">Branch/Major <span class="required">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <input type="text" id="branch" name="branch" value="<%= user.profile.branch %>" required>
+                  </div>
+                </div>
+
+                <!-- Current Year -->
+                <div class="form-group">
+                  <label for="currentYear">Current Year <span class="required">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <select id="currentYear" name="currentYear" required>
+                      <option value="1st Year" <%= user.profile.currentYear === '1st Year' ? 'selected' : '' %>>1st Year</option>
+                      <option value="2nd Year" <%= user.profile.currentYear === '2nd Year' ? 'selected' : '' %>>2nd Year</option>
+                      <option value="3rd Year" <%= user.profile.currentYear === '3rd Year' ? 'selected' : '' %>>3rd Year</option>
+                      <option value="4th Year" <%= user.profile.currentYear === '4th Year' ? 'selected' : '' %>>4th Year</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- CGPA -->
+                <div class="form-group">
+                  <label for="cgpa">Current CGPA</label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <input type="number" id="cgpa" name="cgpa" value="<%= user.profile.cgpa %>" step="0.01" min="0" max="10">
+                  </div>
+                </div>
+
+                <!-- Career Goal -->
+                <div class="form-group">
+                  <label for="careerGoal">Target Career Goal <span class="required">*</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <select id="careerGoal" name="careerGoal" required>
+                      <option value="Software Engineer" <%= user.profile.careerGoal === 'Software Engineer' ? 'selected' : '' %>>Software Engineer</option>
+                      <option value="Web Developer" <%= user.profile.careerGoal === 'Web Developer' ? 'selected' : '' %>>Web Developer</option>
+                      <option value="AI Engineer" <%= user.profile.careerGoal === 'AI Engineer' ? 'selected' : '' %>>AI Engineer</option>
+                      <option value="Cyber Security" <%= user.profile.careerGoal === 'Cyber Security' ? 'selected' : '' %>>Cyber Security</option>
+                      <option value="Cloud Engineer" <%= user.profile.careerGoal === 'Cloud Engineer' ? 'selected' : '' %>>Cloud Engineer</option>
+                      <option value="Data Scientist" <%= user.profile.careerGoal === 'Data Scientist' ? 'selected' : '' %>>Data Scientist</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group col-span-2">
+                  <label for="skills">Current Skills <span class="label-hint">(Comma-separated list)</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <input type="text" id="skills" name="skills" value="<%= user.profile.skills ? user.profile.skills.join(', ') : '' %>">
+                  </div>
+                  <p class="form-hint-text">Add or remove skills. Separate them with commas (e.g. Python, SQL, Git).</p>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-group col-span-2">
+                  <label for="interests">Interests <span class="label-hint">(Comma-separated list)</span></label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-heart"></i>
+                    <input type="text" id="interests" name="interests" value="<%= user.profile.interests ? user.profile.interests.join(', ') : '' %>">
+                  </div>
+                </div>
+
+                <!-- Daily Study Hours -->
+                <div class="form-group">
+                  <label for="dailyStudyHours">Daily Study Hours</label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-clock"></i>
+                    <input type="number" id="dailyStudyHours" name="dailyStudyHours" value="<%= user.profile.dailyStudyHours %>" min="0" max="24">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-footer-actions">
+                <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Changes <i class="fa-solid fa-floppy-disk"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,31 @@
+{
+  "name": "campuscompass",
+  "version": "1.0.0",
+  "description": "An open-source web application helping college students decide what to focus on during their college journey.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  },
+  "keywords": [
+    "education",
+    "career",
+    "roadmap",
+    "student",
+    "open-source",
+    "gssoc",
+    "hacktoberfest"
+  ],
+  "author": "",
+  "license": "MIT"
+}

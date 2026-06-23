@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="auth-page">
+  <div class="auth-container" style="max-width: 480px;">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="oauth-badge">
+          <i class="fa-solid fa-shield-halved"></i> Simulated Connection
+        </div>
+        <h2>Authorize Connection</h2>
+        <p>Mock OAuth interface for local, offline development</p>
+      </div>
+
+      <!-- Consent Logo Diagram -->
+      <div class="oauth-connection-diagram">
+        <div class="oauth-logo <%= platform %>">
+          <% if (platform === 'github') { %>
+            <i class="fa-brands fa-github"></i>
+          <% } else { %>
+            <i class="fa-solid fa-code"></i>
+          <% } %>
+        </div>
+        <div class="oauth-arrow">
+          <i class="fa-solid fa-right-left"></i>
+        </div>
+        <div class="oauth-logo brand">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+      </div>
+
+      <div class="oauth-consent-text">
+        <p>
+          <strong>CampusCompass</strong> is requesting permission to access your public profile data and email address from <strong><%= platform === 'github' ? 'GitHub' : 'LeetCode' %></strong>.
+        </p>
+      </div>
+
+      <form action="/auth/<%= platform %>" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="username">Simulated <%= platform === 'github' ? 'GitHub' : 'LeetCode' %> Username</label>
+          <div class="input-wrapper">
+            <% if (platform === 'github') { %>
+              <i class="fa-brands fa-github"></i>
+            <% } else { %>
+              <i class="fa-solid fa-code"></i>
+            <% } %>
+            <input type="text" id="username" name="username" value="<%= suggestedUsername %>" required placeholder="Enter username">
+          </div>
+          <span class="help-text">You can change this simulated username to log in as a different user.</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          Authorize CampusCompass <i class="fa-solid fa-circle-check"></i>
+        </button>
+        <a href="/login" class="btn btn-secondary btn-full" style="text-align: center; justify-content: center; margin-top: 8px;">
+          Cancel
+        </a>
+      </form>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

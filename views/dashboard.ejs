@@ -1,0 +1,209 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success alert-dismissible">
+        <i class="fa-solid fa-circle-check"></i>
+        <span><%= success %></span>
+      </div>
+    <% } %>
+
+    <!-- Welcome Card -->
+    <section class="welcome-card">
+      <div class="welcome-text-content">
+        <h1>Welcome Back, <span class="text-gradient"><%= user.profile.fullName %></span>!</h1>
+        <p>Your learning compass is pointing towards becoming a <strong><%= user.profile.careerGoal %></strong>. Keep learning and updating your skills to track your progress!</p>
+      </div>
+      <div class="welcome-badge">
+        <i class="fa-solid fa-compass compass-logo"></i>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      
+      <!-- Left Column: Student Information & Progress -->
+      <aside class="dashboard-sidebar">
+        
+        <!-- Student Info Card -->
+        <div class="card student-info-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-user-graduate"></i> Student Profile</h3>
+            <a href="/profile" class="edit-link" title="Edit Profile"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+          </div>
+          <div class="card-body">
+            <ul class="info-list">
+              <li>
+                <span class="info-label">College:</span>
+                <span class="info-value"><%= user.profile.collegeName %></span>
+              </li>
+              <li>
+                <span class="info-label">Branch:</span>
+                <span class="info-value"><%= user.profile.branch %></span>
+              </li>
+              <li>
+                <span class="info-label">Current Year:</span>
+                <span class="info-value"><%= user.profile.currentYear %></span>
+              </li>
+              <li>
+                <span class="info-label">CGPA:</span>
+                <span class="info-value"><%= user.profile.cgpa ? user.profile.cgpa.toFixed(2) : 'Not Specified' %></span>
+              </li>
+              <li>
+                <span class="info-label">Study Time:</span>
+                <span class="info-value"><%= user.profile.dailyStudyHours ? user.profile.dailyStudyHours + ' hours/day' : 'Not Specified' %></span>
+              </li>
+            </ul>
+
+            <div class="skills-interests-section">
+              <h4>Skills</h4>
+              <div class="tag-container">
+                <% if (user.profile.skills && user.profile.skills.length > 0) { %>
+                  <% user.profile.skills.forEach(skill => { %>
+                    <span class="tag tag-skill"><%= skill %></span>
+                  <% }) %>
+                <% } else { %>
+                  <span class="no-tags">No skills listed yet. Add skills in profile to track progress.</span>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="skills-interests-section">
+              <h4>Interests</h4>
+              <div class="tag-container">
+                <% if (user.profile.interests && user.profile.interests.length > 0) { %>
+                  <% user.profile.interests.forEach(interest => { %>
+                    <span class="tag tag-interest"><%= interest %></span>
+                  <% }) %>
+                <% } else { %>
+                  <span class="no-tags">No interests listed.</span>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Tracker Card -->
+        <div class="card progress-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-chart-line"></i> Roadmap Progress</h3>
+          </div>
+          <div class="card-body">
+            <div class="progress-radial-container">
+              <div class="progress-bar-linear">
+                <div class="progress-bar-fill" style="width: <%= progress.percent %>%;"></div>
+              </div>
+              <div class="progress-stats">
+                <span class="progress-percentage"><%= progress.percent %>%</span>
+                <span class="progress-fraction"><%= progress.completedCount %> of <%= progress.totalCount %> topics completed</span>
+              </div>
+            </div>
+            <p class="progress-tip">
+              <i class="fa-solid fa-lightbulb"></i> Tip: Acquire new skills listed in the roadmap below and add them to your profile to mark them complete!
+            </p>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Right Column: Curated Roadmap timeline -->
+      <section class="dashboard-main">
+        <div class="card roadmap-container-card">
+          <div class="card-header roadmap-header-section">
+            <div>
+              <span class="roadmap-badge-tag"><%= user.profile.careerGoal %> Path</span>
+              <h2>Recommended Roadmap</h2>
+            </div>
+            <div class="roadmap-icon-right">
+              <i class="fa-solid fa-route"></i>
+            </div>
+          </div>
+          
+          <div class="card-body">
+            <% if (roadmap) { %>
+              <p class="roadmap-desc-para"><%= roadmap.description %></p>
+
+              <!-- Semester Horizontal Tab Selector -->
+              <div class="semester-tab-bar">
+                <% roadmap.semesters.forEach((sem, sIndex) => { %>
+                  <button class="sem-tab-btn <%= sIndex === 0 ? 'active' : '' %>" data-sem="<%= sIndex %>">
+                    Sem <%= sIndex + 1 %>
+                  </button>
+                <% }) %>
+              </div>
+              
+              <!-- Tabbed Semester Panes -->
+              <div class="semester-panes">
+                <% roadmap.semesters.forEach((sem, sIndex) => { %>
+                  <div class="semester-pane <%= sIndex === 0 ? 'active' : '' %>" id="sem-pane-<%= sIndex %>">
+                    <div class="semester-pane-header">
+                      <h3><%= sem.semester %> Focus Checklist</h3>
+                    </div>
+                    
+                    <div class="semester-topics">
+                      <% sem.topics.forEach((topic, tIndex) => { %>
+                        <div class="topic-item <%= topic.isCompleted ? 'completed-topic' : '' %>">
+                          <div class="topic-indicator">
+                            <% if (topic.isCompleted) { %>
+                              <i class="fa-solid fa-circle-check completed-icon"></i>
+                            <% } else { %>
+                              <i class="fa-regular fa-circle pending-icon"></i>
+                            <% } %>
+                          </div>
+                          
+                          <div class="topic-card">
+                            <div class="topic-card-header">
+                              <h4><%= topic.name %></h4>
+                              <% if (topic.isCompleted) { %>
+                                <span class="badge badge-success"><i class="fa-solid fa-check"></i> Completed</span>
+                              <% } else { %>
+                                <span class="badge badge-pending">To Do</span>
+                              <% } %>
+                            </div>
+                            <p class="topic-desc"><%= topic.description %></p>
+                            
+                            <% if (topic.resources && topic.resources.length > 0) { %>
+                              <div class="topic-resources">
+                                <h5>Recommended Resources:</h5>
+                                <ul>
+                                  <% topic.resources.forEach(resource => { %>
+                                    <li>
+                                      <i class="fa-solid fa-link"></i> 
+                                      <% if (resource.includes('(')) { 
+                                         const linkName = resource.substring(0, resource.indexOf('(')).trim();
+                                         const linkDetail = resource.substring(resource.indexOf('('));
+                                      %>
+                                        <span><%= linkName %></span> <span class="resource-detail"><%= linkDetail %></span>
+                                      <% } else { %>
+                                        <span><%= resource %></span>
+                                      <% } %>
+                                    </li>
+                                  <% }) %>
+                                </ul>
+                              </div>
+                            <% } %>
+                          </div>
+                        </div>
+                      <% }) %>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+
+            <% } else { %>
+              <div class="no-roadmap-error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p>Sorry, we could not load the roadmap for "<%= user.profile.careerGoal %>". Please contact administration or check data files.</p>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

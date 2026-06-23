@@ -1,0 +1,676 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<!-- Hero Section -->
+<header class="hero-section" id="home">
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-sparkles"></i> Open Source Student Navigator
+      </div>
+      <h1 class="hero-title">Navigate Your College Journey with <span class="text-gradient"><span class="hero-focus-underline">Focus</span></span></h1>
+      <p class="hero-subtitle">
+        CampusCompass provides college students with a clear, semester-by-semester focus roadmap. Pick a career track, log your current skills, and watch your dashboard dynamically outline what to study next.
+      </p>
+      <div class="hero-actions">
+        <a href="/register" class="btn btn-primary btn-large">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://github.com" target="_blank" class="btn btn-secondary btn-large"><i class="fa-brands fa-github"></i> View GitHub</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="compass-card-outer">
+        <div class="compass-card">
+          <div class="compass-card-header">
+            <div class="user-profile-summary">
+              <div class="mini-avatar">JD</div>
+              <div>
+                <h4>Arpit</h4>
+                <span>Sophomore &bull; CS Major</span>
+              </div>
+            </div>
+            <span class="active-badge">Active</span>
+          </div>
+          <div class="compass-card-body">
+            <div class="compass-stat">
+              <span>Selected Goal</span>
+              <strong>ML Engineer</strong>
+            </div>
+            <div class="compass-stat">
+              <span>Completed Skills</span>
+              <div class="mini-tags">
+                <span class="m-tag"><i class="fa-solid fa-check"></i> Python</span>
+                <span class="m-tag"><i class="fa-solid fa-check"></i> Numpy</span>
+                <span class="m-tag"><i class="fa-solid fa-check"></i> Pandas</span>
+              </div>
+            </div>
+            <div class="compass-stat">
+              <span>Semester 2 Focus</span>
+              <div class="upcoming-focus-list">
+                <div class="upcoming-item">
+                  <i class="fa-regular fa-square-check"></i> Pandas 
+                </div>
+                <div class="upcoming-item">
+                  <i class="fa-regular fa-square"></i> ML Algorithms
+                </div>
+              </div>
+            </div>
+            <div class="compass-progress-section">
+              <div class="compass-progress-bar">
+                <div class="compass-progress" style="width: 60%;"></div>
+              </div>
+              <span class="progress-label">70% Done</span>
+            </div>
+          </div>
+        </div>
+        <div class="floating-badge badge-1"><i class="fa-solid fa-code"></i> Developer</div>
+        <div class="floating-badge badge-2"><i class="fa-solid fa-shield-halved"></i> Cyber Sec</div>
+        <div class="floating-badge badge-3"><i class="fa-solid fa-brain"></i> AI / ML</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Key Pillars</span>
+      <h2>Features Built for Students</h2>
+      <p>We skip the noise and focus on structured, actionable guidance.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <div class="feature-icon"><i class="fa-solid fa-map-marked-alt"></i></div>
+          <span class="feature-number">01</span>
+        </div>
+        <h3>Static Roadmaps</h3>
+        <p>Curated semester-by-semester learning structures. Built and vetted by experienced developers, completely free of AI hallucinations.</p>
+        <div class="pillar-tag-group">
+          <span class="pillar-tag">6 Core Paths</span>
+          <span class="pillar-tag">4 Semesters</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <div class="feature-icon"><i class="fa-solid fa-chart-bar"></i></div>
+          <span class="feature-number">02</span>
+        </div>
+        <h3>Progress Tracker</h3>
+        <p>Input your skills on your profile, and the system automatically cross-references and marks corresponding roadmap topics as complete.</p>
+        <div class="pillar-tag-group">
+          <span class="pillar-tag">Offline Storage</span>
+          <span class="pillar-tag">Auto-Matching</span>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <div class="feature-icon"><i class="fa-solid fa-user-edit"></i></div>
+          <span class="feature-number">03</span>
+        </div>
+        <h3>Dynamic Profiles</h3>
+        <p>Manage your major, CGPA, target roles, and core interests. Changing your goal instantly switches your dashboard roadmap.</p>
+        <div class="pillar-tag-group">
+          <span class="pillar-tag">Zero Cloud Config</span>
+          <span class="pillar-tag">Goal Switcher</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Preview Section -->
+<section class="explore-tracks-section" id="explore">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Interactive Preview</span>
+      <h2>Explore Curated Roadmaps</h2>
+      <p>Select a career track below to see what you will focus on in your first year.</p>
+    </div>
+    <div class="track-preview-container">
+      <div class="track-buttons">
+        <button class="track-tab-btn active" data-track="web-dev">
+          <i class="fa-solid fa-code"></i> Web Dev
+        </button>
+        <button class="track-tab-btn" data-track="swe">
+          <i class="fa-solid fa-laptop-code"></i> Software Eng
+        </button>
+        <button class="track-tab-btn" data-track="ds">
+          <i class="fa-solid fa-chart-line"></i> Data Scientist
+        </button>
+        <button class="track-tab-btn" data-track="ai-ml">
+          <i class="fa-solid fa-brain"></i> AI & ML
+        </button>
+        <button class="track-tab-btn" data-track="cyber">
+          <i class="fa-solid fa-shield-halved"></i> Cyber Security
+        </button>
+        <button class="track-tab-btn" data-track="cloud">
+          <i class="fa-solid fa-cloud"></i> Cloud Eng
+        </button>
+      </div>
+      <div class="track-details-display">
+        
+        <!-- Web Dev Content -->
+        <div class="track-content active" id="track-web-dev">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Frontend Basics</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>HTML5 & CSS3 Structures</strong>
+                  <span>Semantic elements, layouts, and style definitions</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>JS Fundamentals (ES6+)</strong>
+                  <span>Variables, arrays, DOM selectors, event listeners</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Responsive Design</strong>
+                  <span>Media queries and mobile-first responsive interfaces</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Advanced Frontend</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Asynchronous Javascript</strong>
+                  <span>Promises, Fetch API endpoints, JSON handling</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Utility CSS & Git</strong>
+                  <span>Tailwind CSS framework setups, GitHub flow commits</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>React Framework Intro</strong>
+                  <span>Components structure, state variables, EJS layout ties</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- SWE Content -->
+        <div class="track-content" id="track-swe">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Languages & Tools</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>OOP in Java or C++</strong>
+                  <span>Classes, interfaces, inheritance, encapsulation rules</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Git Collaboration</strong>
+                  <span>Tracking commits, resolving merge conflicts, branch hooks</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Linux Terminal</strong>
+                  <span>Navigating bash shell, executing scripts, SSH configs</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Data Structures</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Linear Data Structures</strong>
+                  <span>Arrays, Linked Lists, Stacks, Queues implementations</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Sorting & Searching</strong>
+                  <span>Binary Search, Quick Sort, Merge Sort analysis</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Operating Systems Core</strong>
+                  <span>Process threads, memory allocations, CPU scheduling</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Data Science Content -->
+        <div class="track-content" id="track-ds">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Core Foundations</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Python Programming</strong>
+                  <span>Variables, list comprehensions, functional script pipelines</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Git & GitHub Flow</strong>
+                  <span>Saving data scripts, sharing Jupyter Notebooks online</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Calculus & Matrices</strong>
+                  <span>Matrix transforms, derivatives, linear algebra models</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Data Libraries</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>NumPy & Pandas</strong>
+                  <span>Cleaning tabular data, processing array math queries</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Matplotlib Plots</strong>
+                  <span>Histograms, scatterplots, correlation heatmaps</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Descriptive Statistics</strong>
+                  <span>Probability models, deviations, standard distributions</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- AI & ML Content -->
+        <div class="track-content" id="track-ai-ml">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Python & AI Math</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Python AI Scripts</strong>
+                  <span>Lambda expressions, objects, functional setups</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Calculus Gradients</strong>
+                  <span>Partial derivatives, gradient descent optimizations</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Vector Projections</strong>
+                  <span>Dot products, eigenvalues, eigenvectors calculations</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Classical Machine Learning</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Scikit-Learn models</strong>
+                  <span>Linear regression, K-Nearest Neighbors, decision trees</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Data Engineering</strong>
+                  <span>Feature scaling, encoding category columns</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Model Evaluation</strong>
+                  <span>Precision-recall metrics, cross-validation runs</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Cyber Security Content -->
+        <div class="track-content" id="track-cyber">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Networks & OS Admin</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Networking Models</strong>
+                  <span>TCP/IP stacking layers, DNS rules, subnets configurations</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Linux Administration</strong>
+                  <span>User groups, file system access hooks, systemd logs</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Bash Shell Scripts</strong>
+                  <span>Writing automated shell scripts for network pings</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Security Auditing</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Nmap Vulnerability Scans</strong>
+                  <span>Scanning target host ports, checking active services</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Cryptographic Concepts</strong>
+                  <span>Hashing hashes, symmetric/asymmetric SSL structures</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>OWASP Security Holes</strong>
+                  <span>SQL injections, XSS leaks, insecure system parameters</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Cloud Engineering Content -->
+        <div class="track-content" id="track-cloud">
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 1</span>
+            <h5>Server Web Hosting</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Linux Apache/Nginx</strong>
+                  <span>Setting up virtual hosts, redirect tables, ssl configurations</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>DNS & Proxy setups</strong>
+                  <span>CNAME/A records, load balancing proxy services</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Git Repositories</strong>
+                  <span>Version tracking configuration files, remote commits</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="preview-semester">
+            <span class="preview-sem-badge">Semester 2</span>
+            <h5>Containers & Cloud</h5>
+            <ul class="preview-topics-list">
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>Docker Virtualization</strong>
+                  <span>Writing Dockerfiles, building and launching isolated images</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>AWS Infrastructure</strong>
+                  <span>Spinning EC2 instances, S3 file hosts, IAM key rights</span>
+                </div>
+              </li>
+              <li>
+                <div class="topic-dot"></div>
+                <div>
+                  <strong>CI/CD Pipelines</strong>
+                  <span>Automated workflows using GitHub runner scripts</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="preview-footer">
+        <a href="/register" class="btn btn-primary btn-large">Unlock Full 4-Semester Roadmaps <i class="fa-solid fa-lock-open"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">How it Works</span>
+      <h2>Three Steps to Your Plan</h2>
+      <p>Simple workflow with zero complex installations.</p>
+    </div>
+    <div class="steps-container">
+      
+      <!-- Step 1 -->
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h3>Create Account</h3>
+        <p>Register securely with your student email. All account data is stored locally in your app environment database.</p>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-sliders"></i>
+        </div>
+        <h3>Configure Profile</h3>
+        <p>Select your branch, college, and input your current skillset along with your dream tech career goal.</p>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-route"></i>
+        </div>
+        <h3>Follow the Roadmap</h3>
+        <p>Access semester-by-semester checkpoints. Link GitHub or LeetCode profiles to auto-complete your milestones.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Student Testimonials (Coming Soon) -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Coming Soon</span>
+      <h2>Student Feedback Hub</h2>
+      <p>We are currently gathering reviews, suggestions, and learning stories from our campus beta testers.</p>
+    </div>
+    
+    <div class="coming-soon-wrapper">
+      <div class="coming-soon-card">
+        <div class="coming-soon-badge">
+          <i class="fa-solid fa-hourglass-half"></i> Under Construction
+        </div>
+        <div class="coming-soon-icon">
+          <i class="fa-solid fa-comments"></i>
+        </div>
+        <h3>Student Reviews & Success Stories</h3>
+        <p>In our next update, we will feature real feedback from peer students using CampusCompass roadmaps to direct their semester focus. Stay tuned!</p>
+        
+        <div class="coming-soon-progress-container">
+          <div class="coming-soon-progress-bar">
+            <div class="coming-soon-progress-fill"></div>
+          </div>
+          <span class="coming-soon-progress-text">Collecting reviews...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2>Common Questions</h2>
+      <p>Find quick answers about our roadmaps and contribution process.</p>
+    </div>
+    
+    <div class="faq-accordion-container">
+      
+      <!-- FAQ Item 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="faq-question-text">
+            <i class="fa-solid fa-sparkles faq-q-icon"></i>
+            What makes CampusCompass unique?
+          </span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Unlike other platforms, CampusCompass does not use AI recommendations. It relies on curated, peer-vetted static JSON roadmaps. This ensures the curriculum is focused, structured, and free of AI hallucinations.</p>
+        </div>
+      </div>
+      
+      <!-- FAQ Item 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="faq-question-text">
+            <i class="fa-solid fa-square-poll-vertical faq-q-icon"></i>
+            How does the progress tracker match my skills?
+          </span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p>The dashboard reads the skill tags on your profile. It performs a case-insensitive search matching those tag strings against the topic names and descriptions in your roadmap. When matches are found, it checks them off and recalculates your overall progress.</p>
+        </div>
+      </div>
+  
+      <!-- FAQ Item 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="faq-question-text">
+            <i class="fa-solid fa-database faq-q-icon"></i>
+            Is the database completely offline?
+          </span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. The project uses a local, lightweight file database (`data/users.json`). There are no external database cloud logins or local database servers required, meaning you can boot and develop the project 100% offline.</p>
+        </div>
+      </div>
+  
+      <!-- FAQ Item 4 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="faq-question-text">
+            <i class="fa-solid fa-code-fork faq-q-icon"></i>
+            Can I contribute a new career roadmap?
+          </span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely! We welcome student contributions, particularly during open-source events. You can create a new career JSON file (e.g., `mobile-developer.json`) under `data/roadmaps/` and add it to our config files. Read our `CONTRIBUTING.md` file for details.</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <!-- Decorative floating background elements -->
+      <div class="cta-floating-badge float-1"><i class="fa-solid fa-rocket"></i></div>
+      <div class="cta-floating-badge float-2"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="cta-floating-badge float-3"><i class="fa-solid fa-compass"></i></div>
+      
+      <div class="cta-badge">
+        <i class="fa-solid fa-star"></i> 100% Free &amp; Open Source
+      </div>
+      <h2>Ready to navigate your career?</h2>
+      <p>Sign up now, configure your custom profile, and follow peer-vetted semester roadmaps tailored to your tech goals.</p>
+      <a href="/register" class="btn btn-primary btn-large cta-btn">Create Free Account <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

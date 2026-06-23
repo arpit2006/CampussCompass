@@ -1,0 +1,86 @@
+{
+  "title": "Web Developer",
+  "description": "Web Developers build, style, and maintain websites and web applications. They write clean client-side (frontend) code, set up servers and databases (backend), and connect them to create interactive applications.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Frontend Basics (HTML, CSS, JS)",
+      "topics": [
+        {
+          "name": "HTML5 & CSS3 Structure & Styling",
+          "description": "Learn semantic HTML elements, responsive layouts using Flexbox/CSS Grid, and media queries.",
+          "resources": ["MDN Web Docs - HTML & CSS", "CSS Tricks Guide to Flexbox/Grid"]
+        },
+        {
+          "name": "Introduction to JavaScript (ES6+)",
+          "description": "Understand core JS concepts: variables, functions, DOM manipulation, events, arrays, and objects.",
+          "resources": ["JavaScript Info", "freeCodeCamp Basic JS Certification"]
+        },
+        {
+          "name": "Responsive Design & Typography",
+          "description": "Design websites that look great on mobile, tablet, and desktop screens using responsive units.",
+          "resources": ["Responsive Web Design (freeCodeCamp)", "Google Fonts Integration"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Modern JS & CSS Frameworks",
+      "topics": [
+        {
+          "name": "Asynchronous JavaScript",
+          "description": "Master Promises, Async/Await, and fetching API data using the Fetch API or Axios.",
+          "resources": ["Eloquent JavaScript - Async chapter", "MDN Fetch API"]
+        },
+        {
+          "name": "Tailwind CSS or CSS Preprocessors",
+          "description": "Speed up styling using Tailwind CSS utility classes or learn Sass nesting, variables, and mixins.",
+          "resources": ["Tailwind CSS Documentation", "Sass Guidelines"]
+        },
+        {
+          "name": "Git, GitHub & Web hosting",
+          "description": "Publish static websites using GitHub Pages, Netlify, or Vercel, and manage code changes.",
+          "resources": ["GitHub Pages Docs", "Netlify Deploy Guides"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Frontend Frameworks & Node.js",
+      "topics": [
+        {
+          "name": "Frontend Frameworks (React.js)",
+          "description": "Learn React component life cycle, JSX, props, state, hooks (useState, useEffect), and routing.",
+          "resources": ["React Official Documentation (New Docs)", "Scrimba React Course"]
+        },
+        {
+          "name": "Node.js & Express.js Backend",
+          "description": "Build HTTP servers, handle routing, parse requests, write custom middleware, and use template engines like EJS.",
+          "resources": ["Express.js Guide", "The Complete Node.js Developer Course"]
+        },
+        {
+          "name": "NoSQL Databases (MongoDB)",
+          "description": "Connect Node/Express apps to MongoDB databases using Mongoose ODM, define schemas, and run CRUD operations.",
+          "resources": ["MongoDB University", "Mongoose Docs"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Full Stack Integration & Deployment",
+      "topics": [
+        {
+          "name": "Authentication & Security",
+          "description": "Implement user authentication using sessions, cookies, JSON Web Tokens (JWT), and hash passwords with bcrypt.",
+          "resources": ["OWASP Top 10 Web Security Risks", "JWT.io Introduction"]
+        },
+        {
+          "name": "RESTful & GraphQL APIs",
+          "description": "Create standards-compliant APIs and handle error validation, status codes, and JSON payloads.",
+          "resources": ["REST API Design Best Practices", "GraphQL Documentation"]
+        },
+        {
+          "name": "Full Stack Projects & Deployment",
+          "description": "Deploy full stack apps (Node + Mongo + React/EJS) on Render, Heroku, or Fly.io with proper env configuration.",
+          "resources": ["Render Deployment Guides", "Full Stack Open (University of Helsinki)"]
+        }
+      ]
+    }
+  ]
+}

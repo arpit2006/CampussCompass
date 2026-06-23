@@ -1,0 +1,86 @@
+{
+  "title": "Software Engineer",
+  "description": "Software Engineers design, build, test, and maintain software applications. They focus on writing clean, efficient, and scalable code, understanding computer science fundamentals, and using robust software engineering methodologies.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Language Fundamentals & Git",
+      "topics": [
+        {
+          "name": "Choose & Learn a Language (Java/C++)",
+          "description": "Master programming concepts like variables, conditionals, loops, functions, and Object-Oriented Programming (OOP) in Java or C++.",
+          "resources": ["Java Programming (Mooc.fi)", "C++ for Beginners (freeCodeCamp)"]
+        },
+        {
+          "name": "Git & Collaborative Development",
+          "description": "Learn version control concepts: branching, merging, pull requests, and resolving conflicts.",
+          "resources": ["Git & GitHub Crash Course (YouTube)", "Learn Git Branching (Interactive)"]
+        },
+        {
+          "name": "Command Line Basics",
+          "description": "Navigate the directory tree, manage files, and execute basic commands in Bash or PowerShell.",
+          "resources": ["The Missing Semester of Your CS Education (MIT)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Data Structures & Core CS",
+      "topics": [
+        {
+          "name": "Linear Data Structures",
+          "description": "Understand memory allocation and operation complexity for Arrays, Linked Lists, Stacks, and Queues.",
+          "resources": ["GeeksforGeeks DSA Self-Paced", "LeetCode Explore - Queue & Stack"]
+        },
+        {
+          "name": "Sorting & Searching Algorithms",
+          "description": "Implement and analyze algorithms: Binary Search, Bubble Sort, Merge Sort, and Quick Sort, including Big O notation.",
+          "resources": ["Algorithms Course by Princeton (Coursera)", "MyCodeSchool DSA Series"]
+        },
+        {
+          "name": "Operating Systems & Networking",
+          "description": "Learn basic computer systems concepts: processes, threads, memory management, and TCP/IP protocol suite.",
+          "resources": ["Crash Course Computer Science (YouTube)", "Computer Networking (freeCodeCamp)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Advanced DSA & Databases",
+      "topics": [
+        {
+          "name": "Non-Linear Data Structures",
+          "description": "Master Trees (BST, AVL), Graphs, Hash Tables, and algorithms like BFS, DFS, and Dijkstra's algorithm.",
+          "resources": ["Abdul Bari Algorithms Tutorial (YouTube)", "LeetCode - Top Interview Questions"]
+        },
+        {
+          "name": "Relational Databases & SQL",
+          "description": "Understand database normalization, schemas, indexes, and write complex queries to manipulate relational data.",
+          "resources": ["SQL Tutorial (W3Schools)", "SQL Zoo (Interactive Exercises)"]
+        },
+        {
+          "name": "Object-Oriented Design (OOD)",
+          "description": "Study design patterns (Singleton, Factory, Observer) and SOLID principles for writing maintainable code.",
+          "resources": ["Refactoring.Guru - Design Patterns", "Head First Design Patterns (Book)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Software Lifecycle & Projects",
+      "topics": [
+        {
+          "name": "Software Testing & Quality",
+          "description": "Learn Unit Testing, Integration Testing, and Mocking frameworks. Understand TDD (Test Driven Development).",
+          "resources": ["Unit Testing Best Practices", "JUnit/JUnit5 Tutorial (Java) or Google Test (C++)"]
+        },
+        {
+          "name": "System Design Basics",
+          "description": "Understand architectural concepts: Client-Server, REST APIs, microservices, load balancers, and caching.",
+          "resources": ["ByteByteGo (YouTube)", "System Design Primer (GitHub)"]
+        },
+        {
+          "name": "Capstone Project & CI/CD",
+          "description": "Develop a full-featured desktop or web application. Set up basic CI/CD pipelines (e.g. GitHub Actions) to automate testing.",
+          "resources": ["Build a Project from Scratch (GitHub)", "GitHub Actions Documentation"]
+        }
+      ]
+    }
+  ]
+}

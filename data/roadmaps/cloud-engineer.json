@@ -1,0 +1,86 @@
+{
+  "title": "Cloud Engineer",
+  "description": "Cloud Engineers design, deploy, and manage an organization's cloud computing infrastructure. They focus on maintaining high availability, optimizing costs, building automation pipelines, and configuring virtual networks.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Systems & Networking Basics",
+      "topics": [
+        {
+          "name": "Linux Admin & Virtualization",
+          "description": "Learn terminal commands, shell scripting, package management, SSH keys, and how hypervisors run virtual machines.",
+          "resources": ["Linux Essentials (LPI)", "VirtualBox / VMware Tutorial"]
+        },
+        {
+          "name": "Networking in the Cloud",
+          "description": "Understand IP subnets, CIDR blocks, DNS, firewalls, and routing tables, which are critical for virtual private clouds.",
+          "resources": ["IP Subnetting Course (YouTube)", "Network Engineering Fundamentals"]
+        },
+        {
+          "name": "Git & Code Collaboration",
+          "description": "Master branching, committing, pull requests, and standard Git commands to manage infrastructure code.",
+          "resources": ["Git documentation", "GitHub walkthroughs"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Cloud Platforms & Services",
+      "topics": [
+        {
+          "name": "Core AWS Services (or Azure/GCP)",
+          "description": "Get familiar with Virtual Servers (EC2), Object Storage (S3), Identity & Access Management (IAM), and Virtual Networks (VPC).",
+          "resources": ["AWS Cloud Practitioner Essentials", "Adrian Cantrill AWS Courses"]
+        },
+        {
+          "name": "Cloud Storage & Database Options",
+          "description": "Learn differences between block storage, file systems, and object storage. Study relational RDS vs NoSQL DynamoDB.",
+          "resources": ["AWS Storage Solutions Guides", "Cloud Databases Tutorials"]
+        },
+        {
+          "name": "Basic Cloud Security",
+          "description": "Understand the shared responsibility model, IAM policies, least privilege principle, and security groups.",
+          "resources": ["AWS IAM Best Practices Guide", "Cloud Security Alliance (CSA) Fundamentals"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Containers & Infrastructure as Code",
+      "topics": [
+        {
+          "name": "Containerization with Docker",
+          "description": "Write Dockerfiles, build images, run containers, mount volumes, and expose ports to host applications.",
+          "resources": ["Docker Curriculum (Interactive)", "Docker Container Course (freeCodeCamp)"]
+        },
+        {
+          "name": "Infrastructure as Code (Terraform)",
+          "description": "Use HashiCorp Configuration Language (HCL) to provision, modify, and destroy cloud infrastructure automatically.",
+          "resources": ["Terraform Associate Tutorials", "Learn HashiCorp Tutorials Portal"]
+        },
+        {
+          "name": "CI/CD & Automation",
+          "description": "Build deployment pipelines using GitHub Actions, GitLab CI, or Jenkins to test and deploy applications automatically.",
+          "resources": ["CI/CD Crash Course", "GitHub Actions workflows"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Orchestration, Serverless & Monitoring",
+      "topics": [
+        {
+          "name": "Container Orchestration (Kubernetes)",
+          "description": "Learn Kubernetes architecture: Pods, Services, Deployments, ConfigMaps, and how to manage container clusters.",
+          "resources": ["Kubernetes for Beginners (YouTube)", "Play with Kubernetes (Interactive)"]
+        },
+        {
+          "name": "Serverless Computing",
+          "description": "Build event-driven applications using AWS Lambda, Azure Functions, or Google Cloud Functions without managing servers.",
+          "resources": ["AWS Lambda Developer Guide", "Serverless Framework Tutorials"]
+        },
+        {
+          "name": "Monitoring & Observability",
+          "description": "Set up monitoring dashboards and alerts for system metrics and application logs using Prometheus, Grafana, and CloudWatch.",
+          "resources": ["Grafana Play Tutorials", "Prometheus Getting Started Guide"]
+        }
+      ]
+    }
+  ]
+}

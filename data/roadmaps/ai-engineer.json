@@ -1,0 +1,86 @@
+{
+  "title": "AI Engineer",
+  "description": "AI Engineers integrate artificial intelligence capabilities and machine learning models into practical software applications. They focus on fine-tuning models, building pipelines, using foundation models, and deploying smart solutions.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Python, Math & Data Basics",
+      "topics": [
+        {
+          "name": "Advanced Python & Shell Scripting",
+          "description": "Build high proficiency in Python programming: generators, decorators, object-oriented concepts, and basic shell navigation.",
+          "resources": ["Core Python Programming", "Python OOP (YouTube)"]
+        },
+        {
+          "name": "Mathematics for Machine Learning",
+          "description": "Master probability, probability distributions, matrix multiplication, gradients, and optimization.",
+          "resources": ["Mathematics for Machine Learning (Imperial College / Coursera)", "MIT 18.06 Linear Algebra"]
+        },
+        {
+          "name": "Data Wrangling & Visualization",
+          "description": "Learn to load, manipulate, filter, and visualize datasets with Pandas, NumPy, Matplotlib, and Seaborn.",
+          "resources": ["Kaggle Pandas Course", "Data Visualizations with Python"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Classical Machine Learning & Tooling",
+      "topics": [
+        {
+          "name": "Machine Learning Algorithms",
+          "description": "Implement linear regression, decision trees, random forests, SVMs, and clustering using Scikit-Learn.",
+          "resources": ["Hands-On Machine Learning (Book by Aurélien Géron)", "Andrew Ng's Machine Learning Specialization"]
+        },
+        {
+          "name": "Model Evaluation & Tuning",
+          "description": "Learn metrics: accuracy, precision, recall, F1-score, ROC-AUC. Master hyperparameter optimization (GridSearch, Optuna).",
+          "resources": ["Scikit-Learn Evaluation Guides", "Model Selection Course"]
+        },
+        {
+          "name": "Version Control for Data (DVC)",
+          "description": "Learn version control principles for dataset files, models, and ML pipelines, extending Git.",
+          "resources": ["DVC Get Started Guide", "Git for ML Projects"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Deep Learning & Transformers",
+      "topics": [
+        {
+          "name": "Deep Learning with PyTorch",
+          "description": "Understand multi-layer perceptrons, backpropagation, CNNs for computer vision, and RNNs/LSTMs.",
+          "resources": ["PyTorch for Deep Learning (freeCodeCamp)", "fast.ai Course (Practical Deep Learning for Coders)"]
+        },
+        {
+          "name": "Transformers & HuggingFace",
+          "description": "Learn the attention mechanism, Transformer architecture, and how to use HuggingFace Transformers for NLP/Vision.",
+          "resources": ["Hugging Face NLP Course", "Attention Is All You Need Paper"]
+        },
+        {
+          "name": "Transfer Learning & Fine-Tuning",
+          "description": "Adapt pre-trained models to specific domains or custom datasets using fine-tuning techniques.",
+          "resources": ["PyTorch Transfer Learning Tutorials", "Hugging Face Fine-tuning Guide"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Generative AI, RAG & Deployment",
+      "topics": [
+        {
+          "name": "LLMs, Prompts & Vector Databases",
+          "description": "Understand LLM architectures. Learn vector embeddings, prompt engineering, and vector databases like Pinecone or Chroma.",
+          "resources": ["DeepLearning.AI Prompt Engineering Courses", "Pinecone Learning Center"]
+        },
+        {
+          "name": "Orchestration (LangChain / LlamaIndex)",
+          "description": "Build pipelines using LangChain or LlamaIndex to connect LLMs with custom data sources (RAG - Retrieval Augmented Generation).",
+          "resources": ["LangChain Quickstart Guide", "LlamaIndex Documentation"]
+        },
+        {
+          "name": "Model Deployment (FastAPI, Docker)",
+          "description": "Serve your AI models as lightweight APIs using FastAPI, package the application in a Docker container, and host it.",
+          "resources": ["FastAPI Tutorial", "Docker for Data Science Guides"]
+        }
+      ]
+    }
+  ]
+}

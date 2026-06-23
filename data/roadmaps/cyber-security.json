@@ -1,0 +1,86 @@
+{
+  "title": "Cyber Security",
+  "description": "Cyber Security specialists protect computers, networks, servers, and data from malicious digital attacks. They identify system vulnerabilities, monitor for breaches, and implement robust security protocols.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Networking & OS Foundations",
+      "topics": [
+        {
+          "name": "Computer Networks & Protocols",
+          "description": "Learn the OSI model, TCP/IP suite, DNS, DHCP, routing, switching, and common ports.",
+          "resources": ["Professor Messer CompTIA Network+ Course", "Wireshark Network Analysis Guides"]
+        },
+        {
+          "name": "Linux Command Line & Admin",
+          "description": "Master command-line operations, directory navigation, file permissions, shell scripting, and service management in Linux.",
+          "resources": ["Linux Journey", "OverTheWire: Bandit Wargame"]
+        },
+        {
+          "name": "Windows Systems Administration",
+          "description": "Understand Active Directory, Registry settings, event logs, Group Policy, and PowerShell basics.",
+          "resources": ["Windows Server Admin Basics (Microsoft Learn)", "PowerShell for Beginners"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Security Principles & Web App Security",
+      "topics": [
+        {
+          "name": "Cryptography Fundamentals",
+          "description": "Learn symmetric vs. asymmetric encryption, hashing (SHA-256), digital signatures, and SSL/TLS certificates.",
+          "resources": ["Khan Academy Cryptography", "Crypto101"]
+        },
+        {
+          "name": "OWASP Top 10 Web Vulnerabilities",
+          "description": "Understand web flaws: SQL Injection, XSS, CSRF, broken authentication, and insecure design.",
+          "resources": ["OWASP Top 10 Project Portal", "PortSwigger Web Security Academy"]
+        },
+        {
+          "name": "Security Scripting (Python / Bash)",
+          "description": "Write scripts to automate scanning, parse logs, test APIs, and perform simple automated network requests.",
+          "resources": ["Violent Python (Book)", "Python for Cybersecurity (freeCodeCamp)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Offensive Security (Ethical Hacking)",
+      "topics": [
+        {
+          "name": "Vulnerability Scanning & Reconnaissance",
+          "description": "Perform scanning and active/passive information gathering using tools like Nmap, Shodan, and Subfinder.",
+          "resources": ["Nmap Official Guide", "Reconnaissance Techniques (TryHackMe)"]
+        },
+        {
+          "name": "Penetration Testing Methodology",
+          "description": "Learn systematic hacking phases: planning, scanning, gaining access (Metasploit), maintaining access, and reporting.",
+          "resources": ["TryHackMe - Jr. Penetration Tester Path", "Hack The Box Academy"]
+        },
+        {
+          "name": "Privilege Escalation",
+          "description": "Understand how to identify misconfigurations in Linux and Windows to escalate privileges from user to root/administrator.",
+          "resources": ["g0tmi1k Linux PrivEsc guide", "Windows Privilege Escalation (TCM Security)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Defensive Security & Cloud",
+      "topics": [
+        {
+          "name": "Security Operations (SIEM & Log Auditing)",
+          "description": "Analyze system events, firewall logs, and build threat detection rules using Splunk or the ELK stack.",
+          "resources": ["Splunk Fundamentals Course", "Blue Team Labs Online"]
+        },
+        {
+          "name": "Cloud Security Basics",
+          "description": "Learn security configurations, Identity and Access Management (IAM), and security best practices in AWS or Azure.",
+          "resources": ["AWS Certified Cloud Practitioner", "Microsoft SC-900 Certification"]
+        },
+        {
+          "name": "Cybersecurity Certifications Preparation",
+          "description": "Prepare for entry-level security certifications to jumpstart your career, such as CompTIA Security+ or EJPT.",
+          "resources": ["CompTIA Security+ Exam Objectives", "eLearnSecurity EJPT Roadmap"]
+        }
+      ]
+    }
+  ]
+}

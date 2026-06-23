@@ -1,0 +1,86 @@
+{
+  "title": "Data Scientist",
+  "description": "Data Scientists analyze and interpret complex data to help organizations make informed, data-driven decisions. They build predictive models using statistical techniques, machine learning, and programming.",
+  "semesters": [
+    {
+      "semester": "Semester 1: Core Fundamentals",
+      "topics": [
+        {
+          "name": "Learn Python Programming",
+          "description": "Master Python basics: variables, data types, lists, dictionaries, loops, functions, and file handling.",
+          "resources": ["Python for Everybody (Coursera)", "LearnPython.org"]
+        },
+        {
+          "name": "Git & GitHub Basics",
+          "description": "Understand version control to track your code changes and collaborate with other developers.",
+          "resources": ["Git Immersion", "GitHub Skills Courses"]
+        },
+        {
+          "name": "Linear Algebra & Calculus",
+          "description": "Focus on vectors, matrices, derivatives, and optimization techniques essential for ML models.",
+          "resources": ["3Blue1Brown - Essence of Linear Algebra", "Khan Academy Multivariable Calculus"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 2: Data Manipulation & Statistics",
+      "topics": [
+        {
+          "name": "NumPy & Pandas",
+          "description": "Learn to load, clean, manipulate, and analyze structured datasets using Python's core data libraries.",
+          "resources": ["Pandas Official User Guide", "Kaggle Data Cleaning Course"]
+        },
+        {
+          "name": "Matplotlib & Seaborn",
+          "description": "Visualize data patterns, trends, and distributions using standard plotting libraries.",
+          "resources": ["Data Visualization Course (Kaggle)", "Python Graph Gallery"]
+        },
+        {
+          "name": "Probability & Statistics",
+          "description": "Study descriptive statistics, probability distributions, hypothesis testing, and regression analysis.",
+          "resources": ["Intro to Statistics (Udacity)", "StatQuest with Josh Starmer (YouTube)"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 3: Databases & Machine Learning",
+      "topics": [
+        {
+          "name": "SQL & Relational Databases",
+          "description": "Write queries to select, filter, join, and aggregate data from databases like PostgreSQL or MySQL.",
+          "resources": ["SQLBolt Tutorial", "Mode Analytics SQL Tutorial"]
+        },
+        {
+          "name": "Introduction to Machine Learning",
+          "description": "Learn supervised (regression, classification) and unsupervised (clustering) ML algorithms using Scikit-Learn.",
+          "resources": ["Machine Learning Zoomcamp", "Scikit-Learn Getting Started Guide"]
+        },
+        {
+          "name": "Exploratory Data Analysis (EDA)",
+          "description": "Perform end-to-end data analysis projects to discover insights and prepare data for modeling.",
+          "resources": ["EDA Walkthroughs (Kaggle)", "Towards Data Science Articles"]
+        }
+      ]
+    },
+    {
+      "semester": "Semester 4: Advanced ML, Deep Learning & Projects",
+      "topics": [
+        {
+          "name": "Deep Learning Fundamentals",
+          "description": "Understand neural networks, activation functions, and frameworks like TensorFlow or PyTorch.",
+          "resources": ["Deep Learning Specialization (deeplearning.ai)", "PyTorch Tutorials"]
+        },
+        {
+          "name": "Big Data & Cloud Intro",
+          "description": "Get familiar with Spark and basic cloud data warehouses (Snowflake, BigQuery).",
+          "resources": ["AWS Academy / Google Cloud Skills Boost", "Apache Spark Documentation"]
+        },
+        {
+          "name": "Capstone Project & Portfolio",
+          "description": "Build an end-to-end data science project, host it on GitHub, and write a detailed README or blog post.",
+          "resources": ["Kaggle Competitions", "Portfolio Projects Ideas (Medium)"]
+        }
+      ]
+    }
+  ]
+}
