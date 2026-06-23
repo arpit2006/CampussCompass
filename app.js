@@ -8,15 +8,7 @@ const { connectDB, sequelize } = require('./config/db');
 // Load environment variables from .env file
 dotenv.config();
 
-// Connect and Sync Database
-connectDB().then(async () => {
-  try {
-    await sequelize.sync();
-    console.log('Database models synchronized successfully.');
-  } catch (error) {
-    console.error('Error syncing database schemas:', error);
-  }
-});
+
 
 // Initialize Express App
 const app = express();
@@ -29,6 +21,23 @@ app.set('views', path.join(__dirname, 'views'));
 // Parse incoming JSON and URL-encoded request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Lazy Database Connection & Synchronization Middleware
+let dbInitialized = false;
+app.use(async (req, res, next) => {
+  if (!dbInitialized) {
+    try {
+      await connectDB();
+      await sequelize.sync();
+      dbInitialized = true;
+      console.log('Database connected and models synchronized successfully.');
+    } catch (error) {
+      console.error('Database initialization failed:', error);
+      return res.status(500).send('Database initialization failed. Please check server logs.');
+    }
+  }
+  next();
+});
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -104,10 +113,12 @@ app.use((req, res, next) => {
   });
 });
 
-// Start the Express Server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${PORT}`);
-});
+// Start the Express Server (only if not running on Vercel serverless)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
