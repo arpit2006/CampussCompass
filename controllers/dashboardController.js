@@ -105,11 +105,15 @@ exports.getSocial = async (req, res) => {
     const user = req.user;
     
     // Fetch all users with completed profiles
-    const allUsers = User.getAll();
-    const students = allUsers.filter(u => u.isProfileComplete);
+    const students = await User.findAll({
+      where: {
+        isProfileComplete: true
+      }
+    });
 
     // Add mock social stats to each student to display in the UI
-    const studentsWithStats = students.map(student => {
+    const studentsWithStats = students.map(studentInstance => {
+      const student = studentInstance.toJSON();
       // Create seed from username length or ID to keep values stable per render
       const seedVal = student._id ? (student._id.charCodeAt(student._id.length - 1) || 42) : 42;
       

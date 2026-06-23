@@ -44,6 +44,7 @@
           </div>
           <div class="card-body">
             <form action="/profile/update" method="POST" class="setup-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <div class="form-grid">
                 
                 <!-- Full Name -->

@@ -14,7 +14,7 @@
       </p>
       <div class="hero-actions">
         <a href="/register" class="btn btn-primary btn-large">Get Started <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://github.com" target="_blank" class="btn btn-secondary btn-large"><i class="fa-brands fa-github"></i> View GitHub</a>
+        <a href="https://github.com/arpit2006/CampussCompass.git" target="_blank" class="btn btn-secondary btn-large"><i class="fa-brands fa-github"></i> View GitHub</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -69,6 +69,87 @@
     </div>
   </div>
 </header>
+
+<!-- Why CampusCompass Section -->
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="why-container">
+      
+      <!-- Left: Purpose & Mission Statement -->
+      <div>
+        <span class="section-tag">The Peer-Vetted Advantage</span>
+        <h2 style="font-size: 34px; line-height: 1.25; margin-bottom: 20px; font-weight: 800;">Why Campus<span class="text-gradient">Compass</span>?</h2>
+        <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 18px;">
+          Traditional platforms overwhelm you with thousands of elective options, paid certificates, or AI-generated roadmaps that change every time you refresh. 
+        </p>
+        <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px;">
+          CampusCompass brings structure back to your semesters. We curate a single, peer-vetted roadmap for each tech career path, helping you ignore the noise and focus on what actually moves the needle during college.
+        </p>
+        
+        <!-- Key Metrics -->
+        <div class="why-stats-row">
+          <div class="why-stat-item">
+            <h4 style="color: var(--primary);">100%</h4>
+            <span>Free &amp; Open Source</span>
+          </div>
+          <div class="why-stat-item">
+            <h4 style="color: var(--secondary);">6+</h4>
+            <span>Career Tracks</span>
+          </div>
+          <div class="why-stat-item">
+            <h4 style="color: var(--accent);">0</h4>
+            <span>No AI Hallucinations</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right: Why Cards Column -->
+      <div class="why-cards-col">
+        
+        <!-- Card 1 -->
+        <div class="why-card">
+          <div class="why-card-icon primary">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <h4 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--text);">Curated by University Seniors</h4>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+              Our paths are designed by seniors and industry professionals who have walked the same path, identifying exactly what libraries and tools to study.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="why-card">
+          <div class="why-card-icon secondary">
+            <i class="fa-solid fa-square-check"></i>
+          </div>
+          <div>
+            <h4 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--text);">Zero-Config Progress Matching</h4>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+              Enter your current skills on your profile page, and your personal timeline dynamically matches and ticks off completed topics automatically.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="why-card">
+          <div class="why-card-icon accent">
+            <i class="fa-solid fa-circle-play"></i>
+          </div>
+          <div>
+            <h4 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--text);">Integrated Playlists</h4>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+              Skip the search. Access top-tier YouTube playlists, cheat sheets, and coding sheets linked directly to your active checkpoints.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- Features Section -->
 <section class="features-section" id="features">
@@ -672,5 +753,41 @@
     </div>
   </div>
 </section>
+
+<!-- Collaborator Welcome Modal -->
+<div id="collabModal" class="collab-modal-overlay">
+  <div class="collab-modal">
+    <button class="collab-modal-close" id="closeCollabModal" aria-label="Close modal">&times;</button>
+    <div class="collab-modal-header">
+      <div class="collab-modal-icon">
+        <i class="fa-solid fa-code-pull-request"></i>
+      </div>
+      <h2>Welcome, <span class="text-gradient">Collaborators!</span></h2>
+    </div>
+    <div class="collab-modal-body">
+      <p>CampusCompass is a completely open-source project built for students, by students. We are proudly welcoming contributors for programs like <strong>GSSoC (GirlScript Summer of Code)</strong>, <strong>Hacktoberfest</strong>, and independent developers!</p>
+      <div class="collab-perks">
+        <div class="perk-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Add new career tracks and semesters</span>
+        </div>
+        <div class="perk-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Improve UI styling &amp; responsiveness</span>
+        </div>
+        <div class="perk-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Fix active issues &amp; implement features</span>
+        </div>
+      </div>
+    </div>
+    <div class="collab-modal-footer">
+      <a href="https://github.com" target="_blank" class="btn btn-primary" id="collabGithubBtn">
+        <i class="fa-brands fa-github"></i> Start Contributing
+      </a>
+      <button class="btn btn-secondary" id="dismissCollabModal">Maybe Later</button>
+    </div>
+  </div>
+</div>
 
 <%- include('partials/footer') %>

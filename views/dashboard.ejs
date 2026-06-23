@@ -22,6 +22,14 @@
       </div>
     </section>
 
+    <!-- Tab Switcher -->
+    <div class="dashboard-tabs-container">
+      <div class="dashboard-tabs">
+        <button class="db-tab-btn active" data-tab="roadmap"><i class="fa-solid fa-route"></i> Roadmap Timeline</button>
+        <button class="db-tab-btn" data-tab="resources"><i class="fa-solid fa-book"></i> Resource Library</button>
+      </div>
+    </div>
+
     <div class="dashboard-grid">
       
       <!-- Left Column: Student Information & Progress -->
@@ -109,7 +117,7 @@
       </aside>
 
       <!-- Right Column: Curated Roadmap timeline -->
-      <section class="dashboard-main">
+      <section class="dashboard-main db-tab-pane active" id="db-pane-roadmap">
         <div class="card roadmap-container-card">
           <div class="card-header roadmap-header-section">
             <div>
@@ -198,6 +206,87 @@
                 <p>Sorry, we could not load the roadmap for "<%= user.profile.careerGoal %>". Please contact administration or check data files.</p>
               </div>
             <% } %>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Curated Resource Library -->
+      <section class="dashboard-main db-tab-pane" id="db-pane-resources">
+        <div class="card roadmap-container-card">
+          <div class="card-header roadmap-header-section">
+            <div>
+              <span class="roadmap-badge-tag"><%= user.profile.careerGoal %> Path</span>
+              <h2>Curated Resource Library</h2>
+            </div>
+            <div class="roadmap-icon-right">
+              <i class="fa-solid fa-book"></i>
+            </div>
+          </div>
+          
+          <div class="card-body">
+            <p class="roadmap-desc-para">Here is a curated collection of learning guides, cheatsheets, and coding sheets to help you progress in your track.</p>
+            
+            <div class="resources-grid-db" style="margin-top: 24px;">
+              <!-- Resource Card 1 -->
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+                <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                  <div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-file-pdf"></i></div>
+                    <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Git &amp; GitHub Cheatsheet</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Vetted collection of commands, branching flows, and best practices for developers.</p>
+                  </div>
+                  <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">PDF Guide &bull; 5 mins read</span>
+                    <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resource Card 2 -->
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+                <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                  <div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-video"></i></div>
+                    <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Vetted Video Playlists</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Curated list of premium YouTube video series on DSA, Web Dev, and Machine Learning.</p>
+                  </div>
+                  <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Videos &bull; 20+ Hours</span>
+                    <a href="/playlists" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open Playlists</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resource Card 3 -->
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+                <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                  <div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-code"></i></div>
+                    <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">DSA Practice Sheets</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Complete topic-wise LeetCode problems curated specifically for college placement preparation.</p>
+                  </div>
+                  <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Coding Sheet &bull; 150+ Problems</span>
+                    <a href="https://neetcode.io/practice" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open NeetCode</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resource Card 4 -->
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+                <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                  <div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Project Reference Codes</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Open-source boilerplates and sample repositories to kickstart your portfolio projects.</p>
+                  </div>
+                  <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Source Code &bull; 8 Repositories</span>
+                    <a href="https://github.com/explore" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Browse GitHub</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -158,19 +158,19 @@ exports.postMockOAuth = async (req, res) => {
       
       // Auto populate social connection field
       if (platform === 'github') {
-        user.profile.githubUsername = cleanUsername;
+        user.profile = { ...user.profile, githubUsername: cleanUsername };
       } else if (platform === 'leetcode') {
-        user.profile.leetcodeUsername = cleanUsername;
+        user.profile = { ...user.profile, leetcodeUsername: cleanUsername };
       }
       
       await user.save();
     } else {
       // If user exists, make sure connection is populated
       if (platform === 'github' && !user.profile.githubUsername) {
-        user.profile.githubUsername = cleanUsername;
+        user.profile = { ...user.profile, githubUsername: cleanUsername };
         await user.save();
       } else if (platform === 'leetcode' && !user.profile.leetcodeUsername) {
-        user.profile.leetcodeUsername = cleanUsername;
+        user.profile = { ...user.profile, leetcodeUsername: cleanUsername };
         await user.save();
       }
     }

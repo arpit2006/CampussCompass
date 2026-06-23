@@ -36,6 +36,7 @@
       </div>
 
       <form action="/auth/<%= platform %>" method="POST" class="auth-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="form-group">
           <label for="username">Simulated <%= platform === 'github' ? 'GitHub' : 'LeetCode' %> Username</label>
           <div class="input-wrapper">

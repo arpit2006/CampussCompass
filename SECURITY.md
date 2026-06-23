@@ -17,7 +17,7 @@ Only the latest active development branch receives security updates.
 
 If you discover a security vulnerability in CampusCompass (e.g., authentication bypass, data exposure, XSS, etc.), please report it privately:
 
-1. Send an email to the security team at **security@campuscompass.org** (or contact the repository owner).
+1. Send an email to the security team at **arpitshirbhate25@gmail.com** (or contact the repository owner).
 2. Include a detailed description of the vulnerability.
 3. Provide step-by-step instructions or a proof-of-concept (PoC) script to reproduce the issue.
 4. Tell us what system environment you tested it on.

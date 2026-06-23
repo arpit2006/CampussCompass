@@ -1,0 +1,200 @@
+{
+  "web-developer": {
+    "title": "Web Developer Playlists",
+    "playlists": [
+      {
+        "title": "HTML & CSS Tutorial for Beginners",
+        "channel": "SuperSimpleDev",
+        "description": "The ultimate modern HTML & CSS course. Covers layout, CSS Grid, Flexbox, and real projects from scratch.",
+        "url": "https://www.youtube.com/watch?v=G3e-cpL7ofc",
+        "duration": "6+ Hours"
+      },
+      {
+        "title": "JavaScript Tutorial for Beginners",
+        "channel": "Programming with Mosh",
+        "description": "Learn Javascript core basics: variables, control flow, functions, objects, and array operations.",
+        "url": "https://www.youtube.com/watch?v=W6NZfCO5SIk",
+        "duration": "1 Hour"
+      },
+      {
+        "title": "ReactJS Course for Beginners",
+        "channel": "freeCodeCamp",
+        "description": "Learn React from basic components to full-stack integration, Hooks, context, and routing.",
+        "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+        "duration": "12 Hours"
+      },
+      {
+        "title": "Node.js & Express.js Tutorial",
+        "channel": "Dave Gray",
+        "description": "Comprehensive tutorial on building backend APIs, servers, routing, middleware, and database connections.",
+        "url": "https://www.youtube.com/watch?v=f2EqECiAPA8",
+        "duration": "7 Hours"
+      }
+    ]
+  },
+  "data-scientist": {
+    "title": "Data Scientist Playlists",
+    "playlists": [
+      {
+        "title": "Python for Data Science Course",
+        "channel": "freeCodeCamp",
+        "description": "Learn Python basics, then jump into data manipulation libraries: NumPy, Pandas, and Matplotlib.",
+        "url": "https://www.youtube.com/watch?v=LHBE6Q9XlzI",
+        "duration": "12 Hours"
+      },
+      {
+        "title": "Statistics & Probability for Data Science",
+        "channel": "Khan Academy",
+        "description": "Comprehensive lessons covering descriptive statistics, distributions, testing, and regressions.",
+        "url": "https://www.youtube.com/playlist?list=PL1328115D3D8A2566",
+        "duration": "20+ Hours"
+      },
+      {
+        "title": "Machine Learning for Beginners",
+        "channel": "StatQuest with Josh Starmer",
+        "description": "Master machine learning concepts from linear regression to decision trees and neural nets visually.",
+        "url": "https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF",
+        "duration": "15+ Hours"
+      },
+      {
+        "title": "Deep Learning / Neural Networks Course",
+        "channel": "3Blue1Brown",
+        "description": "Stunning visual explanations of neural networks, backpropagation, and calculus behind deep learning.",
+        "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+        "duration": "2 Hours"
+      }
+    ]
+  },
+  "software-engineer": {
+    "title": "Software Engineer (SDE) Playlists",
+    "playlists": [
+      {
+        "title": "Data Structures & Algorithms Course",
+        "channel": "Abdul Bari",
+        "description": "Clear step-by-step mathematical explanations of data structures and algorithms.",
+        "url": "https://www.youtube.com/playlist?list=PLDN4rRLgleG8aG-1gC05nS164U14588x4",
+        "duration": "40+ Hours"
+      },
+      {
+        "title": "Java Tutorial for Beginners",
+        "channel": "freeCodeCamp",
+        "description": "Complete beginner course in Java programming, OOP principles, and clean architectural design.",
+        "url": "https://www.youtube.com/watch?v=grEKMHGYyns",
+        "duration": "9 Hours"
+      },
+      {
+        "title": "SQL Tutorial for Beginners",
+        "channel": "Mike Dane",
+        "description": "Learn relational database management systems, writing queries, joins, and aggregates in SQL.",
+        "url": "https://www.youtube.com/watch?v=HXV3zeQKqGY",
+        "duration": "4 Hours"
+      },
+      {
+        "title": "System Design Primer",
+        "channel": "Gaurav Sen",
+        "description": "Learn microservices, caching, load balancers, database scaling, and designing real-world architectures.",
+        "url": "https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-QE1tfVzy3",
+        "duration": "8+ Hours"
+      }
+    ]
+  },
+  "ai-engineer": {
+    "title": "AI Engineer Playlists",
+    "playlists": [
+      {
+        "title": "Neural Networks: Zero to Hero",
+        "channel": "Andrej Karpathy",
+        "description": "Build neural networks from scratch, understanding backpropagation, GPT, and language models.",
+        "url": "https://www.youtube.com/playlist?list=PLAqhIrjkx94C_O9YdSGDPMsb5yHe108B7",
+        "duration": "15+ Hours"
+      },
+      {
+        "title": "PyTorch for Deep Learning Course",
+        "channel": "Daniel Bourke",
+        "description": "Hands-on PyTorch course covering computer vision, NLP, and model deployment.",
+        "url": "https://www.youtube.com/watch?v=V_xro1bcAuA",
+        "duration": "25 Hours"
+      },
+      {
+        "title": "LangChain & LLM App Development",
+        "channel": "freeCodeCamp",
+        "description": "Build applications using Large Language Models, LangChain, vector stores, and prompt engineering.",
+        "url": "https://www.youtube.com/watch?v=aywZtWjFxc4",
+        "duration": "5 Hours"
+      },
+      {
+        "title": "Linear Algebra for Machine Learning",
+        "channel": "Imperial College London",
+        "description": "A comprehensive primer on matrix operations, eigenvectors, and maths behind modern ML algorithms.",
+        "url": "https://www.youtube.com/playlist?list=PLiiljT356512zK_7tP10TszxW0vUtWntA",
+        "duration": "10+ Hours"
+      }
+    ]
+  },
+  "cloud-engineer": {
+    "title": "Cloud Engineer Playlists",
+    "playlists": [
+      {
+        "title": "AWS Certified Cloud Practitioner",
+        "channel": "freeCodeCamp",
+        "description": "Prepare for AWS certification covering EC2, S3, RDS, IAM, VPC, and serverless compute.",
+        "url": "https://www.youtube.com/watch?v=SOTamWGuDKc",
+        "duration": "13 Hours"
+      },
+      {
+        "title": "Docker & Kubernetes Full Course",
+        "channel": "TechWorld with Nana",
+        "description": "Learn containerization, configuration, deployment, orchestration, and scaling with Kubernetes.",
+        "url": "https://www.youtube.com/playlist?list=PLy7NrYWoggjwPggqtPfAJlhduZ531oRUC",
+        "duration": "10 Hours"
+      },
+      {
+        "title": "Linux Command Line for Beginners",
+        "channel": "NetworkChuck",
+        "description": "Master the command line, scripting, file systems, permissions, and package management in Linux.",
+        "url": "https://www.youtube.com/playlist?list=PLIhvC56v6FIP_tPzJES3pC64sQskgPj1s",
+        "duration": "8 Hours"
+      },
+      {
+        "title": "Terraform / Infrastructure as Code",
+        "channel": "freeCodeCamp",
+        "description": "Learn how to provision AWS resources declaratively using HashiCorp Configuration Language (HCL).",
+        "url": "https://www.youtube.com/watch?v=SLB_c_ayRMo",
+        "duration": "5 Hours"
+      }
+    ]
+  },
+  "cyber-security": {
+    "title": "Cybersecurity Specialist Playlists",
+    "playlists": [
+      {
+        "title": "Computer Networking Full Course",
+        "channel": "NetworkChuck",
+        "description": "Prepare for CompTIA Network+; learn IP addressing, subnets, routers, switches, and TCP/IP stack.",
+        "url": "https://www.youtube.com/playlist?list=PLIhvC56v6FIEjXjF_82fN5Uv367HlS5Jt",
+        "duration": "14 Hours"
+      },
+      {
+        "title": "Ethical Hacking Course for Beginners",
+        "channel": "freeCodeCamp",
+        "description": "Learn penetration testing methodologies, Linux commands, port scanning, and exploit techniques.",
+        "url": "https://www.youtube.com/watch?v=3Kq1MIfTWCE",
+        "duration": "15 Hours"
+      },
+      {
+        "title": "CompTIA Security+ Exam Prep",
+        "channel": "Professor Messer",
+        "description": "Complete exam study playlist covering threats, network security, risk management, and cryptography.",
+        "url": "https://www.youtube.com/playlist?list=PLG49S3nxzAnkL2gEqS30D5yyzL1tT17yc",
+        "duration": "18+ Hours"
+      },
+      {
+        "title": "Web Application Penetration Testing",
+        "channel": "InsiderPhD",
+        "description": "Focus on OWASP Top 10 vulnerabilities, API security, and Bug Bounty hunting techniques.",
+        "url": "https://www.youtube.com/playlist?list=PLhixgUuooRPj_a306-oKLIyC8Ldu3mCOF",
+        "duration": "8+ Hours"
+      }
+    ]
+  }
+}

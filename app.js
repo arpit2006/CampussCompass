@@ -2,13 +2,20 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const { connectDB, sequelize } = require('./config/db');
 
 // Load environment variables from .env file
 dotenv.config();
 
-// Connect to MongoDB Database
-connectDB();
+// Connect and Sync Database
+connectDB().then(async () => {
+  try {
+    await sequelize.sync();
+    console.log('Database models synchronized successfully.');
+  } catch (error) {
+    console.error('Error syncing database schemas:', error);
+  }
+});
 
 // Initialize Express App
 const app = express();
@@ -28,16 +35,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Configure Express Session
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'campus_compass_secret_key_12345',
+    secret: process.env.SESSION_SECRET || (process.env.NODE_ENV === 'production' ? (() => { throw new Error('SESSION_SECRET environment variable is required in production!'); })() : 'campus_compass_secret_key_12345'),
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // Session active for 1 day
-      secure: false, // Set to true in production if running over HTTPS
+      secure: process.env.NODE_ENV === 'production', // Set to true in production if running over HTTPS
       httpOnly: true // Mitigates XSS security risks
     }
   })
 );
+
+// CSRF Protection Middleware
+app.use((req, res, next) => {
+  // Ensure token exists in session
+  if (!req.session.csrfToken) {
+    req.session.csrfToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+  
+  // Expose to templates
+  res.locals.csrfToken = req.session.csrfToken;
+
+  // Verify token on state-changing requests
+  const stateChangingMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
+  if (stateChangingMethods.includes(req.method)) {
+    const requestToken = req.body._csrf || req.headers['x-csrf-token'] || req.query._csrf;
+    if (!requestToken || requestToken !== req.session.csrfToken) {
+      return res.status(403).send('Forbidden: CSRF token validation failed.');
+    }
+  }
+  next();
+});
 
 // Global view variables middleware
 // Exposes session status to all EJS templates automatically

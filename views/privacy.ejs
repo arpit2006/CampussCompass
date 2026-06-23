@@ -1,0 +1,55 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="container privacy-page">
+  <div class="card privacy-card">
+    <h1><i class="fa-solid fa-shield-halved"></i> Privacy &amp; Cookies Policy</h1>
+    <p class="last-updated">Last Updated: June 23, 2026</p>
+    
+    <div class="privacy-divider"></div>
+    
+    <div class="policy-content">
+      <section class="policy-section">
+        <h2>1. Introduction</h2>
+        <p>Welcome to CampusCompass. We are committed to protecting your privacy and providing a transparent experience. This policy explains how we handle your information when you use our website and roadmap tools.</p>
+      </section>
+
+      <section class="policy-section">
+        <h2>2. What Data We Collect</h2>
+        <p>We only collect the information necessary to provide you with personalized learning roadmaps and academic progression features:</p>
+        <ul>
+          <li><strong>Account Credentials:</strong> Email addresses and securely hashed passwords for local authentication.</li>
+          <li><strong>Profile Information:</strong> Major, college name, branch, study hours, CGPA, target career goal, skills, and interests.</li>
+          <li><strong>Third-Party Integrations:</strong> Connected GitHub and LeetCode usernames. We only pull and display mock public stats from these providers and never request private account access keys.</li>
+        </ul>
+      </section>
+
+      <section class="policy-section">
+        <h2>3. Cookies Usage</h2>
+        <p>CampusCompass uses standard cookies to enable normal session authentication. Cookies are small files placed on your browser to recognize you when you navigate between pages.</p>
+        <ul>
+          <li><strong>Strictly Necessary Cookies:</strong> We use an encrypted session cookie to keep you logged in. This cookie is temporary and required for safety and authorization.</li>
+          <li><strong>Tracking and Advertising Cookies:</strong> We do not use any tracking, analytics, or behavioral advertising cookies (such as Google Analytics or pixel trackers).</li>
+        </ul>
+      </section>
+
+      <section class="policy-section">
+        <h2>4. Data Security</h2>
+        <p>Your user profile data is stored securely in our local SQL database and is never shared, rented, or sold to third-party services. We use strong bcrypt hashing to protect user passwords against unauthorized access.</p>
+      </section>
+
+      <section class="policy-section">
+        <h2>5. Your Rights</h2>
+        <p>You can view, edit, or update your profile data at any time from your dashboard. If you wish to delete your account or purge your stored information, please contact the administrators of this platform or clear your browser sessions.</p>
+      </section>
+    </div>
+    
+    <div class="privacy-divider-bottom"></div>
+    
+    <div class="policy-action">
+      <a href="/" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back to Homepage</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

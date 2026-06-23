@@ -169,10 +169,10 @@ exports.connectAccount = async (req, res) => {
     }
 
     if (platform === 'github') {
-      user.profile.githubUsername = username.trim();
+      user.profile = { ...user.profile, githubUsername: username.trim() };
       req.session.success = 'GitHub account connected successfully!';
     } else if (platform === 'leetcode') {
-      user.profile.leetcodeUsername = username.trim();
+      user.profile = { ...user.profile, leetcodeUsername: username.trim() };
       req.session.success = 'LeetCode account connected successfully!';
     } else {
       req.session.error = 'Invalid platform';
@@ -204,10 +204,10 @@ exports.disconnectAccount = async (req, res) => {
     }
 
     if (platform === 'github') {
-      user.profile.githubUsername = '';
+      user.profile = { ...user.profile, githubUsername: '' };
       req.session.success = 'GitHub account disconnected.';
     } else if (platform === 'leetcode') {
-      user.profile.leetcodeUsername = '';
+      user.profile = { ...user.profile, leetcodeUsername: '' };
       req.session.success = 'LeetCode account disconnected.';
     } else {
       req.session.error = 'Invalid platform';

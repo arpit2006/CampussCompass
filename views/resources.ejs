@@ -1,0 +1,140 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="container resources-page" style="padding-top: 40px; padding-bottom: 60px;">
+  <div class="section-header" style="text-align: center; max-width: 600px; margin: 0 auto 48px auto;">
+    <span class="section-tag" style="display: inline-block; color: var(--primary); text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px;">Learning Library</span>
+    <h1 style="font-size: 36px; margin-bottom: 12px; font-weight: 800;">Curated Study Resources</h1>
+    <p style="color: var(--text-muted); font-size: 15px;">Access hand-picked, vetted study guides, cheatsheets, and playlists to accelerate your tech journey.</p>
+  </div>
+
+  <div class="resources-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+    
+    <!-- Resource Card 1 -->
+    <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px;">
+      <% if (!isLoggedIn) { %>
+        <!-- Locked View for Guests -->
+        <div class="resource-card-blur" style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
+          <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-file-pdf"></i></div>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Git &amp; GitHub Cheatsheet</h3>
+          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Vetted collection of commands, branching flows, and best practices for developers.</p>
+          <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-top: auto; border-top: 1px dashed var(--border); padding-top: 12px;">PDF Guide &bull; 5 mins read</span>
+        </div>
+        <div class="lock-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.55); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
+          <div class="lock-icon" style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-lock"></i></div>
+          <p style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px;">Locked Resource</p>
+          <a href="/login" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Login to Unlock</a>
+        </div>
+      <% } else { %>
+        <!-- Unlocked View for Logged-In Users -->
+        <div class="resource-card-unlocked" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+          <div>
+            <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-file-pdf"></i></div>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text);">Git &amp; GitHub Cheatsheet</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Vetted collection of commands, branching flows, and best practices for developers.</p>
+          </div>
+          <div style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">PDF Guide &bull; 5 mins read</span>
+            <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Resource Card 2 -->
+    <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px;">
+      <% if (!isLoggedIn) { %>
+        <!-- Locked View for Guests -->
+        <div class="resource-card-blur" style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
+          <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-video"></i></div>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Vetted Video Playlists</h3>
+          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Curated list of premium YouTube video series on DSA, Web Dev, and Machine Learning.</p>
+          <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-top: auto; border-top: 1px dashed var(--border); padding-top: 12px;">Videos &bull; 20+ Hours</span>
+        </div>
+        <div class="lock-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.55); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
+          <div class="lock-icon" style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-lock"></i></div>
+          <p style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px;">Locked Resource</p>
+          <a href="/playlists" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Preview Playlists</a>
+        </div>
+      <% } else { %>
+        <!-- Unlocked View for Logged-In Users -->
+        <div class="resource-card-unlocked" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+          <div>
+            <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-video"></i></div>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text);">Vetted Video Playlists</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Curated list of premium YouTube video series on DSA, Web Dev, and Machine Learning.</p>
+          </div>
+          <div style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Videos &bull; 20+ Hours</span>
+            <a href="/playlists" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open Playlists</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Resource Card 3 -->
+    <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px;">
+      <% if (!isLoggedIn) { %>
+        <!-- Locked View for Guests -->
+        <div class="resource-card-blur" style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
+          <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-code"></i></div>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">DSA Practice Sheets</h3>
+          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Complete topic-wise LeetCode problems curated specifically for college placement preparation.</p>
+          <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-top: auto; border-top: 1px dashed var(--border); padding-top: 12px;">Coding Sheet &bull; 150+ Problems</span>
+        </div>
+        <div class="lock-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.55); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
+          <div class="lock-icon" style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-lock"></i></div>
+          <p style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px;">Locked Resource</p>
+          <a href="/login" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Login to Unlock</a>
+        </div>
+      <% } else { %>
+        <!-- Unlocked View for Logged-In Users -->
+        <div class="resource-card-unlocked" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+          <div>
+            <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-code"></i></div>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text);">DSA Practice Sheets</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Complete topic-wise LeetCode problems curated specifically for college placement preparation.</p>
+          </div>
+          <div style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Coding Sheet &bull; 150+ Problems</span>
+            <a href="https://neetcode.io/practice" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open NeetCode</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Resource Card 4 -->
+    <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px;">
+      <% if (!isLoggedIn) { %>
+        <!-- Locked View for Guests -->
+        <div class="resource-card-blur" style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
+          <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Project Reference Codes</h3>
+          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Open-source boilerplates and sample repositories to kickstart your portfolio projects.</p>
+          <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-top: auto; border-top: 1px dashed var(--border); padding-top: 12px;">Source Code &bull; 8 Repositories</span>
+        </div>
+        <div class="lock-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.55); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
+          <div class="lock-icon" style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-lock"></i></div>
+          <p style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px;">Locked Resource</p>
+          <a href="/login" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Login to Unlock</a>
+        </div>
+      <% } else { %>
+        <!-- Unlocked View for Logged-In Users -->
+        <div class="resource-card-unlocked" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+          <div>
+            <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-laptop-code"></i></div>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text);">Project Reference Codes</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Open-source boilerplates and sample repositories to kickstart your portfolio projects.</p>
+          </div>
+          <div style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Source Code &bull; 8 Repositories</span>
+            <a href="https://github.com/explore" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Browse GitHub</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

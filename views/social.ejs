@@ -26,7 +26,7 @@
     <aside class="social-sidebar">
       <div class="card my-social-card">
         <div class="card-header">
-          <h3><i class="fa-solid fa-circle-user"></i> Connected Identity</h3>
+          <h2><i class="fa-solid fa-circle-user"></i> Connected Identity</h2>
         </div>
         <div class="card-body">
           <div class="my-profile-brief">
@@ -34,7 +34,7 @@
               <%= user.profile.fullName ? user.profile.fullName.split(' ').map(n => n[0]).join('') : 'U' %>
             </div>
             <div class="brief-info">
-              <h4><%= user.profile.fullName || 'Student User' %></h4>
+              <h3><%= user.profile.fullName || 'Student User' %></h3>
               <span><%= user.profile.careerGoal || 'Not set' %></span>
             </div>
           </div>
@@ -49,8 +49,9 @@
                 </div>
                 <% if (user.profile.githubUsername) { %>
                   <form action="/profile/disconnect" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <input type="hidden" name="platform" value="github">
-                    <button type="submit" class="btn-disconnect-social" style="padding: 2px 6px; font-size: 10px;" title="Disconnect GitHub"><i class="fa-solid fa-link-slash"></i></button>
+                    <button type="submit" class="btn-disconnect-social" style="font-size: 10px;" title="Disconnect GitHub" aria-label="Disconnect GitHub"><i class="fa-solid fa-link-slash"></i></button>
                   </form>
                 <% } %>
               </div>
@@ -72,11 +73,12 @@
                   <button type="button" class="btn btn-connect-social" onclick="toggleConnectForm('github')" style="font-size: 11px; width: 100%; text-align: center; justify-content: center;"><i class="fa-solid fa-link"></i> Connect GitHub</button>
                   <div id="connect-form-github" class="social-connect-inline-form" style="display: none; margin-top: 8px; padding: 6px;">
                     <form action="/profile/connect" method="POST">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <input type="hidden" name="platform" value="github">
                       <div class="social-input-group">
                         <input type="text" name="username" placeholder="GitHub username" required style="padding: 4px 6px; font-size: 11px;">
                         <button type="submit" class="btn btn-primary btn-xs" style="padding: 2px 6px;">Link</button>
-                        <button type="button" class="btn btn-secondary btn-xs" onclick="toggleConnectForm('github')" style="padding: 2px 6px;"><i class="fa-solid fa-xmark"></i></button>
+                        <button type="button" class="btn btn-secondary btn-xs" onclick="toggleConnectForm('github')" style="padding: 2px 6px;" aria-label="Close GitHub connect form"><i class="fa-solid fa-xmark"></i></button>
                       </div>
                     </form>
                   </div>
@@ -93,8 +95,9 @@
                 </div>
                 <% if (user.profile.leetcodeUsername) { %>
                   <form action="/profile/disconnect" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <input type="hidden" name="platform" value="leetcode">
-                    <button type="submit" class="btn-disconnect-social" style="padding: 2px 6px; font-size: 10px;" title="Disconnect LeetCode"><i class="fa-solid fa-link-slash"></i></button>
+                    <button type="submit" class="btn-disconnect-social" style="font-size: 10px;" title="Disconnect LeetCode" aria-label="Disconnect LeetCode"><i class="fa-solid fa-link-slash"></i></button>
                   </form>
                 <% } %>
               </div>
@@ -116,11 +119,12 @@
                   <button type="button" class="btn btn-connect-social" onclick="toggleConnectForm('leetcode')" style="font-size: 11px; width: 100%; text-align: center; justify-content: center;"><i class="fa-solid fa-link"></i> Connect LeetCode</button>
                   <div id="connect-form-leetcode" class="social-connect-inline-form" style="display: none; margin-top: 8px; padding: 6px;">
                     <form action="/profile/connect" method="POST">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <input type="hidden" name="platform" value="leetcode">
                       <div class="social-input-group">
                         <input type="text" name="username" placeholder="LeetCode username" required style="padding: 4px 6px; font-size: 11px;">
                         <button type="submit" class="btn btn-primary btn-xs" style="padding: 2px 6px;">Link</button>
-                        <button type="button" class="btn btn-secondary btn-xs" onclick="toggleConnectForm('leetcode')" style="padding: 2px 6px;"><i class="fa-solid fa-xmark"></i></button>
+                        <button type="button" class="btn btn-secondary btn-xs" onclick="toggleConnectForm('leetcode')" style="padding: 2px 6px;" aria-label="Close LeetCode connect form"><i class="fa-solid fa-xmark"></i></button>
                       </div>
                     </form>
                   </div>
@@ -150,7 +154,7 @@
                 <%= student.profile.fullName ? student.profile.fullName.split(' ').map(n => n[0]).join('') : 'U' %>
               </div>
               <div class="student-primary-info">
-                <h4><%= student.profile.fullName %></h4>
+                <h3><%= student.profile.fullName %></h3>
                 <p class="student-college"><%= student.profile.collegeName %> • <%= student.profile.branch %></p>
                 <span class="goal-badge"><%= student.profile.careerGoal %></span>
               </div>
@@ -174,17 +178,17 @@
             <!-- Connected Accounts Icons & Stats Toggle -->
             <div class="student-card-socials">
               <% if (student.profile.githubUsername) { %>
-                <div class="student-social-btn" onclick="toggleStudentSocialStats('<%= student._id %>', 'github')" title="View GitHub stats">
+                <button type="button" class="student-social-btn" onclick="toggleStudentSocialStats('<%= student._id %>', 'github')" title="View GitHub stats" aria-label="View @<%= student.profile.githubUsername %> GitHub stats">
                   <i class="fa-brands fa-github"></i>
                   <span>@<%= student.profile.githubUsername %></span>
-                </div>
+                </button>
               <% } %>
 
               <% if (student.profile.leetcodeUsername) { %>
-                <div class="student-social-btn" onclick="toggleStudentSocialStats('<%= student._id %>', 'leetcode')" title="View LeetCode stats">
+                <button type="button" class="student-social-btn" onclick="toggleStudentSocialStats('<%= student._id %>', 'leetcode')" title="View LeetCode stats" aria-label="View @<%= student.profile.leetcodeUsername %> LeetCode stats">
                   <i class="fa-solid fa-code"></i>
                   <span>@<%= student.profile.leetcodeUsername %></span>
-                </div>
+                </button>
               <% } %>
 
               <% if (!student.profile.githubUsername && !student.profile.leetcodeUsername) { %>
@@ -195,7 +199,7 @@
             <!-- Hidden Social stats panels (Toggled on click) -->
             <% if (student.profile.githubUsername) { %>
               <div id="social-stats-<%= student._id %>-github" class="student-social-stats-panel github-panel" style="display: none;">
-                <h5><i class="fa-brands fa-github"></i> GitHub Account</h5>
+                <h4><i class="fa-brands fa-github"></i> GitHub Account</h4>
                 <div class="social-stats-row">
                   <div><strong><%= student.socialStats.githubRepos %></strong> Repos</div>
                   <div><strong><%= student.socialStats.githubStars %></strong> Stars</div>
@@ -206,7 +210,7 @@
 
             <% if (student.profile.leetcodeUsername) { %>
               <div id="social-stats-<%= student._id %>-leetcode" class="student-social-stats-panel leetcode-panel" style="display: none;">
-                <h5><i class="fa-solid fa-code"></i> LeetCode Account</h5>
+                <h4><i class="fa-solid fa-code"></i> LeetCode Account</h4>
                 <div class="social-stats-row">
                   <div><strong><%= student.socialStats.leetcodeSolved %></strong> Solved</div>
                   <div><strong>#<%= student.socialStats.leetcodeRank.toLocaleString() %></strong> Rank</div>
