@@ -1,0 +1,61 @@
+name: Greetings
+
+on:
+  issues:
+    types: [opened]
+
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  greet-issue:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Comment on Issue
+        run: |
+          gh issue comment $ISSUE_NUMBER --body "
+          👋 Thank you for opening an issue in CampusCompass!
+
+          Our maintainers will review it soon.
+
+          Please ensure:
+          - The issue is clearly described
+          - Relevant screenshots/logs are attached
+          - Existing issues have been checked for duplicates
+
+          Happy contributing! 🚀
+          "
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+  greet-pr:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Comment on PR
+        run: |
+          gh pr comment $PR_NUMBER --body "
+          🎉 Thank you for your contribution to CampusCompass!
+
+          Before review, please ensure:
+          - All checks are passing
+          - Changes are tested
+          - The PR is linked to an issue
+          - The PR description is complete
+
+          A maintainer will review your contribution shortly. 🚀
+          "
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
