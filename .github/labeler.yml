@@ -1,0 +1,24 @@
+frontend:
+  - "src/**/*.js"
+  - "src/**/*.css"
+  - "src/**/*.html"
+  - "landing.html"
+
+backend:
+  - "server/**"
+  - "api/**"
+  - "controllers/**"
+  - "routes/**"
+  - "models/**"
+
+documentation:
+  - "**/*.md"
+  - "docs/**"
+
+UI:
+  - "src/**/*.css"
+  - "src/**/*.html"
+  - "assets/**"
+
+github-actions:
+  - ".github/**"
