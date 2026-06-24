@@ -1,24 +1,34 @@
 frontend:
-  - "src/**/*.js"
-  - "src/**/*.css"
-  - "src/**/*.html"
-  - "landing.html"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/**/*.js"
+          - "src/**/*.css"
+          - "src/**/*.html"
+          - "landing.html"
 
 backend:
-  - "server/**"
-  - "api/**"
-  - "controllers/**"
-  - "routes/**"
-  - "models/**"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "server/**"
+          - "api/**"
+          - "controllers/**"
+          - "routes/**"
+          - "models/**"
 
 documentation:
-  - "**/*.md"
-  - "docs/**"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "docs/**"
 
 UI:
-  - "src/**/*.css"
-  - "src/**/*.html"
-  - "assets/**"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/**/*.css"
+          - "src/**/*.html"
+          - "assets/**"
 
 github-actions:
-  - ".github/**"
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
