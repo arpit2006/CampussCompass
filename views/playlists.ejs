@@ -1,134 +1,224 @@
 <%- include('partials/header') %>
-<%- include('partials/navbar') %>
+  <%- include('partials/navbar') %>
 
-<div class="container playlists-page" style="padding-top: 40px; padding-bottom: 60px;">
-  <div class="section-header" style="text-align: center; max-width: 600px; margin: 0 auto 36px auto;">
-    <span class="section-tag" style="display: inline-block; color: var(--primary); text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px;">Vetted Learning Playlists</span>
-    <h1 style="font-size: 36px; margin-bottom: 12px; font-weight: 800;">Curated Video Lectures</h1>
-    <p style="color: var(--text-muted); font-size: 15px;">
-      <% if (isLoggedIn) { %>
-        Direct video resource compilation tailored for your active target goal: <strong><%= user.profile.careerGoal %></strong>.
-      <% } else { %>
-        Unlock hand-selected, high-quality YouTube lectures curated by university seniors and industry professionals.
-      <% } %>
-    </p>
-  </div>
-
-  <% if (!isLoggedIn) { %>
-    <!-- Guest Track Selector Switcher -->
-    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;">
-      <% allTracks.forEach(track => { %>
-        <a href="/playlists?track=<%= track.key %>" 
-           class="btn <%= trackKey === track.key ? 'btn-primary' : 'btn-secondary' %>"
-           style="font-size: 12px; padding: 8px 16px; border-radius: var(--radius); border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark); text-decoration: none;">
-          <%= track.label %>
-        </a>
-      <% }) %>
-    </div>
-  <% } else { %>
-    <!-- Active SDE/Career Track Banner -->
-    <div class="card" style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); padding: 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow);">
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <div style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px;">
-          <i class="fa-solid fa-route"></i>
-        </div>
-        <div>
-          <h4 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--secondary); margin-bottom: 2px;">Active Track</h4>
-          <h3 style="font-size: 18px; font-weight: 800; color: var(--text);"><%= user.profile.careerGoal %></h3>
-        </div>
+    <div class="container playlists-page" style="padding-top: 40px; padding-bottom: 60px;">
+      <div class="section-header" style="text-align: center; max-width: 600px; margin: 0 auto 36px auto;">
+        <span class="section-tag"
+          style="display: inline-block; color: var(--primary); text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px;">Vetted
+          Learning Playlists</span>
+        <h1 style="font-size: 36px; margin-bottom: 12px; font-weight: 800;">Curated Video Lectures</h1>
+        <p style="color: var(--text-muted); font-size: 15px;">
+          <% if (isLoggedIn) { %>
+            Direct video resource compilation tailored for your active target goal: <strong>
+              <%= user.profile.careerGoal %>
+            </strong>.
+            <% } else { %>
+              Unlock hand-selected, high-quality YouTube lectures curated by university seniors and industry
+              professionals.
+              <% } %>
+        </p>
       </div>
-      <a href="/dashboard" class="btn btn-secondary" style="font-size: 11px; padding: 6px 14px; border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-    </div>
-  <% } %>
 
-  <div class="playlists-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;">
-    <% if (trackData && trackData.playlists && trackData.playlists.length > 0) { %>
-      <% trackData.playlists.forEach((playlist, index) => { %>
-        <div class="card playlist-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px; background-color: var(--surface);">
-          
-          <% if (!isLoggedIn) { %>
-            <!-- Locked Mode for Guest -->
-            <div class="playlist-card-blur" style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
-                <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px;"><i class="fa-brands fa-youtube"></i></div>
-                <span style="font-size: 11px; font-weight: 800; background: var(--bg-darker); border: 1px solid var(--border-dark); padding: 2px 8px; border-radius: 4px;"><%= playlist.duration %></span>
+      <% if (!isLoggedIn) { %>
+        <!-- Guest Track Selector Switcher -->
+        <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;">
+          <% allTracks.forEach(track=> { %>
+            <a href="/playlists?track=<%= track.key %>"
+              class="btn <%= trackKey === track.key ? 'btn-primary' : 'btn-secondary' %>"
+              style="font-size: 12px; padding: 8px 16px; border-radius: var(--radius); border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark); text-decoration: none;">
+              <%= track.label %>
+            </a>
+            <% }) %>
+        </div>
+        <% } else { %>
+          <!-- Active SDE/Career Track Banner -->
+          <div class="card"
+            style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); padding: 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div
+                style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px;">
+                <i class="fa-solid fa-route"></i>
               </div>
-              <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;"><%= playlist.title %></h3>
-              <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; display: inline-block;">By <%= playlist.channel %></span>
-              <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;"><%= playlist.description %></p>
-            </div>
-            
-            <div class="lock-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.65); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
-              <div class="lock-icon" style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-lock"></i></div>
-              <p style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px; text-transform: uppercase;">Locked Resource</p>
-              <a href="/login" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Login to Unlock Playlist</a>
-            </div>
-          <% } else { %>
-            <!-- Unlocked Mode for Logged-In Student -->
-            <div class="playlist-card-unlocked" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
-                  <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px;"><i class="fa-brands fa-youtube"></i></div>
-                  <span style="font-size: 11px; font-weight: 800; background: var(--bg-darker); border: 1px solid var(--border-dark); padding: 2px 8px; border-radius: 4px; color: var(--text);"><%= playlist.duration %></span>
-                </div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--text);"><%= playlist.title %></h3>
-                <span style="font-size: 12px; font-weight: 700; color: var(--secondary); margin-bottom: 12px; display: inline-block;">By <%= playlist.channel %></span>
-                <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;"><%= playlist.description %></p>
-              </div>
-              
-              <!-- Collapsible Personalized Study Planner -->
-              <div class="planner-panel" id="planner-<%= index %>" data-duration-str="<%= playlist.duration %>" data-title="<%= playlist.title %>" data-channel="<%= playlist.channel %>">
-                <div class="planner-group">
-                  <label class="planner-label">Daily Study Commitment:</label>
-                  <input type="range" class="study-hours-slider" min="0.5" max="8" step="0.5" value="<%= (user && user.profile && user.profile.dailyStudyHours) || 2 %>">
-                  <div class="slider-meta">
-                    <span>0.5 hr</span>
-                    <span class="slider-value-display"><%= (user && user.profile && user.profile.dailyStudyHours) || 2 %> hrs / day</span>
-                    <span>8 hrs</span>
-                  </div>
-                </div>
-                
-                <div class="calculation-result">
-                  <div class="calc-header">
-                    <span class="calc-title"><i class="fa-solid fa-calculator"></i> Personalized Plan</span>
-                    <span class="plan-status-badge"><i class="fa-solid fa-circle-check"></i> Plan Active</span>
-                  </div>
-                  <div class="calc-row"><span>⏱️ Est. Length:</span> <strong class="parsed-hours">...</strong></div>
-                  <div class="calc-row"><span>📅 Days to Complete:</span> <strong class="est-days">...</strong></div>
-                  <div class="calc-row-last"><span>🏁 Est. Completion:</span> <strong class="est-finish">...</strong></div>
-                  
-                  <div class="milestone-container">
-                    <div class="milestone-title"><i class="fa-solid fa-list-check"></i> Day-by-Day Focus:</div>
-                    <ul class="milestone-list">
-                      <!-- Populated dynamically via JS -->
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="planner-actions">
-                  <button class="btn btn-secondary save-plan-btn"><i class="fa-solid fa-bookmark"></i> Save Plan</button>
-                  <button class="btn btn-secondary export-plan-btn"><i class="fa-solid fa-file-arrow-down"></i> Export Plan</button>
-                </div>
-              </div>
-              
-              <div style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; flex-wrap: wrap; gap: 10px;">
-                <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Curated Video Course</span>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                  <button class="btn btn-secondary toggle-planner-btn" data-playlist-id="<%= index %>" style="font-size: 11px; padding: 6px 14px; border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-clock"></i> Plan Study</button>
-                  <a href="<%= playlist.url %>" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open Playlist</a>
-                </div>
+                <h4
+                  style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--secondary); margin-bottom: 2px;">
+                  Active Track</h4>
+                <h3 style="font-size: 18px; font-weight: 800; color: var(--text);">
+                  <%= user.profile.careerGoal %>
+                </h3>
               </div>
             </div>
+            <a href="/dashboard" class="btn btn-secondary"
+              style="font-size: 11px; padding: 6px 14px; border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i
+                class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+          </div>
           <% } %>
 
-        </div>
-      <% }) %>
-    <% } else { %>
-      <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-        <p>No video playlists found for this track.</p>
-      </div>
-    <% } %>
-  </div>
-</div>
+            <div class="playlists-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;">
+              <% if (trackData && trackData.playlists && trackData.playlists.length> 0) { %>
+                <% trackData.playlists.forEach((playlist, index)=> { %>
+                  <div class="card playlist-card-wrapper"
+                    style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; overflow: hidden; min-height: 250px; background-color: var(--surface);">
 
-<%- include('partials/footer') %>
+                    <% if (!isLoggedIn) { %>
+                      <!-- Locked Mode for Guest -->
+                      <div class="playlist-card-blur"
+                        style="filter: blur(4px); opacity: 0.3; pointer-events: none; display: flex; flex-direction: column; height: 100%;">
+                        <div
+                          style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+                          <div class="res-icon"
+                            style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px;">
+                            <i class="fa-brands fa-youtube"></i></div>
+                          <span
+                            style="font-size: 11px; font-weight: 800; background: var(--bg-darker); border: 1px solid var(--border-dark); padding: 2px 8px; border-radius: 4px;">
+                            <%= playlist.duration %>
+                          </span>
+                        </div>
+                        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">
+                          <%= playlist.title %>
+                        </h3>
+                        <span
+                          style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; display: inline-block;">By
+                          <%= playlist.channel %></span>
+                        <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                          <%= playlist.description %>
+                        </p>
+                      </div>
+
+                      <div class="lock-overlay"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 248, 245, 0.65); backdrop-filter: blur(1px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 24px; text-align: center;">
+                        <div class="lock-icon"
+                          style="width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-dark); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; box-shadow: 2px 2px 0 var(--border-dark);">
+                          <i class="fa-solid fa-lock"></i></div>
+                        <p
+                          style="font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 12px; text-transform: uppercase;">
+                          Locked Resource</p>
+                        <a href="/login" class="btn btn-primary"
+                          style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);">Login to
+                          Unlock Playlist</a>
+                      </div>
+                      <% } else { %>
+                        <!-- Unlocked Mode for Logged-In Student -->
+                        <div class="playlist-card-unlocked"
+                          style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                          <div>
+                            <div
+                              style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+                              <div class="res-icon"
+                                style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px;">
+                                <i class="fa-brands fa-youtube"></i></div>
+                              <span
+                                style="font-size: 11px; font-weight: 800; background: var(--bg-darker); border: 1px solid var(--border-dark); padding: 2px 8px; border-radius: 4px; color: var(--text);">
+                                <%= playlist.duration %>
+                              </span>
+                            </div>
+                            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--text);">
+                              <%= playlist.title %>
+                            </h3>
+                            <span
+                              style="font-size: 12px; font-weight: 700; color: var(--secondary); margin-bottom: 12px; display: inline-block;">By
+                              <%= playlist.channel %></span>
+                            <p
+                              style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                              <%= playlist.description %>
+                            </p>
+                          </div>
+
+                          <!-- Collapsible Personalized Study Planner -->
+                          <div class="planner-panel" id="planner-<%= index %>"
+                            data-duration-str="<%= playlist.duration %>" data-title="<%= playlist.title %>"
+                            data-channel="<%= playlist.channel %>">
+                            <div class="planner-group">
+                              <label class="planner-label">Daily Study Commitment:</label>
+                              <input type="range" class="study-hours-slider" min="0.5" max="8" step="0.5"
+                                value="<%= (user && user.profile && user.profile.dailyStudyHours) || 2 %>">
+                              <div class="slider-meta">
+                                <span>0.5 hr</span>
+                                <span class="slider-value-display">
+                                  <%= (user && user.profile && user.profile.dailyStudyHours) || 2 %> hrs / day
+                                </span>
+                                <span>8 hrs</span>
+                              </div>
+                            </div>
+
+                            <div class="planner-group">
+                              <label class="planner-label">Preferred Start Date:</label>
+                              <input type="date" class="study-start-date">
+                            </div>
+
+                            <div class="calculation-result">
+                              <div class="study-progress">
+                                <div class="study-progress-label">
+                                  Progress
+                                </div>
+                                <div class="study-progress-bar">
+                                  <div class="study-progress-fill"></div>
+                                </div>
+                                <div class="study-progress-text"></div>
+                              </div>
+                              <div class="calc-header">
+                                <span class="calc-title"><i class="fa-solid fa-calculator"></i> Personalized Plan</span>
+                                <span class="plan-status-badge"><i class="fa-solid fa-circle-check"></i> Plan
+                                  Active</span>
+                              </div>
+                              <div class="calc-row"><span>⏱️ Est. Length:</span> <strong
+                                  class="parsed-hours">...</strong></div>
+                              <div class="calc-row">
+                                <span>⏳ Remaining Hours:</span>
+                                <strong class="remaining-hours">...</strong>
+                              </div>
+                              <div class="calc-row"><span>📅 Days to Complete:</span> <strong
+                                  class="est-days">...</strong></div>
+                              <div class="calc-row-last"><span>🏁 Est. Completion:</span> <strong
+                                  class="est-finish">...</strong></div>
+
+                              <div class="milestone-container">
+                                <div class="milestone-title"><i class="fa-solid fa-list-check"></i> Day-by-Day Focus:
+                                </div>
+                                <ul class="milestone-list">
+                                  <!-- Populated dynamically via JS -->
+                                </ul>
+                              </div>
+                            </div>
+
+                            <div class="planner-actions">
+                              <button class="btn btn-secondary save-plan-btn"><i class="fa-solid fa-bookmark"></i> Save
+                                Plan</button>
+                              <button class="btn btn-secondary export-plan-btn"><i
+                                  class="fa-solid fa-file-arrow-down"></i> Export Plan</button>
+                              <button class="complete-day-btn btn-secondary">
+                                <i class="fa-solid fa-check"></i>
+                                Mark Day Complete
+                              </button>
+                            </div>
+                          </div>
+
+
+                          <div
+                            style="border-top: 1px dashed var(--border); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; flex-wrap: wrap; gap: 10px;">
+                            <span
+                              style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Curated
+                              Video Course</span>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                              <button class="btn btn-secondary toggle-planner-btn" data-playlist-id="<%= index %>"
+                                style="font-size: 11px; padding: 6px 14px; border: 2px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i
+                                  class="fa-solid fa-clock"></i> Plan Study</button>
+                              <a href="<%= playlist.url %>" target="_blank" class="btn btn-primary"
+                                style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i
+                                  class="fa-solid fa-up-right-from-square"></i> Open Playlist</a>
+                            </div>
+                          </div>
+                        </div>
+                        <% } %>
+
+                  </div>
+                  <% }) %>
+                    <% } else { %>
+                      <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <p>No video playlists found for this track.</p>
+                      </div>
+                      <% } %>
+            </div>
+    </div>
+
+    <%- include('partials/footer') %>
