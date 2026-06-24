@@ -209,16 +209,34 @@ ul {
 }
 
 .nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   font-weight: 600;
   color: var(--text-muted);
   font-size: 14px;
   padding: 6px 0;
-  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }
 
 .nav-link:hover, .nav-link.active {
   color: var(--text);
-  border-bottom-color: var(--primary);
 }
 
 .nav-auth-buttons {
@@ -244,16 +262,24 @@ ul {
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: var(--bg);
   border-bottom: 1px solid var(--border-dark);
-  padding: 40px 0;
+  padding: 4rem 0;
 }
 
 .hero-container {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
-  gap: 48px;
+  gap: 36px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 .hero-badge {
@@ -268,6 +294,8 @@ ul {
   background-color: var(--surface);
   box-shadow: 2px 2px 0px var(--border-dark);
   margin-bottom: 24px;
+  width: auto;
+  max-width: fit-content;
   opacity: 0;
   animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.1s;
@@ -285,7 +313,7 @@ ul {
 }
 
 .hero-title {
-  font-size: 46px;
+  font-size: 69px;
   line-height: 1.2;
   margin-bottom: 20px;
   font-weight: 800;
@@ -326,14 +354,15 @@ ul {
 .compass-card-outer {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 420px;
 }
 
 .compass-card {
   background: var(--surface);
   border: 2px solid var(--border-dark);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 28px;
+  min-height: 500px;
   box-shadow: var(--shadow-flat);
   position: relative;
   z-index: 10;
@@ -2533,12 +2562,19 @@ ul {
 @media (max-width: 992px) {
   .hero-container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
     text-align: center;
   }
 
+  .hero-content {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
   .hero-subtitle {
-    margin: 0 auto 32px auto;
+    margin: 0 auto 24px auto;
+    max-width: 700px;
   }
 
   .hero-actions {
