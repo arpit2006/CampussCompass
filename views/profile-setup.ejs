@@ -88,14 +88,84 @@
             </div>
           </div>
 
-          <!-- Skills -->
+          <!-- Skills Selector -->
           <div class="form-group col-span-2">
-            <label for="skills">Current Skills <span class="label-hint">(Comma-separated list)</span></label>
-            <div class="input-wrapper">
-              <i class="fa-solid fa-screwdriver-wrench"></i>
-              <input type="text" id="skills" name="skills" placeholder="e.g. Python, Git, HTML, CSS (These will match and update your roadmap progress!)">
+            <label for="skills">Current Skills <span class="label-hint">(Select multiple from the list below)</span></label>
+            
+            <!-- Hidden input to hold comma-separated values for backend compatibility -->
+            <input type="hidden" id="skills" name="skills" value="">
+            
+            <!-- Clickable Skill Tags Container -->
+            <div class="skills-selector-container">
+              <!-- Categories of Skills -->
+              <div class="skill-category">
+                <h5>Languages</h5>
+                <div class="skills-tags-list">
+                  <% const languages = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'Go', 'Rust', 'SQL']; %>
+                  <% languages.forEach(skill => { %>
+                    <span class="skill-tag-badge" data-skill="<%= skill %>">
+                      <%= skill %>
+                    </span>
+                  <% }); %>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h5>Web Development</h5>
+                <div class="skills-tags-list">
+                  <% const web = ['React', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS', 'Bootstrap', 'REST APIs', 'GraphQL']; %>
+                  <% web.forEach(skill => { %>
+                    <span class="skill-tag-badge" data-skill="<%= skill %>">
+                      <%= skill %>
+                    </span>
+                  <% }); %>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h5>Data Science & AI</h5>
+                <div class="skills-tags-list">
+                  <% const data = ['Pandas', 'NumPy', 'Machine Learning', 'Deep Learning', 'PyTorch', 'TensorFlow', 'Statistics']; %>
+                  <% data.forEach(skill => { %>
+                    <span class="skill-tag-badge" data-skill="<%= skill %>">
+                      <%= skill %>
+                    </span>
+                  <% }); %>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h5>DevOps & Cloud</h5>
+                <div class="skills-tags-list">
+                  <% const devops = ['Git', 'GitHub', 'Docker', 'Kubernetes', 'AWS', 'Linux', 'Vercel', 'Netlify']; %>
+                  <% devops.forEach(skill => { %>
+                    <span class="skill-tag-badge" data-skill="<%= skill %>">
+                      <%= skill %>
+                    </span>
+                  <% }); %>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h5>Cybersecurity</h5>
+                <div class="skills-tags-list">
+                  <% const cyber = ['Network Security', 'Cryptography', 'Pentesting', 'OWASP', 'Wireshark', 'Metasploit']; %>
+                  <% cyber.forEach(skill => { %>
+                    <span class="skill-tag-badge" data-skill="<%= skill %>">
+                      <%= skill %>
+                    </span>
+                  <% }); %>
+                </div>
+              </div>
             </div>
-            <p class="form-hint-text">Entering skills you already know will automatically mark corresponding topics as completed on your dashboard.</p>
+
+            <!-- Custom Skill Input -->
+            <div class="custom-skill-adder">
+              <input type="text" id="custom-skill-input" placeholder="Type a custom skill...">
+              <button type="button" id="add-custom-skill-btn" class="btn btn-secondary btn-sm">Add Skill</button>
+            </div>
+            
+            <p class="form-hint-text">Add custom skills above, or click on predefined tags to toggle selection. They will automatically sync with your learning roadmap progress.</p>
           </div>
 
           <!-- Interests -->
@@ -123,5 +193,77 @@
     </div>
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const skillsInput = document.getElementById('skills');
+    const customSkillInput = document.getElementById('custom-skill-input');
+    const addCustomSkillBtn = document.getElementById('add-custom-skill-btn');
+    const skillsSelectorContainer = document.querySelector('.skills-selector-container');
+
+    // Parse existing skills
+    let selectedSkills = skillsInput.value ? skillsInput.value.split(',').map(s => s.trim()).filter(s => s.length > 0) : [];
+
+    // Helper to update the hidden input
+    const updateSkillsInput = () => {
+      skillsInput.value = selectedSkills.join(', ');
+    };
+
+    // Toggle badge click handler
+    skillsSelectorContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('skill-tag-badge')) {
+        const skill = e.target.getAttribute('data-skill');
+        const skillIndex = selectedSkills.findIndex(s => s.toLowerCase() === skill.toLowerCase().trim());
+
+        if (skillIndex > -1) {
+          selectedSkills.splice(skillIndex, 1);
+          e.target.classList.remove('selected');
+        } else {
+          selectedSkills.push(skill);
+          e.target.classList.add('selected');
+        }
+        updateSkillsInput();
+      }
+    });
+
+    // Add custom skill handler
+    const addCustomSkill = () => {
+      const customSkill = customSkillInput.value.trim();
+      if (!customSkill) return;
+
+      // Check if already exists (case-insensitive)
+      const exists = selectedSkills.some(s => s.toLowerCase() === customSkill.toLowerCase());
+      if (!exists) {
+        selectedSkills.push(customSkill);
+        updateSkillsInput();
+
+        // Create a new badge in the Custom skills group
+        let customGroup = document.getElementById('custom-skills-group');
+        if (!customGroup) {
+          customGroup = document.createElement('div');
+          customGroup.className = 'skill-category';
+          customGroup.id = 'custom-skills-group';
+          customGroup.innerHTML = '<h5>Custom Skills</h5><div class="skills-tags-list"></div>';
+          skillsSelectorContainer.appendChild(customGroup);
+        }
+        const tagsList = customGroup.querySelector('.skills-tags-list');
+        const newBadge = document.createElement('span');
+        newBadge.className = 'skill-tag-badge selected';
+        newBadge.setAttribute('data-skill', customSkill);
+        newBadge.innerText = customSkill;
+        tagsList.appendChild(newBadge);
+      }
+      customSkillInput.value = '';
+    };
+
+    addCustomSkillBtn.addEventListener('click', addCustomSkill);
+    customSkillInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addCustomSkill();
+      }
+    });
+  });
+</script>
 
 <%- include('partials/footer') %>

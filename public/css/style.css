@@ -3775,3 +3775,80 @@ button.student-social-btn:focus-visible {
   gap: 8px;
 }
 
+/* Interactive Skill Selector Styles */
+.skills-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--surface-alt);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.skill-category h5 {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 4px;
+}
+.skills-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+.skill-tag-badge:hover {
+  border-color: var(--border-dark);
+  color: var(--text);
+  background-color: var(--bg-darker);
+}
+.skill-tag-badge.selected {
+  background-color: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+}
+.skill-tag-badge.selected::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 6px;
+  font-size: 11px;
+}
+.custom-skill-adder {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+#custom-skill-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+}
+#custom-skill-input:focus {
+  border-color: var(--border-dark);
+  box-shadow: 0 0 0 2px rgba(27, 38, 59, 0.05);
+}
+
