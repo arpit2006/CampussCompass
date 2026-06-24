@@ -138,13 +138,15 @@ ul {
 }
 
 .btn-login {
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
-  color: var(--text);
+  color: var(--text-muted);
 }
 
 .btn-login:hover {
   background: var(--bg-darker);
+  border-color: transparent;
+  color: var(--text);
 }
 
 .btn-logout {
@@ -225,6 +227,10 @@ ul {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.nav-auth-buttons .btn {
+  min-width: 96px;
 }
 
 .btn-signup {
