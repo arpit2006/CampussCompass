@@ -1,0 +1,25 @@
+name: Issue Assignment Reminder
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  notify-maintainer:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Notify Maintainer
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "👋 Thank you for opening this issue.\n\n📢 Maintainer Attention: @arpit2006\n\n⚠️ Please do not self-assign this issue.\n\nIf you would like to work on it:\n1. Comment expressing your interest.\n2. Wait for maintainer approval.\n3. Start working only after assignment.\n\nThe maintainer will review and assign this issue shortly. 🚀"
+            })
