@@ -63,7 +63,7 @@ jobs:
                 "",
                 "> **Note:** This is only a friendly reminder. Your assignment has **not** been removed.",
                 "",
-                "Thank you for contributing to **PatchPilot**! 🚀"
+                "Thank you for contributing to **CampussCompass**! 🚀"
               ].join("\n");
 
               await github.rest.issues.createComment({
