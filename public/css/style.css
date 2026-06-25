@@ -5,24 +5,25 @@
 
 /* Variables & Base System */
 :root {
-  --bg: #faf8f5;              /* Warm Linen / Cream */
-  --bg-darker: #f3eee6;       /* Darker Warm Oatmeal */
-  --surface: #ffffff;         /* Pure White */
-  --surface-alt: #f5f2eb;     /* Soft warm clay-gray */
-  --primary: #bf4c2c;         /* Human Terracotta / Rust Red */
-  --primary-hover: #a13d21;   /* Deeper Rust */
-  --secondary: #2a4736;       /* Deep Forest / Sage Green */
+  --bg: #faf8f5; /* Warm Linen / Cream */
+  --bg-darker: #f3eee6; /* Darker Warm Oatmeal */
+  --surface: #ffffff; /* Pure White */
+  --surface-alt: #f5f2eb; /* Soft warm clay-gray */
+  --primary: #bf4c2c; /* Human Terracotta / Rust Red */
+  --primary-hover: #a13d21; /* Deeper Rust */
+  --secondary: #2a4736; /* Deep Forest / Sage Green */
   --secondary-hover: #1e3327;
-  --accent: #d49e35;          /* Warm Mustard Gold */
-  --text: #1a1a1a;            /* Ink Charcoal Black */
-  --text-muted: #5c5954;      /* Muted Mud Gray */
-  --border: #e4dfd5;          /* Delicate warm border line */
-  --border-dark: #1a1a1a;     /* Strong structural boundary */
-  --success: #2e6244;         /* Rich Leaf Green */
-  --danger: #b93c3c;          /* Deep Crimson */
-  --warning: #cc8214;         /* Dark Amber */
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --radius: 6px;              /* Sharp, clean corners instead of bubbly round ones */
+  --accent: #d49e35; /* Warm Mustard Gold */
+  --text: #1a1a1a; /* Ink Charcoal Black */
+  --text-muted: #5c5954; /* Muted Mud Gray */
+  --border: #e4dfd5; /* Delicate warm border line */
+  --border-dark: #1a1a1a; /* Strong structural boundary */
+  --success: #2e6244; /* Rich Leaf Green */
+  --danger: #b93c3c; /* Deep Crimson */
+  --warning: #cc8214; /* Dark Amber */
+  --font-sans:
+    "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius: 6px; /* Sharp, clean corners instead of bubbly round ones */
   --radius-lg: 8px;
   --transition: all 0.2s ease-in-out;
   --shadow: 0 4px 12px rgba(26, 26, 26, 0.05);
@@ -50,7 +51,12 @@ body {
   flex-direction: column;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.02em;
@@ -71,7 +77,14 @@ ul {
 }
 
 /* Common Layout Container */
-.container, .nav-container, .hero-container, .footer-container, .dashboard-container, .profile-container, .profile-setup-container, .auth-container {
+.container,
+.nav-container,
+.hero-container,
+.footer-container,
+.dashboard-container,
+.profile-container,
+.profile-setup-container,
+.auth-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -237,7 +250,8 @@ ul {
   width: 100%;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   color: var(--text);
 }
 
@@ -388,15 +402,27 @@ ul {
 }
 
 @keyframes spinSparkle {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.25); }
-  100% { transform: rotate(360deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.25);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
 
 @keyframes cardFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes semFadeIn {
@@ -602,21 +628,39 @@ ul {
 }
 
 @keyframes floatBadge1 {
-  0% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-6px) rotate(1deg); }
-  100% { transform: translateY(0) rotate(-1deg); }
+  0% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
 }
 
 @keyframes floatBadge2 {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-5px) scale(1.03); }
-  100% { transform: translateY(0) scale(1); }
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes floatBadge3 {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(6px) translateY(-3px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px) translateY(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Common Sections Heading */
@@ -820,7 +864,7 @@ ul {
 
 @media (min-width: 993px) {
   .step-item:not(:last-child)::after {
-    content: '➔';
+    content: "➔";
     position: absolute;
     top: 50%;
     right: -24px;
@@ -942,20 +986,39 @@ ul {
 
 /* Coming Soon Animations */
 @keyframes badgePulse {
-  0% { transform: scale(1); opacity: 0.95; }
-  50% { transform: scale(1.03); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.95; }
+  0% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
 }
 
 @keyframes bounceComment {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(3deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
 }
 
 @keyframes loadingScan {
-  0% { left: -40%; }
-  100% { left: 100%; }
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 /* FAQ Accordions */
@@ -1025,7 +1088,10 @@ ul {
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+  transition:
+    max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    padding 0.3s ease;
   opacity: 0;
   padding: 0 24px 0 52px;
   color: var(--text-muted);
@@ -1154,21 +1220,39 @@ ul {
 }
 
 @keyframes floatCTAIcon1 {
-  0% { transform: translateY(0) rotate(-15deg); }
-  50% { transform: translateY(-10px) rotate(-10deg); }
-  100% { transform: translateY(0) rotate(-15deg); }
+  0% {
+    transform: translateY(0) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(0) rotate(-15deg);
+  }
 }
 
 @keyframes floatCTAIcon2 {
-  0% { transform: translateY(0) rotate(20deg); }
-  50% { transform: translateY(-12px) rotate(25deg); }
-  100% { transform: translateY(0) rotate(20deg); }
+  0% {
+    transform: translateY(0) rotate(20deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(25deg);
+  }
+  100% {
+    transform: translateY(0) rotate(20deg);
+  }
 }
 
 @keyframes floatCTAIcon3 {
-  0% { transform: translateY(0) rotate(5deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
-  100% { transform: translateY(0) rotate(5deg); }
+  0% {
+    transform: translateY(0) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(5deg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1364,7 +1448,7 @@ ul {
 
 .auth-divider::before,
 .auth-divider::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px dashed var(--border);
 }
@@ -1500,9 +1584,18 @@ ul {
 }
 
 @keyframes pulseArrow {
-  0% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.6; }
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
 }
 
 .auth-form {
@@ -1537,7 +1630,8 @@ ul {
   font-size: 14px;
 }
 
-.input-wrapper input, .input-wrapper select {
+.input-wrapper input,
+.input-wrapper select {
   width: 100%;
   padding: 10px 14px 10px 38px;
   background-color: var(--surface);
@@ -1550,7 +1644,8 @@ ul {
   transition: var(--transition);
 }
 
-.input-wrapper input:focus, .input-wrapper select:focus {
+.input-wrapper input:focus,
+.input-wrapper select:focus {
   border-color: var(--border-dark);
   background-color: var(--surface);
   box-shadow: 2px 2px 0px var(--border-dark);
@@ -1968,7 +2063,7 @@ ul {
 }
 
 .roadmap-timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 6px;
   left: 5px;
@@ -2184,8 +2279,14 @@ ul {
 }
 
 @keyframes semFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Profile Edit View Grid */
@@ -2217,7 +2318,7 @@ ul {
   justify-content: center;
   font-size: 32px;
   margin: 0 auto 16px auto;
-  box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
 .profile-avatar-card h3 {
@@ -2646,7 +2747,7 @@ ul {
     width: 100%;
     margin-top: 12px;
   }
-  
+
   .nav-auth-buttons .btn {
     width: 100%;
   }
@@ -3200,11 +3301,11 @@ ul {
   .collab-modal {
     padding: 24px;
   }
-  
+
   .collab-modal-footer {
     flex-direction: column;
   }
-  
+
   .collab-modal-footer .btn {
     width: 100%;
   }
@@ -3231,7 +3332,9 @@ ul {
   opacity: 0;
   transform: translateY(20px);
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cookie-consent-banner.active {
@@ -3416,9 +3519,15 @@ ul {
 }
 
 @keyframes pulseLock {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 992px) {
@@ -3581,9 +3690,15 @@ ul {
   flex-shrink: 0;
 }
 
-.why-card-icon.primary { color: var(--primary); }
-.why-card-icon.secondary { color: var(--secondary); }
-.why-card-icon.accent { color: var(--accent); }
+.why-card-icon.primary {
+  color: var(--primary);
+}
+.why-card-icon.secondary {
+  color: var(--secondary);
+}
+.why-card-icon.accent {
+  color: var(--accent);
+}
 
 @media (max-width: 992px) {
   .why-container {
@@ -3762,39 +3877,47 @@ button.student-social-btn:focus-visible {
 }
 
 /* Privacy & Terms design system classes */
-.privacy-page, .terms-page {
+.privacy-page,
+.terms-page {
   padding-top: 40px;
   padding-bottom: 60px;
 }
-.privacy-card, .terms-card {
+.privacy-card,
+.terms-card {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
   border: 2px solid var(--border-dark);
   box-shadow: var(--shadow-flat);
 }
-.privacy-card h1, .terms-card h1 {
+.privacy-card h1,
+.terms-card h1 {
   font-size: 32px;
   margin-bottom: 8px;
 }
-.privacy-card h1 i, .terms-card h1 i {
+.privacy-card h1 i,
+.terms-card h1 i {
   color: var(--primary);
   margin-right: 8px;
 }
-.privacy-card .last-updated, .terms-card .last-updated {
+.privacy-card .last-updated,
+.terms-card .last-updated {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 24px;
 }
-.privacy-divider, .terms-divider {
+.privacy-divider,
+.terms-divider {
   border-top: 1px solid var(--border);
   margin-bottom: 24px;
 }
-.privacy-divider-bottom, .terms-divider-bottom {
+.privacy-divider-bottom,
+.terms-divider-bottom {
   border-top: 1px solid var(--border);
   margin: 32px 0 24px 0;
 }
-.policy-content, .terms-content {
+.policy-content,
+.terms-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -3802,13 +3925,15 @@ button.student-social-btn:focus-visible {
   font-size: 14.5px;
   color: var(--text-muted);
 }
-.policy-section h2, .terms-section h2 {
+.policy-section h2,
+.terms-section h2 {
   font-size: 18px;
   color: var(--text);
   margin-bottom: 8px;
   font-weight: 700;
 }
-.policy-section ul, .terms-section ul {
+.policy-section ul,
+.terms-section ul {
   list-style: disc;
   padding-left: 20px;
   margin-top: 8px;
@@ -3817,3 +3942,18 @@ button.student-social-btn:focus-visible {
   gap: 8px;
 }
 
+.study-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.study-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
