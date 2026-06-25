@@ -1,0 +1,81 @@
+name: Update Contributor Leaderboard
+
+on:
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  leaderboard:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Leaderboard
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // Get merged PRs
+            const prs = await github.paginate(
+              github.rest.pulls.list,
+              {
+                owner,
+                repo,
+                state: "closed",
+                per_page: 100
+              }
+            );
+
+            const merged = prs.filter(pr => pr.merged_at);
+
+            const scores = {};
+
+            for (const pr of merged) {
+              const user = pr.user.login;
+              scores[user] = (scores[user] || 0) + 10;
+            }
+
+            const ranking = Object.entries(scores)
+              .sort((a,b)=>b[1]-a[1]);
+
+            let md = "# 🏆 CampusCompass Contributor Leaderboard\n\n";
+            md += "| Rank | Contributor | Score |\n";
+            md += "|------|-------------|------:|\n";
+
+            ranking.forEach(([user,score],i)=>{
+              const medal =
+                i===0 ? "🥇" :
+                i===1 ? "🥈" :
+                i===2 ? "🥉" : `${i+1}`;
+
+              md += `| ${medal} | @${user} | ${score} |\n`;
+            });
+
+            md += `\n_Last Updated: ${new Date().toISOString()}_\n`;
+
+            fs.writeFileSync("LEADERBOARD.md", md);
+
+      - name: Commit Leaderboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add LEADERBOARD.md
+
+          git diff --cached --quiet || git commit -m "chore: update contributor leaderboard"
+
+          git push
