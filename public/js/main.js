@@ -266,7 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Calculate and update the UI details
 
   function calculateStudyPlan(panel) {
-    console.log("calculateStudyPlan called");
     const remainingHoursEl = panel.querySelector(".remaining-hours");
     const durationStr = panel.dataset.durationStr;
     const title = panel.dataset.title;
@@ -283,30 +282,13 @@ document.addEventListener("DOMContentLoaded", () => {
       startDateInput.value = new Date().toISOString().split("T")[0];
     }
     const progressText = panel.querySelector(".study-progress-text");
-    console.log({
-      durationStr,
-      title,
-      slider,
-      displayValue,
-      parsedHoursEl,
-      estDaysEl,
-      estFinishEl,
-      milestoneList,
-      badge,
-      startDateInput,
-    });
     if (!slider) return;
-
     // Parse duration string to numeric hours
     const match = durationStr.match(/(\d+)/);
     const totalHours = match ? parseInt(match[1], 10) : 10;
 
     // Update estimated length
     parsedHoursEl.textContent = `${totalHours} hours`;
-    if (remainingHoursEl) {
-      remainingHoursEl.textContent = `${totalHours} hours`;
-    }
-
     // Get daily study hours from slider
     const dailyHours = parseFloat(slider.value);
 
@@ -316,10 +298,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDays = Math.ceil(totalHours / dailyHours);
 
     estDaysEl.textContent = totalDays;
-    const completedDays = parseInt(
-      localStorage.getItem(`cc_completed_days_${title}`) || "0",
-      10,
+    const completedDays = Math.min(
+      parseInt(localStorage.getItem(`cc_completed_days_${title}`) || "0", 10),
+      totalDays,
     );
+
+    const hoursLeft = Math.max(0, totalHours - completedDays * dailyHours);
+
+    remainingHoursEl.textContent = `${hoursLeft.toFixed(1)} hours`;
 
     const progress = totalDays > 0 ? (completedDays / totalDays) * 100 : 0;
 
@@ -485,7 +471,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const dailyHours = slider.value;
 
       localStorage.setItem(`cc_study_hours_${title}`, dailyHours);
-      localStorage.setItem(`cc_completed_days_${title}`, "0");
       const startDateInput = panel.querySelector(".study-start-date");
 
       if (startDateInput) {
