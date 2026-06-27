@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="container discussion-page" style="padding: 40px 24px; position: relative; overflow: hidden; min-height: calc(100vh - 70px - 250px); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  
+  <!-- Ambient background elements -->
+  <div class="hero-glow-blob" style="position: absolute; width: 400px; height: 400px; top: 10%; left: -100px; background: radial-gradient(circle, rgba(191, 76, 44, 0.08) 0%, rgba(212, 158, 53, 0) 70%); filter: blur(60px); pointer-events: none; z-index: 1;"></div>
+  <div class="hero-glow-blob" style="position: absolute; width: 450px; height: 450px; bottom: 10%; right: -150px; background: radial-gradient(circle, rgba(42, 71, 54, 0.08) 0%, rgba(191, 76, 44, 0) 70%); filter: blur(65px); pointer-events: none; z-index: 1;"></div>
+  
+  <div class="discussion-card" style="background: var(--surface); border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 48px 40px; max-width: 650px; width: 100%; box-shadow: var(--shadow-flat); text-align: center; position: relative; z-index: 5; transition: var(--transition);">
+    
+    <!-- Header Icon with badge -->
+    <div style="position: relative; display: inline-block; margin-bottom: 24px;">
+      <div class="collab-modal-icon" style="margin: 0 auto; color: var(--accent); border-color: var(--border-dark); box-shadow: 4px 4px 0px var(--border-dark); background-color: var(--surface-alt); width: 72px; height: 72px; font-size: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius);">
+        <i class="fa-solid fa-comments"></i>
+      </div>
+      <span style="position: absolute; top: -5px; right: -25px; background-color: var(--primary); color: var(--surface); font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); letter-spacing: 0.5px; animation: floatBadge1 3s ease-in-out infinite;">Beta</span>
+    </div>
+
+    <h1 style="font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; color: var(--text);">
+      Community <span class="text-gradient">Discussion Hub</span>
+    </h1>
+
+    <div style="display: inline-flex; align-items: center; gap: 8px; background-color: rgba(42, 71, 54, 0.08); border: 1px solid rgba(42, 71, 54, 0.2); padding: 6px 14px; border-radius: 4px; color: var(--secondary); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 24px;">
+      <i class="fa-solid fa-hourglass-half"></i> Coming Soon
+    </div>
+
+    <p style="font-size: 15.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; max-width: 540px; margin-left: auto; margin-right: auto;">
+      A collaborative workspace designed for student-to-student conversations. Ask questions about specific courses, form study groups, request roadmap feedback, and share peer tips to help each other navigate your college journeys.
+    </p>
+
+    <!-- Visual divider -->
+    <div style="border-top: 1px dashed var(--border); margin: 0 auto 32px auto; max-width: 250px;"></div>
+
+    <!-- Feedback Prompt -->
+    <h3 style="font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 16px;">What features would you like to see?</h3>
+    
+    <form id="discussionInterestForm" style="display: flex; gap: 12px; max-width: 480px; margin: 0 auto;">
+      <div class="input-wrapper" style="flex: 1;">
+        <i class="fa-solid fa-lightbulb" style="color: var(--accent);"></i>
+        <input type="text" placeholder="e.g., Study group matching, Course reviews..." required style="padding-left: 36px; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+      </div>
+      <button type="submit" class="btn btn-primary" style="white-space: nowrap; border: 1px solid var(--border-dark); box-shadow: 3px 3px 0px var(--border-dark); padding: 0 20px;">
+        <i class="fa-solid fa-paper-plane"></i> Submit Suggestion
+      </button>
+    </form>
+    
+    <!-- Success Banner -->
+    <div id="discussionSuccessMessage" style="display: none; color: var(--success); font-weight: 700; font-size: 14px; margin-top: 16px; animation: heroFadeInUp 0.3s ease;">
+      <i class="fa-solid fa-circle-check"></i> Thank you! Your feedback has been recorded.
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('discussionInterestForm');
+    const successMsg = document.getElementById('discussionSuccessMessage');
+    
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      });
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

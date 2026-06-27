@@ -67,6 +67,55 @@
   </div>
 </div>
 
+<!-- AI Agent Offline Modal -->
+<div id="aiAgentModal" class="collab-modal-overlay">
+  <div class="collab-modal">
+    <button class="collab-modal-close" id="closeAiAgentModal" aria-label="Close modal">&times;</button>
+    <div class="collab-modal-header">
+      <div class="collab-modal-icon" style="color: var(--danger); border-color: var(--danger); box-shadow: 3px 3px 0px var(--danger);">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <h2>AI Agent <span style="color: var(--danger);">Offline</span></h2>
+    </div>
+    <div class="collab-modal-body">
+      <p style="text-align: center; margin-bottom: 20px;">Our AI-powered roadmap generator and study advisor is currently undergoing scheduled maintenance.</p>
+      <div class="collab-perks" style="border-color: rgba(185, 60, 60, 0.2); background-color: rgba(185, 60, 60, 0.04);">
+        <div class="perk-item" style="color: var(--text);">
+          <i class="fa-solid fa-circle-exclamation" style="color: var(--danger);"></i>
+          <span>System Status: 503 Service Unavailable</span>
+        </div>
+        <div class="perk-item" style="color: var(--text);">
+          <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
+          <span>Alternative: Peer-vetted roadmaps are active</span>
+        </div>
+        <div class="perk-item" style="color: var(--text);">
+          <i class="fa-solid fa-users" style="color: var(--secondary);"></i>
+          <span>Action: Make decisions in Community section</span>
+        </div>
+      </div>
+      <p style="margin-top: 20px; font-size: 13.5px; text-align: center; color: var(--text-muted);">To view what paths, libraries, and resources your peers are choosing, please visit the community decisions page.</p>
+    </div>
+    <div class="collab-modal-footer">
+      <% if (isLoggedIn) { %>
+        <a href="/social" class="btn btn-primary" id="aiAgentGoToCommunityBtn">
+          <i class="fa-solid fa-users"></i> Go to Community
+        </a>
+      <% } else { %>
+        <a href="/register" class="btn btn-primary" id="aiAgentGoToCommunityBtn">
+          <i class="fa-solid fa-user-plus"></i> Join Community
+        </a>
+      <% } %>
+      <button class="btn btn-secondary" id="dismissAiAgentModal">Dismiss</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating AI Agent Action Button -->
+<button id="aiAgentFloatingBtn" class="ai-agent-floating-btn" aria-label="AI Advisor" title="Ask AI Advisor">
+  <i class="fa-solid fa-robot"></i>
+  <span class="pulse-ring"></span>
+</button>
+
 <script src="/js/main.js"></script>
 </body>
 </html>

@@ -192,6 +192,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- AI Agent Offline Modal Logic ---
+  const aiAgentFloatingBtn = document.getElementById('aiAgentFloatingBtn');
+  const aiAgentModal = document.getElementById('aiAgentModal');
+  const closeAiAgentModal = document.getElementById('closeAiAgentModal');
+  const dismissAiAgentModal = document.getElementById('dismissAiAgentModal');
+  const aiAgentGoToCommunityBtn = document.getElementById('aiAgentGoToCommunityBtn');
+
+  if (aiAgentModal && aiAgentFloatingBtn) {
+    aiAgentFloatingBtn.addEventListener('click', () => {
+      aiAgentModal.classList.add('active');
+    });
+
+    const hideAiModal = () => {
+      aiAgentModal.classList.remove('active');
+    };
+
+    if (closeAiAgentModal) {
+      closeAiAgentModal.addEventListener('click', hideAiModal);
+    }
+
+    if (dismissAiAgentModal) {
+      dismissAiAgentModal.addEventListener('click', hideAiModal);
+    }
+
+    if (aiAgentGoToCommunityBtn) {
+      aiAgentGoToCommunityBtn.addEventListener('click', hideAiModal);
+    }
+
+    aiAgentModal.addEventListener('click', (e) => {
+      if (e.target === aiAgentModal) {
+        hideAiModal();
+      }
+    });
+  }
+
   // --- Dashboard Tabs Logic ---
   const dbTabBtns = document.querySelectorAll('.db-tab-btn');
   const dbTabPanes = document.querySelectorAll('.db-tab-pane');

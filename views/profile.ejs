@@ -1,18 +1,22 @@
 <%- include('partials/header') %>
 <%- include('partials/navbar') %>
 
-<main class="profile-page-main">
-  <div class="profile-container">
+<main class="profile-page-main" style="position: relative; overflow: hidden; padding: 40px 0;">
+  <!-- Decorative background elements -->
+  <div class="hero-glow-blob" style="position: absolute; width: 350px; height: 350px; top: 15%; left: -80px; background: radial-gradient(circle, rgba(191, 76, 44, 0.05) 0%, rgba(212, 158, 53, 0) 70%); filter: blur(50px); pointer-events: none; z-index: 1;"></div>
+  <div class="hero-glow-blob" style="position: absolute; width: 380px; height: 380px; bottom: 15%; right: -100px; background: radial-gradient(circle, rgba(42, 71, 54, 0.05) 0%, rgba(191, 76, 44, 0) 70%); filter: blur(55px); pointer-events: none; z-index: 1;"></div>
+
+  <div class="profile-container" style="position: relative; z-index: 5;">
     
     <% if (typeof error !== 'undefined' && error) { %>
-      <div class="alert alert-danger">
+      <div class="alert alert-danger" style="margin-bottom: 24px;">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <span><%= error %></span>
       </div>
     <% } %>
 
     <% if (typeof success !== 'undefined' && success) { %>
-      <div class="alert alert-success">
+      <div class="alert alert-success" style="margin-bottom: 24px;">
         <i class="fa-solid fa-circle-check"></i>
         <span><%= success %></span>
       </div>
@@ -22,130 +26,182 @@
       
       <!-- Left Column: Quick view info card -->
       <section class="profile-sidebar">
-        <div class="card profile-avatar-card">
-          <div class="avatar-circle">
-            <i class="fa-solid fa-user-tie"></i>
+        <!-- Main Bio Card -->
+        <div class="card profile-avatar-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); overflow: hidden; background-color: var(--surface);">
+          <div style="background: linear-gradient(135deg, var(--bg-darker) 0%, var(--surface-alt) 100%); padding: 32px 20px; border-bottom: 1px solid var(--border); text-align: center;">
+            <div class="avatar-circle" style="width: 84px; height: 84px; border: 2.5px solid var(--border-dark); box-shadow: 3px 3px 0px var(--border-dark); font-weight: 800; font-size: 28px; background-color: var(--primary); color: var(--surface); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; border-radius: 50%;">
+              <%= user.profile.fullName ? user.profile.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : 'U' %>
+            </div>
+            <h3 style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--text);"><%= user.profile.fullName %></h3>
+            <span class="profile-email-badge" style="background-color: var(--surface); border-color: var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.1); display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border); margin-bottom: 16px;"><%= user.email %></span>
+            
+            <div class="sidebar-meta" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: center;">
+              <span class="track-tag" style="background-color: var(--surface); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: var(--text); border-radius: var(--radius); font-size: 12px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-compass" style="color: var(--primary);"></i> <%= user.profile.careerGoal %></span>
+              <span class="year-tag" style="background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: var(--text); border-radius: var(--radius); font-size: 12px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-graduation-cap"></i> <%= user.profile.currentYear %></span>
+            </div>
           </div>
-          <h3><%= user.profile.fullName %></h3>
-          <span class="profile-email-badge"><%= user.email %></span>
-          <div class="sidebar-meta">
-            <span class="track-tag"><i class="fa-solid fa-compass"></i> <%= user.profile.careerGoal %></span>
-            <span class="year-tag"><%= user.profile.currentYear %></span>
+
+          <!-- Academic Metrics -->
+          <div style="padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background-color: var(--bg);">
+            <div style="background-color: var(--surface); border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 12px; text-align: center; box-shadow: 2px 2px 0px var(--border-dark);">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">CGPA</div>
+              <div style="font-size: 18px; font-weight: 800; color: var(--primary);"><%= user.profile.cgpa || 'N/A' %></div>
+            </div>
+            <div style="background-color: var(--surface); border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 12px; text-align: center; box-shadow: 2px 2px 0px var(--border-dark);">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Study Target</div>
+              <div style="font-size: 18px; font-weight: 800; color: var(--secondary);"><%= user.profile.dailyStudyHours ? user.profile.dailyStudyHours + ' hrs' : 'N/A' %></div>
+            </div>
+            <div style="background-color: var(--surface); border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 12px; text-align: center; box-shadow: 2px 2px 0px var(--border-dark);">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Skills</div>
+              <div style="font-size: 18px; font-weight: 800; color: var(--accent);"><%= user.profile.skills ? user.profile.skills.length : 0 %></div>
+            </div>
+            <div style="background-color: var(--surface); border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 12px; text-align: center; box-shadow: 2px 2px 0px var(--border-dark);">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Interests</div>
+              <div style="font-size: 18px; font-weight: 800; color: var(--text);"><%= user.profile.interests ? user.profile.interests.length : 0 %></div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Right Column: Edit Profile Form -->
       <section class="profile-form-section">
-        <div class="card profile-form-card">
-          <div class="card-header">
-            <h3><i class="fa-solid fa-user-gear"></i> Account & Profile Settings</h3>
-            <p>Update your details below to adjust your roadmap progress calculator</p>
+        <div class="card profile-form-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface);">
+          <div class="card-header" style="padding: 28px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+            <h3 style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--text);"><i class="fa-solid fa-user-gear" style="color: var(--primary);"></i> Account & Profile Settings</h3>
+            <p style="color: var(--text-muted); font-size: 13.5px; margin: 0;">Update your details to automatically adjust your learning roadmap and progress indicators</p>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="padding: 28px;">
             <form action="/profile/update" method="POST" class="setup-form">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <div class="form-grid">
+              
+              <!-- Form Section: Academic Profile -->
+              <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--secondary); border-bottom: 1.5px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-graduation-cap"></i> Academic Profile
+                </h4>
                 
-                <!-- Full Name -->
-                <div class="form-group">
-                  <label for="fullName">Full Name <span class="required">*</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="fullName" name="fullName" value="<%= user.profile.fullName %>" required>
+                <div class="form-grid">
+                  <!-- Full Name -->
+                  <div class="form-group">
+                    <label for="fullName">Full Name <span class="required" style="color: var(--primary);">*</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-user"></i>
+                      <input type="text" id="fullName" name="fullName" value="<%= user.profile.fullName %>" required style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                  </div>
+
+                  <!-- College Name -->
+                  <div class="form-group">
+                    <label for="collegeName">College Name <span class="required" style="color: var(--primary);">*</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-building-columns"></i>
+                      <input type="text" id="collegeName" name="collegeName" value="<%= user.profile.collegeName %>" required style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                  </div>
+
+                  <!-- Branch -->
+                  <div class="form-group">
+                    <label for="branch">Branch/Major <span class="required" style="color: var(--primary);">*</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-book-open"></i>
+                      <input type="text" id="branch" name="branch" value="<%= user.profile.branch %>" required style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                  </div>
+
+                  <!-- Current Year -->
+                  <div class="form-group">
+                    <label for="currentYear">Current Year <span class="required" style="color: var(--primary);">*</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-calendar-days"></i>
+                      <select id="currentYear" name="currentYear" required style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05); font-family: var(--font-sans);">
+                        <option value="1st Year" <%= user.profile.currentYear === '1st Year' ? 'selected' : '' %>>1st Year</option>
+                        <option value="2nd Year" <%= user.profile.currentYear === '2nd Year' ? 'selected' : '' %>>2nd Year</option>
+                        <option value="3rd Year" <%= user.profile.currentYear === '3rd Year' ? 'selected' : '' %>>3rd Year</option>
+                        <option value="4th Year" <%= user.profile.currentYear === '4th Year' ? 'selected' : '' %>>4th Year</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- CGPA -->
+                  <div class="form-group">
+                    <label for="cgpa">Current CGPA</label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-chart-bar"></i>
+                      <input type="number" id="cgpa" name="cgpa" value="<%= user.profile.cgpa %>" step="0.01" min="0" max="10" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
                   </div>
                 </div>
-
-                <!-- College Name -->
-                <div class="form-group">
-                  <label for="collegeName">College Name <span class="required">*</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-building-columns"></i>
-                    <input type="text" id="collegeName" name="collegeName" value="<%= user.profile.collegeName %>" required>
-                  </div>
-                </div>
-
-                <!-- Branch -->
-                <div class="form-group">
-                  <label for="branch">Branch/Major <span class="required">*</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <input type="text" id="branch" name="branch" value="<%= user.profile.branch %>" required>
-                  </div>
-                </div>
-
-                <!-- Current Year -->
-                <div class="form-group">
-                  <label for="currentYear">Current Year <span class="required">*</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <select id="currentYear" name="currentYear" required>
-                      <option value="1st Year" <%= user.profile.currentYear === '1st Year' ? 'selected' : '' %>>1st Year</option>
-                      <option value="2nd Year" <%= user.profile.currentYear === '2nd Year' ? 'selected' : '' %>>2nd Year</option>
-                      <option value="3rd Year" <%= user.profile.currentYear === '3rd Year' ? 'selected' : '' %>>3rd Year</option>
-                      <option value="4th Year" <%= user.profile.currentYear === '4th Year' ? 'selected' : '' %>>4th Year</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- CGPA -->
-                <div class="form-group">
-                  <label for="cgpa">Current CGPA</label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-chart-bar"></i>
-                    <input type="number" id="cgpa" name="cgpa" value="<%= user.profile.cgpa %>" step="0.01" min="0" max="10">
-                  </div>
-                </div>
-
-                <!-- Career Goal -->
-                <div class="form-group">
-                  <label for="careerGoal">Target Career Goal <span class="required">*</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-bullseye"></i>
-                    <select id="careerGoal" name="careerGoal" required>
-                      <option value="Software Engineer" <%= user.profile.careerGoal === 'Software Engineer' ? 'selected' : '' %>>Software Engineer</option>
-                      <option value="Web Developer" <%= user.profile.careerGoal === 'Web Developer' ? 'selected' : '' %>>Web Developer</option>
-                      <option value="AI Engineer" <%= user.profile.careerGoal === 'AI Engineer' ? 'selected' : '' %>>AI Engineer</option>
-                      <option value="Cyber Security" <%= user.profile.careerGoal === 'Cyber Security' ? 'selected' : '' %>>Cyber Security</option>
-                      <option value="Cloud Engineer" <%= user.profile.careerGoal === 'Cloud Engineer' ? 'selected' : '' %>>Cloud Engineer</option>
-                      <option value="Data Scientist" <%= user.profile.careerGoal === 'Data Scientist' ? 'selected' : '' %>>Data Scientist</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Skills -->
-                <div class="form-group col-span-2">
-                  <label for="skills">Current Skills <span class="label-hint">(Comma-separated list)</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    <input type="text" id="skills" name="skills" value="<%= user.profile.skills ? user.profile.skills.join(', ') : '' %>">
-                  </div>
-                  <p class="form-hint-text">Add or remove skills. Separate them with commas (e.g. Python, SQL, Git).</p>
-                </div>
-
-                <!-- Interests -->
-                <div class="form-group col-span-2">
-                  <label for="interests">Interests <span class="label-hint">(Comma-separated list)</span></label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-heart"></i>
-                    <input type="text" id="interests" name="interests" value="<%= user.profile.interests ? user.profile.interests.join(', ') : '' %>">
-                  </div>
-                </div>
-
-                <!-- Daily Study Hours -->
-                <div class="form-group">
-                  <label for="dailyStudyHours">Daily Study Hours</label>
-                  <div class="input-wrapper">
-                    <i class="fa-solid fa-clock"></i>
-                    <input type="number" id="dailyStudyHours" name="dailyStudyHours" value="<%= user.profile.dailyStudyHours %>" min="0" max="24">
-                  </div>
-                </div>
-
               </div>
 
-              <div class="form-footer-actions">
-                <a href="/dashboard" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary">Save Changes <i class="fa-solid fa-floppy-disk"></i></button>
+              <!-- Form Section: Career & Commitments -->
+              <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); border-bottom: 1.5px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-bullseye"></i> Targets & Commitment
+                </h4>
+                
+                <div class="form-grid">
+                  <!-- Career Goal -->
+                  <div class="form-group">
+                    <label for="careerGoal">Target Career Goal <span class="required" style="color: var(--primary);">*</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-compass"></i>
+                      <select id="careerGoal" name="careerGoal" required style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05); font-family: var(--font-sans);">
+                        <option value="Software Engineer" <%= user.profile.careerGoal === 'Software Engineer' ? 'selected' : '' %>>Software Engineer</option>
+                        <option value="Web Developer" <%= user.profile.careerGoal === 'Web Developer' ? 'selected' : '' %>>Web Developer</option>
+                        <option value="AI Engineer" <%= user.profile.careerGoal === 'AI Engineer' ? 'selected' : '' %>>AI Engineer</option>
+                        <option value="Cyber Security" <%= user.profile.careerGoal === 'Cyber Security' ? 'selected' : '' %>>Cyber Security</option>
+                        <option value="Cloud Engineer" <%= user.profile.careerGoal === 'Cloud Engineer' ? 'selected' : '' %>>Cloud Engineer</option>
+                        <option value="Data Scientist" <%= user.profile.careerGoal === 'Data Scientist' ? 'selected' : '' %>>Data Scientist</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Daily Study Hours -->
+                  <div class="form-group">
+                    <label for="dailyStudyHours">Daily Study Hours Goal</label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-clock"></i>
+                      <input type="number" id="dailyStudyHours" name="dailyStudyHours" value="<%= user.profile.dailyStudyHours %>" min="0" max="24" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Section: Skills & Focus -->
+              <div style="margin-bottom: 36px;">
+                <h4 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); border-bottom: 1.5px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-screwdriver-wrench"></i> Skills & Focus Areas
+                </h4>
+                
+                <div class="form-grid">
+                  <!-- Skills -->
+                  <div class="form-group col-span-2">
+                    <label for="skills">Current Skills <span class="label-hint" style="font-size: 11px; font-weight: normal; color: var(--text-muted);">(Comma-separated list)</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-code"></i>
+                      <input type="text" id="skills" name="skills" value="<%= user.profile.skills ? user.profile.skills.join(', ') : '' %>" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                    <p class="form-hint-text" style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Separate your skills with commas. These are matched against roadmap topics to calculate your semester completion percentage.</p>
+                  </div>
+
+                  <!-- Interests -->
+                  <div class="form-group col-span-2">
+                    <label for="interests">Interests & Topics of Interest <span class="label-hint" style="font-size: 11px; font-weight: normal; color: var(--text-muted);">(Comma-separated list)</span></label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-heart"></i>
+                      <input type="text" id="interests" name="interests" value="<%= user.profile.interests ? user.profile.interests.join(', ') : '' %>" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                    <p class="form-hint-text" style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Separate your academic or extracurricular interests with commas (e.g. Open Source, Machine Learning, Web3).</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="form-footer-actions" style="border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: flex-end; gap: 16px;">
+                <a href="/dashboard" class="btn btn-secondary" style="border: 1px solid var(--border-dark); background-color: var(--surface); color: var(--text);">Cancel</a>
+                <button type="submit" class="btn btn-primary" style="border: 1px solid var(--border-dark); box-shadow: 3px 3px 0px var(--border-dark);">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
               </div>
             </form>
           </div>

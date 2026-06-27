@@ -17,6 +17,15 @@ router.get('/dashboard', ensureProfileComplete, dashboardController.getDashboard
 // Social Connect Page
 router.get('/social', ensureProfileComplete, dashboardController.getSocial);
 
+// Community Discussion Page
+router.get('/discussion', ensureProfileComplete, (req, res) => {
+  res.render('discussion', {
+    title: 'Community Discussion - CampusCompass',
+    user: req.user,
+    isLoggedIn: true
+  });
+});
+
 // Privacy & Cookies Policy Page
 router.get('/privacy', (req, res) => {
   res.render('privacy', { title: 'Privacy & Cookies Policy - CampusCompass' });

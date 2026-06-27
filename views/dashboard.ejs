@@ -1,92 +1,107 @@
 <%- include('partials/header') %>
 <%- include('partials/navbar') %>
 
-<main class="dashboard-page">
-  <div class="dashboard-container">
+<main class="dashboard-page" style="padding: 40px 0; position: relative; overflow: hidden;">
+  <!-- Decorative background blobs -->
+  <div class="hero-glow-blob" style="position: absolute; width: 350px; height: 350px; top: 10%; left: -60px; background: radial-gradient(circle, rgba(191, 76, 44, 0.05) 0%, rgba(212, 158, 53, 0) 70%); filter: blur(50px); pointer-events: none; z-index: 1;"></div>
+  <div class="hero-glow-blob" style="position: absolute; width: 380px; height: 380px; bottom: 10%; right: -80px; background: radial-gradient(circle, rgba(42, 71, 54, 0.05) 0%, rgba(191, 76, 44, 0) 70%); filter: blur(55px); pointer-events: none; z-index: 1;"></div>
+
+  <div class="dashboard-container" style="position: relative; z-index: 5;">
     
     <% if (typeof success !== 'undefined' && success) { %>
-      <div class="alert alert-success alert-dismissible">
+      <div class="alert alert-success alert-dismissible" style="margin-bottom: 24px;">
         <i class="fa-solid fa-circle-check"></i>
         <span><%= success %></span>
       </div>
     <% } %>
 
     <!-- Welcome Card -->
-    <section class="welcome-card">
-      <div class="welcome-text-content">
-        <h1>Welcome Back, <span class="text-gradient"><%= user.profile.fullName %></span>!</h1>
-        <p>Your learning compass is pointing towards becoming a <strong><%= user.profile.careerGoal %></strong>. Keep learning and updating your skills to track your progress!</p>
+    <section class="welcome-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 32px;">
+      <!-- Subtle internal pattern overlay -->
+      <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 35%; background: linear-gradient(135deg, rgba(191, 76, 44, 0.03) 0%, rgba(212, 158, 53, 0.03) 100%); pointer-events: none;"></div>
+      
+      <div class="welcome-text-content" style="z-index: 2; flex: 1;">
+        <span style="display: inline-block; background-color: rgba(191, 76, 44, 0.08); color: var(--primary); font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(191, 76, 44, 0.2); margin-bottom: 12px; letter-spacing: 0.5px;">Student Portal</span>
+        <h1 style="font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px;">Welcome Back, <span class="text-gradient"><%= user.profile.fullName %></span>!</h1>
+        <p style="color: var(--text-muted); font-size: 14.5px; line-height: 1.6; max-width: 720px; margin-bottom: 0;">
+          Your learning compass is pointing towards becoming a <strong><%= user.profile.careerGoal %></strong>. Complete topics in your recommended timeline to build a bulletproof portfolio.
+        </p>
       </div>
-      <div class="welcome-badge">
-        <i class="fa-solid fa-compass compass-logo"></i>
+
+      <div class="welcome-badge" style="z-index: 2; flex-shrink: 0; width: 68px; height: 68px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); box-shadow: 4px 4px 0px var(--border-dark); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--primary); animation: floatBadge1 3s ease-in-out infinite;">
+        <i class="fa-solid fa-compass"></i>
       </div>
     </section>
 
     <!-- Tab Switcher -->
     <div class="dashboard-tabs-container">
       <div class="dashboard-tabs">
-        <button class="db-tab-btn active" data-tab="roadmap"><i class="fa-solid fa-route"></i> Roadmap Timeline</button>
-        <button class="db-tab-btn" data-tab="resources"><i class="fa-solid fa-book"></i> Resource Library</button>
+        <button class="db-tab-btn active" data-tab="roadmap">
+          <i class="fa-solid fa-route"></i> Roadmap Timeline
+        </button>
+        <button class="db-tab-btn" data-tab="resources">
+          <i class="fa-solid fa-book"></i> Resource Library
+        </button>
       </div>
     </div>
 
     <div class="dashboard-grid">
       
       <!-- Left Column: Student Information & Progress -->
-      <aside class="dashboard-sidebar">
+      <aside class="dashboard-sidebar" style="display: flex; flex-direction: column; gap: 24px;">
         
         <!-- Student Info Card -->
-        <div class="card student-info-card">
-          <div class="card-header">
-            <h3><i class="fa-solid fa-user-graduate"></i> Student Profile</h3>
-            <a href="/profile" class="edit-link" title="Edit Profile"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+        <div class="card student-info-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface);">
+          <div class="card-header" style="border-bottom: 1px solid var(--border); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 13.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text);"><i class="fa-solid fa-user-graduate" style="color: var(--secondary); margin-right: 6px;"></i> Student Profile</h3>
+            <a href="/profile" class="edit-link" title="Edit Profile" style="font-size: 13px; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; gap: 4px; text-decoration: none;"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
           </div>
-          <div class="card-body">
-            <ul class="info-list">
-              <li>
-                <span class="info-label">College:</span>
-                <span class="info-value"><%= user.profile.collegeName %></span>
+          <div class="card-body" style="padding: 24px;">
+            <ul class="info-list" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+              <li style="display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="info-label" style="color: var(--text-muted); font-weight: 600;">College:</span>
+                <span class="info-value" style="color: var(--text); font-weight: 700; text-align: right;"><%= user.profile.collegeName %></span>
               </li>
-              <li>
-                <span class="info-label">Branch:</span>
-                <span class="info-value"><%= user.profile.branch %></span>
+              <li style="display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="info-label" style="color: var(--text-muted); font-weight: 600;">Branch:</span>
+                <span class="info-value" style="color: var(--text); font-weight: 700; text-align: right;"><%= user.profile.branch %></span>
               </li>
-              <li>
-                <span class="info-label">Current Year:</span>
-                <span class="info-value"><%= user.profile.currentYear %></span>
+              <li style="display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="info-label" style="color: var(--text-muted); font-weight: 600;">Current Year:</span>
+                <span class="info-value" style="color: var(--text); font-weight: 700; text-align: right;"><%= user.profile.currentYear %></span>
               </li>
-              <li>
-                <span class="info-label">CGPA:</span>
-                <span class="info-value"><%= user.profile.cgpa ? user.profile.cgpa.toFixed(2) : 'Not Specified' %></span>
+              <li style="display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="info-label" style="color: var(--text-muted); font-weight: 600;">CGPA:</span>
+                <span class="info-value" style="color: var(--text); font-weight: 700; text-align: right; background-color: rgba(191, 76, 44, 0.08); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(191, 76, 44, 0.15);"><%= user.profile.cgpa ? user.profile.cgpa.toFixed(2) : 'Not Specified' %></span>
               </li>
-              <li>
-                <span class="info-label">Study Time:</span>
-                <span class="info-value"><%= user.profile.dailyStudyHours ? user.profile.dailyStudyHours + ' hours/day' : 'Not Specified' %></span>
+              <li style="display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; border-bottom: none; padding-bottom: 0;">
+                <span class="info-label" style="color: var(--text-muted); font-weight: 600;">Study Target:</span>
+                <span class="info-value" style="color: var(--text); font-weight: 700; text-align: right; background-color: rgba(42, 71, 54, 0.08); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(42, 71, 54, 0.15);"><%= user.profile.dailyStudyHours ? user.profile.dailyStudyHours + ' hrs/day' : 'Not Specified' %></span>
               </li>
             </ul>
 
-            <div class="skills-interests-section">
-              <h4>Skills</h4>
-              <div class="tag-container">
+            <div class="skills-interests-section" style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 18px;">
+              <h4 style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px; font-weight: 800;">My Skills</h4>
+              <div class="tag-container" style="display: flex; flex-wrap: wrap; gap: 6px;">
                 <% if (user.profile.skills && user.profile.skills.length > 0) { %>
                   <% user.profile.skills.forEach(skill => { %>
-                    <span class="tag tag-skill"><%= skill %></span>
+                    <span class="tag tag-skill" style="font-size: 11px; padding: 4px 10px; border-radius: var(--radius); font-weight: 700; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); background-color: var(--surface-alt); color: var(--text);"><%= skill %></span>
                   <% }) %>
                 <% } else { %>
-                  <span class="no-tags">No skills listed yet. Add skills in profile to track progress.</span>
+                  <span style="font-size: 12px; color: var(--text-muted); font-style: italic;">No skills listed. Add skills in profile.</span>
                 <% } %>
               </div>
             </div>
 
-            <div class="skills-interests-section">
-              <h4>Interests</h4>
-              <div class="tag-container">
+            <div class="skills-interests-section" style="margin-top: 18px;">
+              <h4 style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px; font-weight: 800;">Interests</h4>
+              <div class="tag-container" style="display: flex; flex-wrap: wrap; gap: 6px;">
                 <% if (user.profile.interests && user.profile.interests.length > 0) { %>
                   <% user.profile.interests.forEach(interest => { %>
-                    <span class="tag tag-interest"><%= interest %></span>
+                    <span class="tag tag-interest" style="font-size: 11px; padding: 4px 10px; border-radius: var(--radius); font-weight: 700; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); background-color: var(--bg); color: var(--text-muted);"><%= interest %></span>
                   <% }) %>
                 <% } else { %>
-                  <span class="no-tags">No interests listed.</span>
+                  <span style="font-size: 12px; color: var(--text-muted); font-style: italic;">No interests listed.</span>
                 <% } %>
               </div>
             </div>
@@ -94,22 +109,23 @@
         </div>
 
         <!-- Progress Tracker Card -->
-        <div class="card progress-card">
-          <div class="card-header">
-            <h3><i class="fa-solid fa-chart-line"></i> Roadmap Progress</h3>
+        <div class="card progress-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface);">
+          <div class="card-header" style="border-bottom: 1px solid var(--border); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 13.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text);"><i class="fa-solid fa-chart-line" style="color: var(--primary); margin-right: 6px;"></i> Roadmap Progress</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="padding: 24px;">
             <div class="progress-radial-container">
-              <div class="progress-bar-linear">
-                <div class="progress-bar-fill" style="width: <%= progress.percent %>%;"></div>
+              <div class="progress-bar-linear" style="height: 10px; background-color: var(--bg-darker); border-radius: 20px; overflow: hidden; border: 1px solid var(--border-dark); margin-bottom: 12px; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);">
+                <div class="progress-bar-fill" style="width: <%= progress.percent %>%; height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%); border-radius: inherit; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 10px rgba(191, 76, 44, 0.35);"></div>
               </div>
-              <div class="progress-stats">
-                <span class="progress-percentage"><%= progress.percent %>%</span>
-                <span class="progress-fraction"><%= progress.completedCount %> of <%= progress.totalCount %> topics completed</span>
+              <div class="progress-stats" style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px;">
+                <span class="progress-percentage" style="font-size: 24px; font-weight: 800; color: var(--text);"><%= progress.percent %>%</span>
+                <span class="progress-fraction" style="font-size: 12px; color: var(--text-muted); font-weight: 600;"><%= progress.completedCount %> of <%= progress.totalCount %> topics completed</span>
               </div>
             </div>
-            <p class="progress-tip">
-              <i class="fa-solid fa-lightbulb"></i> Tip: Acquire new skills listed in the roadmap below and add them to your profile to mark them complete!
+            <p class="progress-tip" style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; background-color: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-top: 18px; display: flex; gap: 8px;">
+              <i class="fa-solid fa-lightbulb" style="color: var(--accent); font-size: 14px; margin-top: 1px;"></i>
+              <span>Acquire new skills matching the topics below and list them in your profile to boost your progress percentage!</span>
             </p>
           </div>
         </div>
@@ -118,26 +134,26 @@
 
       <!-- Right Column: Curated Roadmap timeline -->
       <section class="dashboard-main db-tab-pane active" id="db-pane-roadmap">
-        <div class="card roadmap-container-card">
-          <div class="card-header roadmap-header-section">
+        <div class="card roadmap-container-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface);">
+          <div class="card-header roadmap-header-section" style="border-bottom: 1.5px solid var(--border-dark); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; background-color: var(--surface);">
             <div>
-              <span class="roadmap-badge-tag"><%= user.profile.careerGoal %> Path</span>
-              <h2>Recommended Roadmap</h2>
+              <span class="roadmap-badge-tag" style="background-color: var(--primary); color: var(--surface); font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); letter-spacing: 0.5px; display: inline-block; margin-bottom: 8px;"><%= user.profile.careerGoal %> Path</span>
+              <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-top: 4px;">Recommended Timeline</h2>
             </div>
-            <div class="roadmap-icon-right">
+            <div class="roadmap-icon-right" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border-dark); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--secondary); background-color: var(--surface-alt); box-shadow: 2px 2px 0 var(--border-dark);">
               <i class="fa-solid fa-route"></i>
             </div>
           </div>
           
-          <div class="card-body">
+          <div class="card-body" style="padding: 28px;">
             <% if (roadmap) { %>
-              <p class="roadmap-desc-para"><%= roadmap.description %></p>
+              <p class="roadmap-desc-para" style="font-size: 14.5px; line-height: 1.7; color: var(--text-muted); margin-bottom: 28px;"><%= roadmap.description %></p>
 
               <!-- Semester Horizontal Tab Selector -->
               <div class="semester-tab-bar">
                 <% roadmap.semesters.forEach((sem, sIndex) => { %>
                   <button class="sem-tab-btn <%= sIndex === 0 ? 'active' : '' %>" data-sem="<%= sIndex %>">
-                    Sem <%= sIndex + 1 %>
+                    Semester <%= sIndex + 1 %>
                   </button>
                 <% }) %>
               </div>
@@ -146,50 +162,57 @@
               <div class="semester-panes">
                 <% roadmap.semesters.forEach((sem, sIndex) => { %>
                   <div class="semester-pane <%= sIndex === 0 ? 'active' : '' %>" id="sem-pane-<%= sIndex %>">
-                    <div class="semester-pane-header">
-                      <h3><%= sem.semester %> Focus Checklist</h3>
+                    <div class="semester-pane-header" style="margin-bottom: 24px;">
+                      <h3 style="font-size: 14px; font-weight: 800; color: var(--text); border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; letter-spacing: 0.5px;"><%= sem.semester %> Focus Checklist</h3>
                     </div>
                     
-                    <div class="semester-topics">
+                    <div class="semester-topics" style="display: flex; flex-direction: column; gap: 20px;">
                       <% sem.topics.forEach((topic, tIndex) => { %>
-                        <div class="topic-item <%= topic.isCompleted ? 'completed-topic' : '' %>">
-                          <div class="topic-indicator">
+                        <div class="topic-item <%= topic.isCompleted ? 'completed-topic' : '' %>" style="display: flex; align-items: flex-start;">
+                          
+                          <div class="topic-indicator" style="margin-top: 14px; margin-right: 16px; flex-shrink: 0;">
                             <% if (topic.isCompleted) { %>
-                              <i class="fa-solid fa-circle-check completed-icon"></i>
+                              <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--success); color: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 12px; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);">
+                                <i class="fa-solid fa-check"></i>
+                              </div>
                             <% } else { %>
-                              <i class="fa-regular fa-circle pending-icon"></i>
+                              <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--surface); border: 1.5px solid var(--border-dark); display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0 var(--border-dark);">
+                                <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--border-dark);"></span>
+                              </div>
                             <% } %>
                           </div>
                           
-                          <div class="topic-card">
-                            <div class="topic-card-header">
-                              <h4><%= topic.name %></h4>
+                          <div class="topic-card" style="flex: 1; border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); box-shadow: 3px 3px 0 var(--border-dark); transition: var(--transition);">
+                            <div class="topic-card-header" style="border-bottom: 1.5px solid var(--border-dark); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+                              <h4 style="font-size: 15px; font-weight: 800; color: var(--text);"><%= topic.name %></h4>
                               <% if (topic.isCompleted) { %>
-                                <span class="badge badge-success"><i class="fa-solid fa-check"></i> Completed</span>
+                                <span class="badge badge-success" style="background-color: var(--success); color: var(--surface); border: 1px solid var(--border-dark); padding: 4px 10px; font-size: 10px; font-weight: 800; text-transform: uppercase; border-radius: var(--radius);"><i class="fa-solid fa-check"></i> Complete</span>
                               <% } else { %>
-                                <span class="badge badge-pending">To Do</span>
+                                <span class="badge badge-pending" style="background-color: var(--bg-darker); color: var(--text-muted); border: 1px solid var(--border); padding: 4px 10px; font-size: 10px; font-weight: 800; text-transform: uppercase; border-radius: var(--radius);">To Do</span>
                               <% } %>
                             </div>
-                            <p class="topic-desc"><%= topic.description %></p>
+                            <div style="padding: 20px;">
+                              <p class="topic-desc" style="font-size: 13.5px; line-height: 1.6; color: var(--text-muted); margin-bottom: 0;"><%= topic.description %></p>
+                            </div>
                             
                             <% if (topic.resources && topic.resources.length > 0) { %>
-                              <div class="topic-resources">
-                                <h5>Recommended Resources:</h5>
-                                <ul>
+                              <div class="topic-resources" style="border-top: 1.5px dashed var(--border); padding: 18px 20px; background-color: var(--bg-darker);">
+                                <h5 style="font-size: 11px; text-transform: uppercase; color: var(--text); margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px;">Recommended Resources:</h5>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
                                   <% topic.resources.forEach(resource => { %>
-                                    <li>
-                                      <i class="fa-solid fa-link"></i> 
+                                    <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px;">
+                                      <i class="fa-solid fa-circle-arrow-right" style="color: var(--primary); font-size: 12px;"></i>
                                       <% if (resource.includes('(')) { 
                                          const linkName = resource.substring(0, resource.indexOf('(')).trim();
                                          const linkDetail = resource.substring(resource.indexOf('('));
                                       %>
-                                        <span><%= linkName %></span> <span class="resource-detail"><%= linkDetail %></span>
+                                        <span style="font-weight: 700; color: var(--text);"><%= linkName %></span> <span style="color: var(--text-muted); font-size: 11.5px; font-style: italic;"><%= linkDetail %></span>
                                       <% } else { %>
-                                        <span><%= resource %></span>
+                                        <span style="color: var(--text);"><%= resource %></span>
                                       <% } %>
-                                    </li>
+                                    </div>
                                   <% }) %>
-                                </ul>
+                                </div>
                               </div>
                             <% } %>
                           </div>
@@ -201,9 +224,10 @@
               </div>
 
             <% } else { %>
-              <div class="no-roadmap-error">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>Sorry, we could not load the roadmap for "<%= user.profile.careerGoal %>". Please contact administration or check data files.</p>
+              <div class="no-roadmap-error" style="text-align: center; padding: 48px; border: 2.5px dashed var(--border); border-radius: var(--radius-lg);">
+                <i class="fa-solid fa-circle-exclamation" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
+                <p style="font-weight: 700; color: var(--text);">Sorry, we could not load the roadmap for "<%= user.profile.careerGoal %>".</p>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-top: 4px;">Please update your Career Goal in Settings or verify your local data files.</p>
               </div>
             <% } %>
           </div>
@@ -212,77 +236,77 @@
 
       <!-- Right Column: Curated Resource Library -->
       <section class="dashboard-main db-tab-pane" id="db-pane-resources">
-        <div class="card roadmap-container-card">
-          <div class="card-header roadmap-header-section">
+        <div class="card roadmap-container-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface);">
+          <div class="card-header roadmap-header-section" style="border-bottom: 1.5px solid var(--border-dark); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; background-color: var(--surface);">
             <div>
-              <span class="roadmap-badge-tag"><%= user.profile.careerGoal %> Path</span>
-              <h2>Curated Resource Library</h2>
+              <span class="roadmap-badge-tag" style="background-color: var(--primary); color: var(--surface); font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); letter-spacing: 0.5px; display: inline-block; margin-bottom: 8px;"><%= user.profile.careerGoal %> Path</span>
+              <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-top: 4px;">Resource Library</h2>
             </div>
-            <div class="roadmap-icon-right">
+            <div class="roadmap-icon-right" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border-dark); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--secondary); background-color: var(--surface-alt); box-shadow: 2px 2px 0 var(--border-dark);">
               <i class="fa-solid fa-book"></i>
             </div>
           </div>
           
-          <div class="card-body">
-            <p class="roadmap-desc-para">Here is a curated collection of learning guides, cheatsheets, and coding sheets to help you progress in your track.</p>
+          <div class="card-body" style="padding: 28px;">
+            <p class="roadmap-desc-para" style="font-size: 14.5px; line-height: 1.7; color: var(--text-muted); margin-bottom: 28px;">Here is a curated collection of learning guides, cheatsheets, and coding sheets to help you progress in your track.</p>
             
             <div class="resources-grid-db" style="margin-top: 24px;">
               <!-- Resource Card 1 -->
-              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: 3px 3px 0 var(--border-dark); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface); transition: var(--transition);">
                 <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                   <div>
-                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1.5px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-file-pdf"></i></div>
                     <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Git &amp; GitHub Cheatsheet</h3>
                     <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Vetted collection of commands, branching flows, and best practices for developers.</p>
                   </div>
                   <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                     <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">PDF Guide &bull; 5 mins read</span>
-                    <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
+                    <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
                   </div>
                 </div>
               </div>
 
               <!-- Resource Card 2 -->
-              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: 3px 3px 0 var(--border-dark); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface); transition: var(--transition);">
                 <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                   <div>
-                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-video"></i></div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1.5px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-video"></i></div>
                     <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Vetted Video Playlists</h3>
                     <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Curated list of premium YouTube video series on DSA, Web Dev, and Machine Learning.</p>
                   </div>
                   <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                     <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Videos &bull; 20+ Hours</span>
-                    <a href="/playlists" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open Playlists</a>
+                    <a href="/playlists" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open Playlists</a>
                   </div>
                 </div>
               </div>
 
               <!-- Resource Card 3 -->
-              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: 3px 3px 0 var(--border-dark); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface); transition: var(--transition);">
                 <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                   <div>
-                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-code"></i></div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1.5px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-code"></i></div>
                     <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">DSA Practice Sheets</h3>
                     <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Complete topic-wise LeetCode problems curated specifically for college placement preparation.</p>
                   </div>
                   <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                     <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Coding Sheet &bull; 150+ Problems</span>
-                    <a href="https://neetcode.io/practice" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open NeetCode</a>
+                    <a href="https://neetcode.io/practice" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Open NeetCode</a>
                   </div>
                 </div>
               </div>
 
               <!-- Resource Card 4 -->
-              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface);">
+              <div class="card resource-card-wrapper" style="position: relative; border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 24px; box-shadow: 3px 3px 0 var(--border-dark); display: flex; flex-direction: column; min-height: 220px; background-color: var(--surface); transition: var(--transition);">
                 <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                   <div>
-                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px;"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="res-icon" style="width: 44px; height: 44px; background: var(--bg-darker); border: 1.5px solid var(--border-dark); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-bottom: 18px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-laptop-code"></i></div>
                     <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Project Reference Codes</h3>
                     <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">Open-source boilerplates and sample repositories to kickstart your portfolio projects.</p>
                   </div>
                   <div style="border-top: 1px dashed var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                     <span style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Source Code &bull; 8 Repositories</span>
-                    <a href="https://github.com/explore" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Browse GitHub</a>
+                    <a href="https://github.com/explore" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0 var(--border-dark);"><i class="fa-solid fa-up-right-from-square"></i> Browse GitHub</a>
                   </div>
                 </div>
               </div>
