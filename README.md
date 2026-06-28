@@ -1,114 +1,279 @@
-# 🧭 CampusCompass
+# 🎓 CampusCompass
 
-CampusCompass is an open-source web application designed to help college students navigate their academic and professional journey. By inputting details about their college, branch, current skills, and interests, students get a structured, semester-by-semester roadmap to guide their career focus—completely without AI dependencies.
+![License](https://img.shields.io/github/license/arpit2006/CampusCompass)
+![Issues](https://img.shields.io/github/issues/arpit2006/CampusCompass)
+![Pull Requests](https://img.shields.io/github/issues-pr/arpit2006/CampusCompass)
+![Contributors](https://img.shields.io/github/contributors/arpit2006/CampusCompass)
+![Stars](https://img.shields.io/github/stars/arpit2006/CampusCompass)
+![Forks](https://img.shields.io/github/forks/arpit2006/CampusCompass)
 
-This project is built to be simple, clean, and beginner-friendly, making it an ideal repository for students and first-time contributors participating in programs like **GSSoC (GirlScript Summer of Code)** and **Hacktoberfest**.
+> An AI-powered platform designed to help students discover career paths, generate personalized learning roadmaps, and track their academic and professional growth.
 
 ---
 
-## 🚀 Phase 1 Features
+## ✨ Features
 
-1. **Modern Landing Page**: High-quality layout with Hero section, key features, an interactive "How it works" timeline, dummy student testimonials, FAQs, and a responsive navbar.
-2. **User Authentication**: Secure user registration, login, and logout using a local JSON file database for user storage and hashed passwords via `bcryptjs`.
-3. **Student Profile**: Onboarding form to capture Student Name, College, Branch, Year, CGPA, target Career Goal, current Skills, Interests, and Daily Study Hours.
-4. **Dynamic Dashboard**: Personalized welcome card, student profile info, and progress tracker.
-5. **Static Roadmap Generator**: Computes learning progress by comparing the student's listed skills against structured semesters in six key career paths:
-   - Software Engineer
-   - Web Developer
-   - AI Engineer
-   - Cyber Security
-   - Cloud Engineer
-   - Data Scientist
-6. **Profile Management**: View, edit, and update student profiles to dynamically update learning roadmaps.
-7. **Fully Responsive Design**: Styled cleanly using Vanilla CSS for mobile, tablet, and desktop viewports.
+* 🔐 User Authentication
+* 👤 Student Profiles
+* 🧠 AI-Powered Roadmap Generation
+* 📚 Personalized Study Planner
+* 📊 Progress Tracking Dashboard
+* 🎯 Career Guidance System
+* 📅 Calendar Integration (Upcoming)
+* 📄 Resume Analysis (Upcoming)
+
+---
+
+## 📸 Screenshots
+
+### Landing Page
+
+*Coming Soon*
+
+### Dashboard
+
+*Coming Soon*
+
+### Student Profile
+
+*Coming Soon*
+
+### Roadmap Generator
+
+*Coming Soon*
+
+> Screenshots will be added as the project evolves.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: HTML5, CSS3 (Vanilla CSS), JavaScript (ES6)
-- **Backend**: Node.js, Express.js
-- **Database**: Local JSON File Database (completely free and zero-configuration)
-- **Template Engine**: EJS (Embedded JavaScript)
-- **Authentication**: Cookie-based sessions with `express-session` & `bcryptjs`
+### Frontend
+
+* React.js
+* Tailwind CSS
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB
+
+### Authentication
+
+* JWT Authentication
+
+### Other Tools
+
+* Git & GitHub
+* REST APIs
 
 ---
 
-## 📂 Project Structure
+## ⚙️ Installation
 
-```text
-CampusCompass/
-│── config/           # Database configuration
-│── controllers/      # Route controllers (MVC pattern)
-│── data/             # Static career roadmaps in JSON
-│── docs/             # Technical documentation
-│── models/           # Mongoose schemas (MVC pattern)
-│── public/           # Static assets
-│   ├── css/          # CSS Stylesheets
-│   ├── js/           # Client-side JavaScript
-│   └── images/       # Static website images
-│── routes/           # Express router endpoints
-│── views/            # EJS template engine pages
-│   └── partials/     # EJS header, footer, and navbar components
-│── .env              # Environment variable configurations (git-ignored)
-│── app.js            # Node/Express application entry point
-│── package.json      # Dependencies and scripts list
-└── README.md         # Documentation
+### Clone the repository
+
+```bash
+git clone https://github.com/arpit2006/CampusCompass.git
+cd CampusCompass
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start the development server
+
+```bash
+npm run dev
+```
+
+### Build for production
+
+```bash
+npm run build
 ```
 
 ---
 
-## 💻 Getting Started
+## 📁 Project Structure
 
-### Prerequisites
+```text
+CampusCompass
+│
+├── client/
+├── server/
+├── public/
+├── src/
+├── docs/
+└── README.md
+```
 
-- Ensure you have [Node.js](https://nodejs.org/) (v16+) installed.
-- No database installation or cloud accounts are needed; data persists automatically in your project folder.
+---
 
-### Installation Steps
+## 🏗️ Architecture Overview
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/CampusCompass.git
-   cd CampusCompass
-   ```
+```text
+User
+  ↓
+Authentication
+  ↓
+Student Profile
+  ↓
+Roadmap Generator
+  ↓
+Dashboard
+```
 
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+### System Flow
 
-3. **Configure Environment Variables**:
-   Create a `.env` file in the root directory and copy the contents from `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
-   Modify the `.env` variables if needed:
-   - `SESSION_SECRET`: A random string for encrypting user cookies.
+```mermaid
+graph TD
+A[User] --> B[Authentication]
+B --> C[Student Profile]
+C --> D[Roadmap Generator]
+D --> E[Dashboard]
+```
 
-4. **Run the Server**:
-   - For production:
-     ```bash
-     npm start
-     ```
-   - For development (with automatic reload using nodemon):
-     ```bash
-     npm run dev
-     ```
+---
 
-5. **Access the Web App**:
-   Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
+## 🚀 Live Demo
+
+Production deployment is currently under development.
+
+* Production URL: Coming Soon
+* Preview URL: Coming Soon
 
 ---
 
 ## 🤝 Contributing
 
-We love contributions! Whether you want to fix a bug, improve CSS styling, or add a new roadmap, please read [CONTRIBUTING.md](CONTRIBUTING.md) to understand our workflow.
+We welcome contributions from everyone!
 
-Please make sure to read and abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+### Steps to contribute
+
+1. Fork the repository
+2. Clone your fork
+3. Create a new branch
+
+```bash
+git checkout -b feature/your-feature
+```
+
+4. Make your changes.
+5. Commit your changes.
+
+```bash
+git commit -m "feat: add your feature"
+```
+
+6. Push the branch.
+
+```bash
+git push origin feature/your-feature
+```
+
+7. Open a Pull Request.
+
+Please read the `CONTRIBUTING.md` file before submitting a PR.
 
 ---
 
-## 📄 License
+## 🗺️ Project Roadmap
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+### Phase 1
+
+* [ ] Personalized Study Planner
+* [ ] Resume Analyzer
+* [ ] Course Recommendation Engine
+* [ ] Progress Analytics
+* [ ] Calendar Integration
+
+### Phase 2
+
+* [ ] AI Career Assistant
+* [ ] Interview Preparation Module
+* [ ] Learning Analytics Dashboard
+* [ ] Skill Gap Analysis
+* [ ] Internship Recommendation System
+
+### Phase 3
+
+* [ ] Community Features
+* [ ] Peer Learning Groups
+* [ ] Mentor Matching
+* [ ] Mobile Application
+
+---
+
+## 🌟 Open Source Programs
+
+CampusCompass aims to actively participate in:
+
+* GSSoC (GirlScript Summer of Code)
+* Hacktoberfest
+* Beginner-Friendly Open Source Programs
+
+New contributors are always welcome!
+
+---
+
+## ❓ FAQ
+
+### What is CampusCompass?
+
+CampusCompass is an AI-powered platform that helps students build personalized career and learning roadmaps.
+
+### Who can contribute?
+
+Anyone interested in open source can contribute.
+
+### Is AI used in this project?
+
+Yes. AI is used to generate personalized recommendations and roadmaps.
+
+### How are roadmaps generated?
+
+Roadmaps are generated using user preferences, goals, and selected career paths.
+
+### Is this project beginner-friendly?
+
+Absolutely! We encourage first-time contributors to participate.
+
+---
+
+## 👨‍💻 Maintainers
+
+### Arpit Gupta
+
+* GitHub: @arpit2006
+
+Contributors are welcome to reach out through GitHub discussions and issues.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+See the `LICENSE` file for more information.
+
+---
+
+## ⭐ Support the Project
+
+If you find this project useful:
+
+🌟 Star the repository
+
+🍴 Fork the repository
+
+🤝 Contribute to the project
+
+Together, let's make career guidance more accessible for students.
