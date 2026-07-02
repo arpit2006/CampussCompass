@@ -1,4 +1,4 @@
-# 🎓 CampusCompass
+# CampusCompass
 
 ![License](https://img.shields.io/github/license/arpit2006/CampusCompass)
 ![Issues](https://img.shields.io/github/issues/arpit2006/CampusCompass)
