@@ -250,7 +250,7 @@ Absolutely! We encourage first-time contributors to participate.
 
 ## 👨‍💻 Maintainers
 
-### Arpit Gupta
+### Arpit Shirbhate 
 
 * GitHub: @arpit2006
 
