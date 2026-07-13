@@ -11,7 +11,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 * 🔐 User Authentication
 * 👤 Student Profiles
