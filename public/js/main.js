@@ -621,6 +621,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 // Global function to toggle social connection forms in the dashboard sidebar
+// eslint-disable-next-line no-unused-vars
 function toggleConnectForm(platform) {
   const form = document.getElementById(`connect-form-${platform}`);
   if (form) {
@@ -636,6 +637,7 @@ function toggleConnectForm(platform) {
 }
 
 // Global function to toggle peer statistics cards on the social directory page
+// eslint-disable-next-line no-unused-vars
 function toggleStudentSocialStats(studentId, platform) {
   // Hide all panels for this student first to avoid overlapping
   const panels = document.querySelectorAll(

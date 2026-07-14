@@ -19,7 +19,7 @@ if (process.env.DATABASE_URL) {
 
   const options = {
     dialect: 'postgres',
-    logging: false,
+    logging: false
   };
 
   // Enable SSL config for Heroku/Render/Supabase PostgreSQL
@@ -57,7 +57,7 @@ if (process.env.DATABASE_URL) {
   sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: dbPath,
-    logging: false,
+    logging: false
   });
 }
 

@@ -46,8 +46,8 @@ const calculateProgress = (userSkills, roadmap) => {
       const topicDescLower = topic.description.toLowerCase();
 
       // Check if any of user's skills are mentioned in the topic's name or description
-      const hasSkill = userSkillsLower.some(skill => 
-        topicNameLower.includes(skill) || 
+      const hasSkill = userSkillsLower.some(skill =>
+        topicNameLower.includes(skill) ||
         topicDescLower.includes(skill) ||
         skill.includes(topicNameLower)
       );
@@ -62,8 +62,8 @@ const calculateProgress = (userSkills, roadmap) => {
     });
   });
 
-  const percent = totalTopicsCount > 0 
-    ? Math.round((completedTopicsCount / totalTopicsCount) * 100) 
+  const percent = totalTopicsCount > 0
+    ? Math.round((completedTopicsCount / totalTopicsCount) * 100)
     : 0;
 
   return {
@@ -77,10 +77,10 @@ exports.getDashboard = async (req, res) => {
   try {
     // req.user is already populated by the ensureProfileComplete middleware
     const user = req.user;
-    
+
     // Load the matching roadmap
     const roadmap = getRoadmapData(user.profile.careerGoal);
-    
+
     // Calculate progress
     const progress = calculateProgress(user.profile.skills, roadmap);
 
@@ -103,7 +103,7 @@ exports.getDashboard = async (req, res) => {
 exports.getSocial = async (req, res) => {
   try {
     const user = req.user;
-    
+
     // Fetch all users with completed profiles
     const students = await User.findAll({
       where: {
@@ -116,18 +116,18 @@ exports.getSocial = async (req, res) => {
       const student = studentInstance.toJSON();
       // Create seed from username length or ID to keep values stable per render
       const seedVal = student._id ? (student._id.charCodeAt(student._id.length - 1) || 42) : 42;
-      
-      const githubRepos = student.profile.githubUsername 
+
+      const githubRepos = student.profile.githubUsername
         ? (seedVal % 40) + 12
         : 0;
-      const githubStars = student.profile.githubUsername 
+      const githubStars = student.profile.githubUsername
         ? Math.round((seedVal * 1.5) % 150)
         : 0;
-        
-      const leetcodeSolved = student.profile.leetcodeUsername 
+
+      const leetcodeSolved = student.profile.leetcodeUsername
         ? (seedVal * 4) % 400 + 45
         : 0;
-      const leetcodeRank = student.profile.leetcodeUsername 
+      const leetcodeRank = student.profile.leetcodeUsername
         ? Math.round(150000 + (seedVal * 2432) % 350000)
         : 0;
 
