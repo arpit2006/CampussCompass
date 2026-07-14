@@ -98,8 +98,8 @@ User.init(
         }
         // Force mark JSON profile field as changed so nested properties are persisted
         user.changed('profile', true);
-      },
-    },
+      }
+    }
   }
 );
 
