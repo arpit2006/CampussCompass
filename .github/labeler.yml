@@ -1,19 +1,20 @@
 frontend:
   - changed-files:
       - any-glob-to-any-file:
-          - "src/**/*.js"
-          - "src/**/*.css"
-          - "src/**/*.html"
-          - "landing.html"
+          - "public/**/*.js"
+          - "public/**/*.css"
+          - "views/**/*.ejs"
+          - "views/**/*.html"
 
 backend:
   - changed-files:
       - any-glob-to-any-file:
-          - "server/**"
           - "api/**"
           - "controllers/**"
           - "routes/**"
           - "models/**"
+          - "config/**"
+          - "app.js"
 
 documentation:
   - changed-files:
@@ -24,9 +25,8 @@ documentation:
 UI:
   - changed-files:
       - any-glob-to-any-file:
-          - "src/**/*.css"
-          - "src/**/*.html"
-          - "assets/**"
+          - "public/css/**"
+          - "views/**/*.ejs"
 
 github-actions:
   - changed-files:

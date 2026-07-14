@@ -36,13 +36,7 @@ jobs:
             - A maintainer will review your issue shortly.
             - Feel free to ask questions if anything is unclear.
 
-            ⚡ **Want faster assignment and quicker responses?**
-
-            Join our Discord community:
-
-            🔗 Under Construction
-
-            We actively discuss issues, features, roadmap updates, and contributor support there.
+            📖 New to the project? Check out our [Contributing Guide](https://github.com/arpit2006/CampussCompass/blob/main/CONTRIBUTING.md) to get started quickly.
 
             Happy Contributing! 🎉
             `;
@@ -76,13 +70,7 @@ jobs:
             ✅ Complete the PR template
             ✅ Link the related issue
 
-            ⚡ **Want faster reviews and contributor support?**
-
-            Join our Discord community:
-
-            🔗 Under Construction
-
-            Maintainers and mentors are active there and can help resolve blockers quickly.
+            📖 Before your PR is reviewed, check the [PR Checklist](https://github.com/arpit2006/CampussCompass/blob/main/CONTRIBUTING.md#-pull-request-checklist) in our Contributing Guide.
 
             Happy Contributing! 🚀
             `;

@@ -7,21 +7,51 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-  - cron: '37 21 * * *'
+    - cron: '37 21 * * *'
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v5
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-stale: 14
+          days-before-close: 7
+          stale-issue-message: |
+            👋 This issue has been automatically marked as **stale** because it has had no activity for **14 days**.
+
+            It will be **closed in 7 days** if no further activity occurs.
+
+            If this issue is still relevant:
+            - Leave a comment with a status update
+            - Ask a maintainer to remove the stale label
+
+            Thank you for contributing to CampusCompass! 🚀
+          stale-pr-message: |
+            👋 This pull request has been automatically marked as **stale** because it has had no activity for **14 days**.
+
+            It will be **closed in 7 days** if no further activity occurs.
+
+            If you are still working on this, please:
+            - Push new commits or leave a comment with a status update
+            - Ensure all CI checks are passing
+            - Request a review from a maintainer
+
+            Thank you for your contribution to CampusCompass! 🚀
+          close-issue-message: |
+            🔒 This issue has been automatically **closed** due to inactivity.
+
+            If this issue is still relevant, feel free to re-open it with a comment explaining the current status.
+          close-pr-message: |
+            🔒 This pull request has been automatically **closed** due to inactivity.
+
+            If you would like to continue working on this, please re-open it and push new commits.
+          stale-issue-label: 'no-issue-activity'
+          stale-pr-label: 'no-pr-activity'
+          exempt-issue-labels: 'pinned,security,in-progress'
+          exempt-pr-labels: 'pinned,security,in-progress'
