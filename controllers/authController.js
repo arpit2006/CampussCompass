@@ -41,7 +41,7 @@ exports.postRegister = async (req, res) => {
 
     // Log the user in by setting the session ID
     req.session.userId = user._id;
-    
+
     // Redirect to profile setup
     res.redirect('/profile/setup');
   } catch (error) {
@@ -113,7 +113,7 @@ exports.logout = (req, res) => {
 // Render Mock OAuth Consent Page
 exports.getMockOAuth = (req, res) => {
   const { platform } = req.params;
-  
+
   if (platform !== 'github' && platform !== 'leetcode') {
     req.session.error = 'Invalid authentication provider';
     return res.redirect('/login');
@@ -121,8 +121,8 @@ exports.getMockOAuth = (req, res) => {
 
   // Generate a mock suggested username
   const randNum = Math.floor(Math.random() * 900) + 100;
-  const suggestedUsername = platform === 'github' 
-    ? `github_dev_${randNum}` 
+  const suggestedUsername = platform === 'github'
+    ? `github_dev_${randNum}`
     : `leetcode_coder_${randNum}`;
 
   res.render('mock-oauth', {
@@ -148,21 +148,21 @@ exports.postMockOAuth = async (req, res) => {
   try {
     // Check if a user with this simulated social email already exists
     let user = await User.findOne({ email: simulatedEmail });
-    
+
     if (!user) {
       // If not, create a new user automatically
       user = new User({
         email: simulatedEmail,
         password: 'mock_oauth_password_never_matches_plain' // safe hashed placeholder
       });
-      
+
       // Auto populate social connection field
       if (platform === 'github') {
         user.profile = { ...user.profile, githubUsername: cleanUsername };
       } else if (platform === 'leetcode') {
         user.profile = { ...user.profile, leetcodeUsername: cleanUsername };
       }
-      
+
       await user.save();
     } else {
       // If user exists, make sure connection is populated

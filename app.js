@@ -75,7 +75,7 @@ app.use((req, res, next) => {
   if (!req.session.csrfToken) {
     req.session.csrfToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
-  
+
   // Expose to templates
   res.locals.csrfToken = req.session.csrfToken;
 

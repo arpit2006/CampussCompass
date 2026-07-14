@@ -9,16 +9,16 @@ class User extends Model {
   }
 
   // --- Static Mongoose-like Wrapper Methods for Backwards Compatibility ---
-  
+
   // Mimic User.findOne({ email })
   static async findOne(query) {
     if (!query) return null;
-    
+
     // If it's already a standard Sequelize options object
     if (query.where) {
       return await super.findOne(query);
     }
-    
+
     // Fallback: it's a legacy simple query object (e.g., { email })
     return await super.findOne({ where: query });
   }
@@ -63,10 +63,10 @@ User.init(
       defaultValue: {},
       get() {
         const rawValue = this.getDataValue('profile');
-        const val = rawValue 
-          ? (typeof rawValue === 'string' ? JSON.parse(rawValue) : rawValue) 
+        const val = rawValue
+          ? (typeof rawValue === 'string' ? JSON.parse(rawValue) : rawValue)
           : {};
-        
+
         // Ensure default properties exist to prevent EJS rendering crashes
         return {
           fullName: val.fullName || '',
