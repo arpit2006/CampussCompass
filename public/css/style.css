@@ -2839,9 +2839,7 @@ ul {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
-}
 
-@media (max-width: 768px) {
   .nav-toggle {
     display: block;
   }
@@ -2886,7 +2884,9 @@ ul {
   .nav-divider {
     display: none;
   }
+}
 
+@media (max-width: 768px) {
   .hero-title {
     font-size: 32px;
   }
@@ -2922,9 +2922,18 @@ ul {
   }
 
   .welcome-card {
-    flex-direction: column;
+    flex-direction: column !important;
     text-align: center;
-    gap: 16px;
+    gap: 16px !important;
+    padding: 20px !important;
+  }
+
+  .welcome-badge {
+    margin-top: 12px !important;
+  }
+
+  .welcome-text-content h1 {
+    font-size: 22px;
   }
 
   .topic-card-header {
@@ -4101,65 +4110,27 @@ button.student-social-btn:focus-visible {
    RESPONSIVE FIXES FOR GITHUB ISSUE #18
    ========================================== */
 
-/* 1. Global Overflow Prevention */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
+/* Student Profile Data Clipping (Global) */
+.info-value, .tag-container .tag {
+  word-break: break-word;
+  white-space: normal;
 }
 
-/* 2. Tablet (max-width: 992px) */
+/* Roadmap Timeline Wrapping (Global fallback) */
+.topic-card {
+  min-width: 0;
+}
+
 @media (max-width: 992px) {
   /* Dashboard Spacing */
   .dashboard-container {
-    padding: 0 16px !important;
+    padding: 0 16px;
   }
   .dashboard-page {
-    padding: 24px 0 !important;
-  }
-  
-  /* Navbar Overlap Fix (Trigger Hamburger earlier) */
-  .nav-toggle {
-    display: block !important;
-  }
-  .nav-menu {
-    position: fixed !important;
-    top: 70px !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background-color: var(--surface) !important;
-    flex-direction: column !important;
-    padding: 32px 24px !important;
-    gap: 20px !important;
-    transform: translateX(100%) !important;
-    transition: transform 0.2s ease-in-out !important;
-    z-index: 99 !important;
-    align-items: stretch !important;
-    height: calc(100vh - 70px) !important;
-    overflow-y: auto !important;
-    border-top: 1px solid var(--border-dark) !important;
-  }
-  .nav-menu.active {
-    transform: translateX(0) !important;
-  }
-  .nav-auth-buttons {
-    flex-direction: column !important;
-    width: 100% !important;
-    margin-top: 12px !important;
-    border-left: none !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    gap: 12px !important;
-  }
-  .nav-auth-buttons .btn {
-    width: 100% !important;
-  }
-  .nav-divider {
-    display: none !important;
+    padding: 24px 0;
   }
 }
 
-/* 3. Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   /* Grid & Flex Blowout Prevention */
   .dashboard-container,
@@ -4169,53 +4140,36 @@ html, body {
   .dashboard-grid > *,
   .dashboard-tabs-container,
   .card {
-    min-width: 0 !important;
-    max-width: 100% !important;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .dashboard-container {
-    padding: 0 12px !important;
+    padding: 0 12px;
   }
   .dashboard-page {
-    padding: 16px 0 !important;
-  }
-  
-  /* Welcome Card Overrides */
-  .welcome-card {
-    padding: 20px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 16px !important;
-  }
-  .welcome-badge {
-    margin-top: 12px !important;
-    align-self: flex-start !important;
-  }
-  .welcome-text-content h1 {
-    font-size: 22px !important;
+    padding: 16px 0;
   }
   
   /* Dashboard Tabs Overflow Fix */
   .dashboard-tabs {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    padding-bottom: 4px !important;
-    max-width: 100% !important;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    max-width: 100%;
   }
   .db-tab-btn {
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    padding: 10px 16px !important;
-    font-size: 13px !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 10px 16px;
+    font-size: 13px;
   }
   
   /* Cards & Headers */
-  .card-header {
-    padding: 16px !important;
+  .card-header, .card-body {
+    padding: 16px;
   }
-  .card-body {
-    padding: 16px !important;
-  }
+  
   .roadmap-header-section {
     padding: 16px !important;
     flex-direction: column !important;
@@ -4223,14 +4177,14 @@ html, body {
     gap: 12px !important;
   }
   .roadmap-header-section h2 {
-    font-size: 18px !important;
+    font-size: 18px;
   }
   
   /* Topic Items & Cards */
   .topic-item {
     flex-direction: column !important;
     align-items: flex-start !important;
-    min-width: 0 !important;
+    min-width: 0;
   }
   .topic-indicator {
     margin-right: 0 !important;
@@ -4238,75 +4192,64 @@ html, body {
     margin-top: 0 !important;
   }
   .topic-card {
-    min-width: 0 !important;
-    width: 100% !important;
-    overflow: hidden !important;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
   }
   .topic-card-header {
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    padding: 12px 16px !important;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
   }
   .topic-card > div:not(.topic-card-header):not(.topic-resources) {
     padding: 16px !important;
   }
   .topic-resources {
-    padding: 16px !important;
+    padding: 16px;
   }
   
   /* Grid & Info List */
   .dashboard-grid {
-    gap: 16px !important;
+    gap: 16px;
   }
   .info-list li {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
   .info-value {
-    text-align: left !important;
-    width: 100% !important;
+    text-align: left;
+    width: 100%;
   }
   
   /* Floating Button */
   .ai-agent-floating-btn {
-    bottom: 20px !important;
-    right: 20px !important;
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 18px !important;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
   }
-}
 
-/* Student Profile Data Clipping */
-.info-value, .tag-container .tag {
-  word-break: break-word;
-  white-space: normal;
-}
-
-/* Roadmap Timeline Wrapping (Desktop fallback) */
-.topic-card {
-  min-width: 0;
-}
-
-/* Semester Navigation Overflow */
-.semester-tab-bar {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  scroll-snap-type: x mandatory !important;
-  padding-bottom: 8px !important;
-  max-width: 100% !important;
-}
-.semester-tab-bar::-webkit-scrollbar {
-  height: 6px;
-}
-.semester-tab-bar::-webkit-scrollbar-thumb {
-  background-color: var(--border-dark);
-  border-radius: 10px;
-}
-.sem-tab-btn {
-  white-space: nowrap !important;
-  scroll-snap-align: start !important;
-  flex-shrink: 0 !important;
+  /* Semester Navigation Overflow */
+  .semester-tab-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+    max-width: 100%;
+  }
+  .semester-tab-bar::-webkit-scrollbar {
+    height: 6px;
+  }
+  .semester-tab-bar::-webkit-scrollbar-thumb {
+    background-color: var(--border-dark);
+    border-radius: 10px;
+  }
+  .sem-tab-btn {
+    white-space: nowrap;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
 }
