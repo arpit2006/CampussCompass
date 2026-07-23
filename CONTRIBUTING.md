@@ -6,7 +6,7 @@
 
 First of all, thank you for checking out **CampusCompass**! 🚀
 
-We're excited to have you join our open-source community. This project is designed to be beginner-friendly and provide a great learning experience for contributors participating in programs like **GSSoC**, **Hacktoberfest**, and other open-source initiatives.
+We're excited to have you join our open-source community. This project is designed to be beginner-friendly and provide a great learning experience for contributors participating in programs like **[...]
 
 This guide will help you get started quickly and contribute effectively.
 
@@ -56,14 +56,60 @@ npm install
 
 ### 4. Create environment variables
 
+#### Linux / macOS
+
 ```bash
 cp .env.example .env
 ```
 
+#### Windows (Command Prompt)
+
+```cmd
+copy .env.example .env
+```
+
+#### Windows (PowerShell)
+
+```powershell
+Copy-Item .env.example .env
+```
+
 ### 5. Start the development server
+
+#### Linux / macOS
 
 ```bash
 npm run dev
+```
+
+#### Windows
+
+If you encounter an execution policy error in PowerShell:
+
+```
+UnauthorizedAccess: running scripts is disabled on this system
+```
+
+**Option 1: Update PowerShell Execution Policy (Recommended)**
+
+Run this command once to enable script execution for your user:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+Then you can use:
+
+```powershell
+npm run dev
+```
+
+**Option 2: Run the app directly without npm script**
+
+If you prefer not to modify the execution policy, you can start the application directly:
+
+```bash
+node app.js
 ```
 
 ---
