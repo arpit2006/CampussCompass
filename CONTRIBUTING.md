@@ -78,6 +78,8 @@ CampussCompass/
 ├── controllers/   # Business logic
 ├── data/          # Roadmaps and datasets
 ├── docs/          # Project documentation
+│   ├── architecture.md   # System design, data flow, and DB schema
+│   └── api-routes.md     # Reference for every HTTP route, its auth rules, and redirects
 ├── models/        # Database models
 ├── public/        # Static assets
 ├── routes/        # Application routes
