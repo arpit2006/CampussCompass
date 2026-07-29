@@ -8,7 +8,7 @@ const { ensureGuest, ensureProfileComplete } = require('./middleware');
 
 // Landing Page (Only for guests, logged-in users get redirected to dashboard)
 router.get('/', ensureGuest, (req, res) => {
-  res.render('landing', { title: 'CampusCompass - Navigation for College Students' });
+  res.sendFile(path.join(__dirname, '..', 'UI', 'landing', 'index.html'));
 });
 
 // Dashboard Page

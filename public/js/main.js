@@ -100,6 +100,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- Features Section Visual Interactions ---
+  const featureCards = document.querySelectorAll(".features-showcase [data-feature-card]");
+
+  if (featureCards.length > 0) {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const enablePointerEffects = () => window.innerWidth > 900 && !prefersReducedMotion;
+
+    featureCards.forEach((card, index) => {
+      card.style.transitionDelay = `${index * 90}ms`;
+
+      card.addEventListener("mousemove", (event) => {
+        if (!enablePointerEffects()) return;
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        card.style.setProperty("--mx", `${x}px`);
+        card.style.setProperty("--my", `${y}px`);
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.setProperty("--mx", "50%");
+        card.style.setProperty("--my", "50%");
+      });
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    featureCards.forEach((card) => revealObserver.observe(card));
+
+    window.addEventListener("resize", () => {
+      if (!enablePointerEffects()) {
+        featureCards.forEach((card) => {
+          card.style.setProperty("--mx", "50%");
+          card.style.setProperty("--my", "50%");
+        });
+      }
+    });
+  }
+
   // Dashboard Semester Tab Switcher
   const semBtns = document.querySelectorAll(".sem-tab-btn");
   if (semBtns.length > 0) {
