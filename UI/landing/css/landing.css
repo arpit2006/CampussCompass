@@ -1,0 +1,325 @@
+/* CampusCompass Landing Page - Custom Styles */
+
+/* Animated blob shape */
+.blob-shape {
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  animation: blobMorph 8s ease-in-out infinite;
+}
+
+@keyframes blobMorph {
+  0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+  50% { border-radius: 58% 42% 30% 70% / 55% 55% 45% 45%; }
+}
+
+/* Compass rose background pattern */
+.compass-rose-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23ab2c5d' stroke-width='0.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.05'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2v20'/%3E%3Cpath d='M2 12h20'/%3E%3Cpath d='m19.07 4.93-14.14 14.14'/%3E%3Cpath d='m4.93 4.93 14.14 14.14'/%3E%3C/svg%3E");
+}
+
+/* SVG animated path */
+.learning-path-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 3s ease-in-out forwards;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Glass card effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+/* FAQ accordion transitions */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 400px;
+}
+
+.faq-item.active .faq-chevron {
+  transform: rotate(45deg);
+  color: #ab2c5d;
+}
+
+.faq-item.active {
+  background: rgba(171, 44, 93, 0.015);
+  border-radius: 16px;
+}
+
+.faq-chevron {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+/* Border-left-3 utility */
+.border-l-3 {
+  border-left-width: 3px;
+}
+
+/* Track tab content visibility */
+.track-content {
+  display: none;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Cookie consent banner */
+.cookie-banner {
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.cookie-banner.active {
+  transform: translateY(0);
+}
+
+/* Floating button pulse */
+.pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Topic dot indicator */
+.topic-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ab2c5d, #f06292);
+  margin-top: 6px;
+  box-shadow: 0 0 6px rgba(171, 44, 93, 0.3);
+}
+
+/* Roadmap semester cards */
+.roadmap-semester-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.roadmap-semester-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Roadmap topic hover */
+.roadmap-topic {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.roadmap-topic:hover {
+  transform: translateX(4px);
+}
+
+/* Track content fade in */
+.track-content.active {
+  display: block;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Coming soon progress bar animation */
+.coming-soon-progress-fill {
+  animation: progressSlide 2.5s ease-in-out infinite;
+}
+
+@keyframes progressSlide {
+  0% { width: 0%; margin-left: 0%; }
+  50% { width: 45%; margin-left: 30%; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+/* Mobile nav menu */
+.mobile-nav-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav-menu.active {
+  transform: translateX(0);
+}
+
+/* Scroll reveal animation helper */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   ENHANCED FEATURES SECTION 
+   ============================================= */
+
+/* Floating gradient orbs animation */
+.feature-orb-1 {
+  animation: floatOrb1 12s ease-in-out infinite;
+}
+.feature-orb-2 {
+  animation: floatOrb2 15s ease-in-out infinite;
+}
+.feature-orb-3 {
+  animation: floatOrb3 10s ease-in-out infinite;
+}
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 20px) scale(1.08); }
+  66% { transform: translate(25px, -30px) scale(0.92); }
+}
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 30px) scale(1.1); }
+}
+
+/* Feature card enhanced hover glow */
+.feature-card-enhanced {
+  position: relative;
+}
+.feature-card-enhanced::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: conic-gradient(from 180deg, transparent, rgba(171, 44, 93, 0.15), transparent 50%);
+  z-index: -1;
+}
+.feature-card-enhanced:hover::before {
+  opacity: 1;
+}
+
+/* Animated progress bar in card 2 */
+.feature-progress-bar {
+  width: 0%;
+  animation: progressGrow 2s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.reveal-on-scroll.visible .feature-progress-bar {
+  animation-play-state: running;
+}
+
+@keyframes progressGrow {
+  0% { width: 0%; }
+  100% { width: 68%; }
+}
+
+/* Features showcase enhancements */
+.features-showcase {
+  position: relative;
+  overflow: hidden;
+}
+
+.features-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 14%, rgba(171, 44, 93, 0.14) 0%, rgba(171, 44, 93, 0) 38%),
+    radial-gradient(circle at 90% 86%, rgba(0, 106, 99, 0.12) 0%, rgba(0, 106, 99, 0) 42%);
+}
+
+.features-grid-showcase {
+  position: relative;
+  z-index: 1;
+}
+
+.feature-visual-card {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.12);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.feature-visual-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(400px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.feature-visual-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: inherit;
+}
+
+.feature-visual-card:hover,
+.feature-visual-card.is-visible {
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.2);
+}
+
+.feature-visual-card:hover::before,
+.feature-visual-card.is-visible::before {
+  opacity: 1;
+}
+
+@media (max-width: 920px) {
+  .features-grid-showcase {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-visual-card {
+    border-radius: 28px;
+    min-height: auto;
+  }
+
+  .feature-visual-card:hover {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 640px) {
+  .features-grid-showcase {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>CampusCompass - Navigate Your College Journey</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <link rel="stylesheet" href="css/landing.css"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary-fixed": "#ffddb4",
+            "on-tertiary-container": "#402700",
+            "surface": "#fcf9f8",
+            "tertiary-fixed-dim": "#ffb954",
+            "surface-container-high": "#eae7e7",
+            "on-error-container": "#93000a",
+            "surface-container-low": "#f6f3f2",
+            "inverse-primary": "#ffb1c5",
+            "surface-container-highest": "#e5e2e1",
+            "secondary-fixed": "#8ef4e9",
+            "inverse-on-surface": "#f3f0ef",
+            "on-surface": "#1c1b1b",
+            "secondary-fixed-dim": "#71d7cd",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e5e2e1",
+            "tertiary": "#835500",
+            "primary-fixed": "#ffd9e1",
+            "on-surface-variant": "#574146",
+            "tertiary-container": "#c7871e",
+            "on-tertiary-fixed-variant": "#633f00",
+            "on-secondary-container": "#006f67",
+            "surface-dim": "#dcd9d9",
+            "on-error": "#ffffff",
+            "primary": "#ab2c5d",
+            "primary-container": "#f06292",
+            "outline": "#8a7176",
+            "background": "#fcf9f8",
+            "inverse-surface": "#313030",
+            "error-container": "#ffdad6",
+            "on-primary-fixed": "#3f001b",
+            "on-background": "#1c1b1b",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed": "#00201d",
+            "surface-container": "#f0eded",
+            "on-secondary-fixed-variant": "#00504a",
+            "outline-variant": "#ddbfc5",
+            "on-tertiary-fixed": "#291800",
+            "on-primary-container": "#5e002b",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#ffb1c5",
+            "surface-bright": "#fcf9f8",
+            "on-primary-fixed-variant": "#8b0e45",
+            "secondary": "#006a63",
+            "surface-tint": "#ab2c5d",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#8bf1e6"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "sm": "12px",
+            "md": "24px",
+            "xl": "80px",
+            "margin-desktop": "120px",
+            "lg": "48px",
+            "gutter": "24px",
+            "margin-mobile": "20px",
+            "xs": "4px",
+            "base": "8px"
+          },
+          fontFamily: {
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"]
+          },
+          fontSize: {
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+
+<!-- TopNavBar -->
+<header class="bg-surface/80 backdrop-blur-md w-full top-0 sticky z-50 border-b border-surface-container-high/50">
+  <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-margin-desktop py-4">
+    <a href="/" class="flex items-center gap-sm">
+      <i class="fa-solid fa-compass text-primary text-2xl"></i>
+      <span class="font-display-lg text-headline-md text-primary tracking-tight">Campus<span class="text-on-surface">Compass</span></span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-lg">
+      <a class="text-on-surface-variant hover:text-primary transition-all duration-300" href="#why">Why Us</a>
+      <a class="text-on-surface-variant hover:text-primary transition-all duration-300" href="#features">Features</a>
+      <a class="text-on-surface-variant hover:text-primary transition-all duration-300" href="#explore">Roadmaps</a>
+      <a class="text-on-surface-variant hover:text-primary transition-all duration-300" href="#how-it-works">How It Works</a>
+      <a class="text-on-surface-variant hover:text-primary transition-all duration-300" href="#faq">FAQ</a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-md">
+      <a href="/login" class="text-primary font-bold hover:scale-105 transition-transform duration-200">Log In</a>
+      <a href="/register" class="bg-primary text-on-primary px-lg py-sm rounded-lg font-bold hover:scale-105 transition-transform duration-200 flex items-center gap-xs">
+        Sign Up <span class="material-symbols-outlined text-[18px]">explore</span>
+      </a>
+    </div>
+
+    <!-- Mobile toggle -->
+    <button id="navToggle" class="md:hidden text-on-surface text-2xl" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile Nav Menu -->
+<div id="mobileNavMenu" class="mobile-nav-menu fixed inset-0 z-[100] bg-surface/95 backdrop-blur-lg flex flex-col p-8">
+  <div class="flex justify-between items-center mb-12">
+    <a href="/" class="flex items-center gap-sm">
+      <i class="fa-solid fa-compass text-primary text-2xl"></i>
+      <span class="font-bold text-xl text-primary">CampusCompass</span>
+    </a>
+    <button id="mobileMenuClose" class="text-on-surface text-2xl" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  <div class="flex flex-col gap-6 text-lg">
+    <a href="#why" class="text-on-surface-variant hover:text-primary transition-colors">Why Us</a>
+    <a href="#features" class="text-on-surface-variant hover:text-primary transition-colors">Features</a>
+    <a href="#explore" class="text-on-surface-variant hover:text-primary transition-colors">Roadmaps</a>
+    <a href="#how-it-works" class="text-on-surface-variant hover:text-primary transition-colors">How It Works</a>
+    <a href="/resources" class="text-on-surface-variant hover:text-primary transition-colors">Resources</a>
+    <a href="#faq" class="text-on-surface-variant hover:text-primary transition-colors">FAQ</a>
+    <hr class="border-surface-container-high"/>
+    <a href="/login" class="text-primary font-bold">Log In</a>
+    <a href="/register" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-bold text-center">Sign Up</a>
+  </div>
+</div>
+
+<main>
+
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-primary-container/20 pt-16 md:pt-xl pb-24 md:pb-margin-desktop px-6 md:px-margin-desktop" id="home">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-xl items-center">
+    <div class="z-10 reveal-on-scroll">
+      <span class="inline-block px-md py-xs bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-label-sm font-bold mb-md uppercase tracking-wider">
+        <i class="fa-solid fa-sparkles mr-1"></i> Open Source Student Navigator
+      </span>
+      <h1 class="font-display-lg text-[36px] md:text-display-lg text-on-primary-container mb-md leading-tight">
+        Navigate Your College Journey with <span class="text-primary">Focus</span>
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-lg">
+        CampusCompass provides college students with a clear, semester-by-semester focus roadmap. Pick a career track, log your current skills, and watch your dashboard dynamically outline what to study next.
+      </p>
+      <div class="flex flex-wrap gap-md">
+        <a href="/register" class="bg-primary text-on-primary px-lg py-md rounded-xl font-bold text-body-md hover:scale-105 transition-transform shadow-lg shadow-primary/20 flex items-center gap-sm btn-interactive">
+          Get Started <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="https://github.com/arpit2006/CampussCompass.git" target="_blank" class="border-2 border-primary text-primary px-lg py-md rounded-xl font-bold text-body-md hover:scale-105 transition-transform flex items-center gap-sm btn-interactive">
+          <i class="fa-brands fa-github"></i> View GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="relative reveal-on-scroll">
+      <!-- Compass Card Visual -->
+      <div class="relative z-10 w-full bg-white rounded-[40px] p-6 md:p-lg shadow-xl transform rotate-1">
+        <div class="bg-surface-container-low rounded-[28px] p-6 space-y-4">
+          <!-- Card Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">AP</div>
+              <div>
+                <h4 class="font-bold text-on-surface text-sm">Arpit</h4>
+                <span class="text-on-surface-variant text-xs">Sophomore &bull; CS Major</span>
+              </div>
+            </div>
+            <span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-bold">Active</span>
+          </div>
+          <!-- Card Stats -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white rounded-2xl p-3">
+              <span class="text-on-surface-variant text-xs">Selected Goal</span>
+              <p class="font-bold text-primary text-sm mt-1">ML Engineer</p>
+            </div>
+            <div class="bg-white rounded-2xl p-3">
+              <span class="text-on-surface-variant text-xs">Progress</span>
+              <p class="font-bold text-secondary text-sm mt-1">70% Done</p>
+            </div>
+          </div>
+          <!-- Skills -->
+          <div class="bg-white rounded-2xl p-3">
+            <span class="text-on-surface-variant text-xs mb-2 block">Completed Skills</span>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-check mr-1"></i>Python</span>
+              <span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-check mr-1"></i>Numpy</span>
+              <span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-check mr-1"></i>Pandas</span>
+            </div>
+          </div>
+          <!-- Progress Bar -->
+          <div class="bg-white rounded-2xl p-3">
+            <div class="flex justify-between text-xs mb-2">
+              <span class="text-on-surface-variant">Semester 2 Focus</span>
+              <span class="font-bold text-primary">70%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-surface-container-high">
+              <div class="h-full rounded-full bg-gradient-to-r from-primary to-primary-container" style="width: 70%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating badges -->
+      <div class="absolute -top-4 -left-4 bg-white shadow-lg rounded-2xl px-3 py-2 text-xs font-bold text-primary animate-bounce z-20">
+        <i class="fa-solid fa-code mr-1"></i> Developer
+      </div>
+      <div class="absolute top-1/4 -right-4 bg-white shadow-lg rounded-2xl px-3 py-2 text-xs font-bold text-secondary z-20">
+        <i class="fa-solid fa-shield-halved mr-1"></i> Cyber Sec
+      </div>
+      <div class="absolute -bottom-4 left-8 bg-white shadow-lg rounded-2xl px-3 py-2 text-xs font-bold text-tertiary z-20">
+        <i class="fa-solid fa-brain mr-1"></i> AI / ML
+      </div>
+      <div class="absolute bottom-12 -right-2 bg-white shadow-lg rounded-2xl px-3 py-2 text-xs font-bold text-on-secondary-container z-20">
+        <i class="fa-solid fa-chart-line mr-1"></i> Data Science
+      </div>
+      <!-- Background blobs -->
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary-container/40 blob-shape -z-0"></div>
+      <div class="absolute -bottom-8 -left-12 w-80 h-80 bg-tertiary-container/20 blob-shape -z-0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Why CampusCompass Section -->
+<section class="py-16 md:py-margin-desktop px-6 md:px-margin-desktop bg-surface-container-lowest compass-rose-bg" id="why">
+  <div class="max-w-7xl mx-auto reveal-on-scroll">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-xl">
+      <!-- Left: Purpose -->
+      <div>
+        <span class="inline-block px-md py-xs bg-primary-fixed text-on-primary-fixed rounded-full text-label-sm font-bold mb-md uppercase tracking-wider">The Peer-Vetted Advantage</span>
+        <h2 class="font-display-lg text-[32px] md:text-display-lg text-on-surface mb-md">Why Campus<span class="text-primary">Compass</span>?</h2>
+        <p class="text-on-surface-variant text-body-md mb-4 leading-relaxed">
+          Traditional platforms overwhelm you with thousands of elective options, paid certificates, or AI-generated roadmaps that change every time you refresh.
+        </p>
+        <p class="text-on-surface-variant text-body-md mb-8 leading-relaxed">
+          CampusCompass brings structure back to your semesters. We curate a single, peer-vetted roadmap for each tech career path, helping you ignore the noise and focus on what actually moves the needle during college.
+        </p>
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white rounded-3xl p-4 text-center border border-surface-container-high">
+            <h4 class="text-2xl font-bold text-primary">100%</h4>
+            <span class="text-on-surface-variant text-xs">Free & Open Source</span>
+          </div>
+          <div class="bg-white rounded-3xl p-4 text-center border border-surface-container-high">
+            <h4 class="text-2xl font-bold text-secondary">6+</h4>
+            <span class="text-on-surface-variant text-xs">Career Tracks</span>
+          </div>
+          <div class="bg-white rounded-3xl p-4 text-center border border-surface-container-high">
+            <h4 class="text-2xl font-bold text-tertiary">0</h4>
+            <span class="text-on-surface-variant text-xs">AI Hallucinations</span>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Why Cards -->
+      <div class="space-y-4">
+        <div class="bg-white rounded-3xl p-6 border border-surface-container-high flex gap-4 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-12 h-12 min-w-[48px] rounded-2xl bg-primary-container/30 flex items-center justify-center">
+            <i class="fa-solid fa-graduation-cap text-primary text-lg"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-on-surface mb-1">Curated by University Seniors</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Our paths are designed by seniors and industry professionals who have walked the same path, identifying exactly what libraries and tools to study.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border border-surface-container-high flex gap-4 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-12 h-12 min-w-[48px] rounded-2xl bg-secondary-container/30 flex items-center justify-center">
+            <i class="fa-solid fa-square-check text-secondary text-lg"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-on-surface mb-1">Zero-Config Progress Matching</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Enter your current skills on your profile page, and your personal timeline dynamically matches and ticks off completed topics automatically.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border border-surface-container-high flex gap-4 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-12 h-12 min-w-[48px] rounded-2xl bg-tertiary-fixed/50 flex items-center justify-center">
+            <i class="fa-solid fa-circle-play text-tertiary text-lg"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-on-surface mb-1">Integrated Playlists</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Skip the search. Access top-tier YouTube playlists, cheat sheets, and coding sheets linked directly to your active checkpoints.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="relative py-20 md:py-32 px-6 md:px-margin-desktop overflow-hidden" id="features">
+  <!-- Animated background gradient orbs -->
+  <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+    <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] feature-orb-1"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px] feature-orb-2"></div>
+    <div class="absolute top-[40%] left-[50%] w-[300px] h-[300px] bg-tertiary-fixed/10 rounded-full blur-[80px] feature-orb-3"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16 md:mb-20 max-w-2xl mx-auto reveal-on-scroll">
+      <span class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary rounded-full text-label-sm font-bold mb-6 uppercase tracking-wider border border-primary/20">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        Key Pillars
+      </span>
+      <h2 class="font-display-lg text-[32px] md:text-[48px] leading-tight text-on-surface mb-6">
+        Features Built for <span class="relative inline-block">
+          <span class="relative z-10">Students</span>
+          <span class="absolute bottom-1 left-0 w-full h-3 bg-primary-container/50 -z-0 rounded-sm"></span>
+        </span>
+      </h2>
+      <p class="font-body-lg text-on-surface-variant text-lg max-w-lg mx-auto">We skip the noise and focus on structured, actionable guidance that keeps you on track.</p>
+    </div>
+
+    <!-- Feature Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+      <!-- Card 1: Static Roadmaps -->
+      <div class="feature-card-enhanced group relative rounded-[36px] sm:rounded-[44px] p-1 bg-gradient-to-br from-primary via-primary-container to-primary hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:-translate-y-3 reveal-on-scroll" style="animation-delay: 0.1s;">
+        <div class="relative h-full rounded-[32px] sm:rounded-[40px] bg-primary p-7 sm:p-9 flex flex-col justify-between min-h-[400px] sm:min-h-[460px] overflow-hidden">
+          <!-- Decorative background pattern -->
+          <div class="absolute top-0 right-0 w-40 h-40 opacity-10">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <circle cx="80" cy="20" r="40" stroke="white" stroke-width="0.5"/>
+              <circle cx="80" cy="20" r="60" stroke="white" stroke-width="0.3"/>
+              <circle cx="80" cy="20" r="80" stroke="white" stroke-width="0.2"/>
+            </svg>
+          </div>
+          <!-- Number indicator -->
+          <span class="absolute top-7 right-8 text-[72px] font-bold text-white/[0.07] leading-none select-none">01</span>
+
+          <div class="relative z-10">
+            <!-- Icon with glow -->
+            <div class="relative w-16 h-16 mb-7">
+              <div class="absolute inset-0 rounded-2xl bg-white/20 blur-md group-hover:blur-lg transition-all duration-500"></div>
+              <div class="relative w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-500">
+                <i class="fa-solid fa-map-marked-alt text-2xl text-white"></i>
+              </div>
+            </div>
+            <h3 class="text-[22px] sm:text-[26px] font-bold text-white mb-3 leading-tight">Static Roadmaps</h3>
+            <p class="text-white/75 text-[15px] leading-relaxed mb-5">Curated semester-by-semester learning structures. Built and vetted by experienced developers, completely free of AI hallucinations.</p>
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white border border-white/10">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span> 6 Core Paths
+              </span>
+              <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white border border-white/10">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span> 4 Semesters
+              </span>
+            </div>
+          </div>
+
+          <!-- Bottom action -->
+          <div class="relative z-10 flex justify-between items-center mt-8 pt-5 border-t border-white/15">
+            <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors">Explore Paths</span>
+            <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 group-hover:translate-x-1 transition-all duration-300">
+              <span class="material-symbols-outlined text-white text-[20px]">arrow_forward</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Progress Tracker -->
+      <div class="feature-card-enhanced group relative rounded-[36px] sm:rounded-[44px] p-1 bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-high hover:shadow-2xl hover:shadow-primary/10 transition-all duration-700 hover:-translate-y-3 reveal-on-scroll" style="animation-delay: 0.25s;">
+        <div class="relative h-full rounded-[32px] sm:rounded-[40px] bg-white p-7 sm:p-9 flex flex-col justify-between min-h-[400px] sm:min-h-[460px] overflow-hidden border border-surface-container-high/50">
+          <!-- Decorative accent -->
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-primary-container to-tertiary-fixed rounded-t-[40px]"></div>
+          <!-- Number indicator -->
+          <span class="absolute top-7 right-8 text-[72px] font-bold text-on-surface/[0.04] leading-none select-none">02</span>
+
+          <div class="relative z-10">
+            <!-- Icon with glow -->
+            <div class="relative w-16 h-16 mb-7">
+              <div class="absolute inset-0 rounded-2xl bg-tertiary-fixed/40 blur-md group-hover:blur-lg transition-all duration-500"></div>
+              <div class="relative w-16 h-16 rounded-2xl bg-tertiary-fixed flex items-center justify-center border border-tertiary-container/20 group-hover:scale-110 transition-transform duration-500">
+                <i class="fa-solid fa-chart-bar text-2xl text-on-tertiary-fixed"></i>
+              </div>
+            </div>
+            <h3 class="text-[22px] sm:text-[26px] font-bold text-primary mb-3 leading-tight">Progress Tracker</h3>
+            <p class="text-on-surface-variant text-[15px] leading-relaxed mb-5">Input your skills on your profile, and the system automatically cross-references and marks corresponding roadmap topics as complete.</p>
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-full text-xs font-bold text-on-surface-variant border border-surface-container-high">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Offline Storage
+              </span>
+              <span class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-full text-xs font-bold text-on-surface-variant border border-surface-container-high">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Auto-Matching
+              </span>
+            </div>
+          </div>
+
+          <!-- Mini progress visual -->
+          <div class="relative z-10 mt-8 pt-5 border-t border-surface-container-high">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm font-bold text-primary group-hover:text-on-surface transition-colors">Track Progress</span>
+              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:translate-x-1 transition-all duration-300">
+                <span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span>
+              </div>
+            </div>
+            <!-- Animated mini progress bar -->
+            <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-primary to-primary-container feature-progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Dynamic Profiles -->
+      <div class="feature-card-enhanced group relative rounded-[36px] sm:rounded-[44px] p-1 bg-gradient-to-br from-secondary via-secondary-container to-secondary hover:shadow-2xl hover:shadow-secondary/20 transition-all duration-700 hover:-translate-y-3 sm:col-span-2 lg:col-span-1 reveal-on-scroll" style="animation-delay: 0.4s;">
+        <div class="relative h-full rounded-[32px] sm:rounded-[40px] bg-secondary p-7 sm:p-9 flex flex-col justify-between min-h-[400px] sm:min-h-[460px] overflow-hidden">
+          <!-- Decorative background pattern -->
+          <div class="absolute bottom-0 left-0 w-48 h-48 opacity-10">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <rect x="10" y="10" width="30" height="30" rx="4" stroke="white" stroke-width="0.5"/>
+              <rect x="50" y="10" width="30" height="30" rx="4" stroke="white" stroke-width="0.5"/>
+              <rect x="10" y="50" width="30" height="30" rx="4" stroke="white" stroke-width="0.5"/>
+              <rect x="50" y="50" width="30" height="30" rx="4" stroke="white" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <!-- Number indicator -->
+          <span class="absolute top-7 right-8 text-[72px] font-bold text-white/[0.07] leading-none select-none">03</span>
+
+          <div class="relative z-10">
+            <!-- Icon with glow -->
+            <div class="relative w-16 h-16 mb-7">
+              <div class="absolute inset-0 rounded-2xl bg-white/20 blur-md group-hover:blur-lg transition-all duration-500"></div>
+              <div class="relative w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-500">
+                <i class="fa-solid fa-user-edit text-2xl text-white"></i>
+              </div>
+            </div>
+            <h3 class="text-[22px] sm:text-[26px] font-bold text-white mb-3 leading-tight">Dynamic Profiles</h3>
+            <p class="text-white/75 text-[15px] leading-relaxed mb-5">Manage your major, CGPA, target roles, and core interests. Changing your goal instantly switches your dashboard roadmap.</p>
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white border border-white/10">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span> Zero Cloud Config
+              </span>
+              <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-white border border-white/10">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span> Goal Switcher
+              </span>
+            </div>
+          </div>
+
+          <!-- Bottom action -->
+          <div class="relative z-10 flex justify-between items-center mt-8 pt-5 border-t border-white/15">
+            <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors">Set Profile</span>
+            <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 group-hover:translate-x-1 transition-all duration-300">
+              <span class="material-symbols-outlined text-white text-[20px]">arrow_forward</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Roadmap Explorer Section -->
+<section class="relative py-20 md:py-32 px-6 md:px-margin-desktop overflow-hidden" id="explore">
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 pointer-events-none -z-10">
+    <div class="absolute top-[10%] right-[5%] w-72 h-72 bg-tertiary-fixed/8 rounded-full blur-[80px]"></div>
+    <div class="absolute bottom-[10%] left-[5%] w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
+    <!-- Subtle grid pattern -->
+    <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle, #ab2c5d 1px, transparent 1px); background-size: 40px 40px;"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-14 md:mb-20 max-w-2xl mx-auto reveal-on-scroll">
+      <span class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-tertiary-fixed/40 to-tertiary-fixed/20 text-on-tertiary-fixed rounded-full text-label-sm font-bold mb-6 uppercase tracking-wider border border-tertiary-container/20">
+        <span class="material-symbols-outlined text-[16px]">route</span>
+        Interactive Preview
+      </span>
+      <h2 class="font-display-lg text-[32px] md:text-[48px] leading-tight text-on-surface mb-6">
+        Explore Curated <span class="relative inline-block"><span class="relative z-10">Roadmaps</span><span class="absolute bottom-1 left-0 w-full h-3 bg-tertiary-fixed/40 -z-0 rounded-sm"></span></span>
+      </h2>
+      <p class="font-body-lg text-on-surface-variant text-lg max-w-lg mx-auto">Select a career track below to see what you will focus on in your first year.</p>
+    </div>
+
+    <!-- Main Explorer Card -->
+    <div class="relative reveal-on-scroll" style="animation-delay: 0.15s;">
+      <!-- Outer glow border -->
+      <div class="absolute -inset-[1px] rounded-[44px] bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 -z-10 blur-sm"></div>
+      <div class="bg-white/80 backdrop-blur-sm rounded-[40px] border border-surface-container-high/80 p-6 md:p-10 shadow-xl shadow-primary/[0.03]">
+
+        <!-- Track Tabs - Enhanced -->
+        <div class="flex flex-wrap gap-2 md:gap-3 mb-10 p-2 bg-surface-container-low rounded-2xl">
+          <button class="track-tab-btn active bg-primary text-on-primary px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 shadow-md shadow-primary/20" data-track="web-dev">
+            <i class="fa-solid fa-code mr-1.5"></i> Web Dev
+          </button>
+          <button class="track-tab-btn bg-transparent text-on-surface-variant px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 hover:bg-surface-container" data-track="swe">
+            <i class="fa-solid fa-laptop-code mr-1.5"></i> Software Eng
+          </button>
+          <button class="track-tab-btn bg-transparent text-on-surface-variant px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 hover:bg-surface-container" data-track="ds">
+            <i class="fa-solid fa-chart-line mr-1.5"></i> Data Scientist
+          </button>
+          <button class="track-tab-btn bg-transparent text-on-surface-variant px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 hover:bg-surface-container" data-track="ai-ml">
+            <i class="fa-solid fa-brain mr-1.5"></i> AI & ML
+          </button>
+          <button class="track-tab-btn bg-transparent text-on-surface-variant px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 hover:bg-surface-container" data-track="cyber">
+            <i class="fa-solid fa-shield-halved mr-1.5"></i> Cyber Security
+          </button>
+          <button class="track-tab-btn bg-transparent text-on-surface-variant px-4 md:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-400 hover:bg-surface-container" data-track="cloud">
+            <i class="fa-solid fa-cloud mr-1.5"></i> Cloud Eng
+          </button>
+        </div>
+
+      <!-- Web Dev Content -->
+      <div class="track-content active" id="track-web-dev">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Frontend Basics</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">HTML5 & CSS3 Structures</strong><br/><span class="text-xs text-on-surface-variant">Semantic elements, layouts, and style definitions</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">JS Fundamentals (ES6+)</strong><br/><span class="text-xs text-on-surface-variant">Variables, arrays, DOM selectors, event listeners</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Responsive Design</strong><br/><span class="text-xs text-on-surface-variant">Media queries and mobile-first responsive interfaces</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Advanced Frontend</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Asynchronous Javascript</strong><br/><span class="text-xs text-on-surface-variant">Promises, Fetch API endpoints, JSON handling</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Utility CSS & Git</strong><br/><span class="text-xs text-on-surface-variant">Tailwind CSS framework setups, GitHub flow commits</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">React Framework Intro</strong><br/><span class="text-xs text-on-surface-variant">Components structure, state variables, EJS layout ties</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SWE Content -->
+      <div class="track-content" id="track-swe">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Languages & Tools</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">OOP in Java or C++</strong><br/><span class="text-xs text-on-surface-variant">Classes, interfaces, inheritance, encapsulation rules</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Git Collaboration</strong><br/><span class="text-xs text-on-surface-variant">Tracking commits, resolving merge conflicts, branch hooks</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Linux Terminal</strong><br/><span class="text-xs text-on-surface-variant">Navigating bash shell, executing scripts, SSH configs</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Data Structures</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Linear Data Structures</strong><br/><span class="text-xs text-on-surface-variant">Arrays, Linked Lists, Stacks, Queues implementations</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Sorting & Searching</strong><br/><span class="text-xs text-on-surface-variant">Binary Search, Quick Sort, Merge Sort analysis</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Operating Systems Core</strong><br/><span class="text-xs text-on-surface-variant">Process threads, memory allocations, CPU scheduling</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Science Content -->
+      <div class="track-content" id="track-ds">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Core Foundations</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Python Programming</strong><br/><span class="text-xs text-on-surface-variant">Variables, list comprehensions, functional script pipelines</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Git & GitHub Flow</strong><br/><span class="text-xs text-on-surface-variant">Saving data scripts, sharing Jupyter Notebooks online</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Calculus & Matrices</strong><br/><span class="text-xs text-on-surface-variant">Matrix transforms, derivatives, linear algebra models</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Data Libraries</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">NumPy & Pandas</strong><br/><span class="text-xs text-on-surface-variant">Cleaning tabular data, processing array math queries</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Matplotlib Plots</strong><br/><span class="text-xs text-on-surface-variant">Histograms, scatterplots, correlation heatmaps</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Descriptive Statistics</strong><br/><span class="text-xs text-on-surface-variant">Probability models, deviations, standard distributions</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI & ML Content -->
+      <div class="track-content" id="track-ai-ml">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Python & AI Math</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Python AI Scripts</strong><br/><span class="text-xs text-on-surface-variant">Lambda expressions, objects, functional setups</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Calculus Gradients</strong><br/><span class="text-xs text-on-surface-variant">Partial derivatives, gradient descent optimizations</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Vector Projections</strong><br/><span class="text-xs text-on-surface-variant">Dot products, eigenvalues, eigenvectors calculations</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Classical Machine Learning</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Scikit-Learn models</strong><br/><span class="text-xs text-on-surface-variant">Linear regression, K-Nearest Neighbors, decision trees</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Data Engineering</strong><br/><span class="text-xs text-on-surface-variant">Feature scaling, encoding category columns</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Model Evaluation</strong><br/><span class="text-xs text-on-surface-variant">Precision-recall metrics, cross-validation runs</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cyber Security Content -->
+      <div class="track-content" id="track-cyber">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Networks & OS Admin</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Networking Models</strong><br/><span class="text-xs text-on-surface-variant">TCP/IP stacking layers, DNS rules, subnets configurations</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Linux Administration</strong><br/><span class="text-xs text-on-surface-variant">User groups, file system access hooks, systemd logs</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Bash Shell Scripts</strong><br/><span class="text-xs text-on-surface-variant">Writing automated shell scripts for network pings</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Security Auditing</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Nmap Vulnerability Scans</strong><br/><span class="text-xs text-on-surface-variant">Scanning target host ports, checking active services</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Cryptographic Concepts</strong><br/><span class="text-xs text-on-surface-variant">Hashing hashes, symmetric/asymmetric SSL structures</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">OWASP Security Holes</strong><br/><span class="text-xs text-on-surface-variant">SQL injections, XSS leaks, insecure system parameters</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud Engineering Content -->
+      <div class="track-content" id="track-cloud">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="roadmap-semester-card bg-gradient-to-br from-primary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-primary/10 hover:border-primary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 1</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Server Web Hosting</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Linux Apache/Nginx</strong><br/><span class="text-xs text-on-surface-variant">Setting up virtual hosts, redirect tables, ssl configurations</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">DNS & Proxy setups</strong><br/><span class="text-xs text-on-surface-variant">CNAME/A records, load balancing proxy services</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Git Repositories</strong><br/><span class="text-xs text-on-surface-variant">Version tracking configuration files, remote commits</span></div></li>
+            </ul>
+          </div>
+          <div class="roadmap-semester-card bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-3xl p-6 md:p-8 border border-secondary/10 hover:border-secondary/25 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="inline-flex items-center gap-1.5 bg-secondary text-on-secondary px-3 py-1.5 rounded-full text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-white/70"></span> Semester 2</span>
+              <div class="flex-1 h-px bg-gradient-to-r from-secondary/20 to-transparent"></div>
+            </div>
+            <h5 class="font-bold text-on-surface text-lg mb-5">Containers & Cloud</h5>
+            <ul class="space-y-4">
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">Docker Virtualization</strong><br/><span class="text-xs text-on-surface-variant">Writing Dockerfiles, building and launching isolated images</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">AWS Infrastructure</strong><br/><span class="text-xs text-on-surface-variant">Spinning EC2 instances, S3 file hosts, IAM key rights</span></div></li>
+              <li class="roadmap-topic flex gap-3 p-3 rounded-xl hover:bg-white/80 transition-colors"><div class="topic-dot"></div><div><strong class="text-sm text-on-surface">CI/CD Pipelines</strong><br/><span class="text-xs text-on-surface-variant">Automated workflows using GitHub runner scripts</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-10 pt-8 border-t border-surface-container-high/50">
+        <div class="inline-flex flex-col items-center">
+          <p class="text-on-surface-variant text-sm mb-4">This is just Semesters 1 & 2. There's more ahead.</p>
+          <a href="/register" class="relative group bg-primary text-on-primary px-8 py-4 rounded-2xl font-bold text-body-md hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/20 inline-flex items-center gap-sm btn-interactive overflow-hidden">
+            <span class="relative z-10 flex items-center gap-2">Unlock Full 4-Semester Roadmaps <i class="fa-solid fa-lock-open"></i></span>
+            <div class="absolute inset-0 bg-gradient-to-r from-primary-container to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-16 md:py-margin-desktop px-6 md:px-margin-desktop bg-surface" id="how-it-works">
+  <div class="max-w-7xl mx-auto reveal-on-scroll">
+    <div class="text-center mb-16 max-w-2xl mx-auto">
+      <span class="inline-block px-md py-xs bg-primary-fixed text-on-primary-fixed rounded-full text-label-sm font-bold mb-md uppercase tracking-wider">How it Works</span>
+      <h2 class="font-display-lg text-[32px] md:text-display-lg text-on-surface mb-md">Three Steps to Your Plan</h2>
+      <p class="font-body-lg text-on-surface-variant">Simple workflow with zero complex installations.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Step 1 -->
+      <div class="relative bg-white rounded-[40px] p-8 border-2 border-surface-container-high hover:-translate-y-2 transition-transform duration-300 text-center">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm">1</div>
+        <div class="w-16 h-16 mx-auto rounded-full bg-primary-container/30 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-user-plus text-primary text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-on-surface text-lg mb-3">Create Account</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Register securely with your student email. All account data is stored locally in your app environment database.</p>
+      </div>
+      <!-- Step 2 -->
+      <div class="relative bg-white rounded-[40px] p-8 border-2 border-surface-container-high hover:-translate-y-2 transition-transform duration-300 text-center">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm">2</div>
+        <div class="w-16 h-16 mx-auto rounded-full bg-secondary-container/30 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-sliders text-secondary text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-on-surface text-lg mb-3">Configure Profile</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Select your branch, college, and input your current skillset along with your dream tech career goal.</p>
+      </div>
+      <!-- Step 3 -->
+      <div class="relative bg-white rounded-[40px] p-8 border-2 border-surface-container-high hover:-translate-y-2 transition-transform duration-300 text-center">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-bold text-sm">3</div>
+        <div class="w-16 h-16 mx-auto rounded-full bg-tertiary-fixed/50 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-route text-tertiary text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-on-surface text-lg mb-3">Follow the Roadmap</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Access semester-by-semester checkpoints. Link GitHub or LeetCode profiles to auto-complete your milestones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Student Feedback Hub (Coming Soon) -->
+<section class="py-16 md:py-margin-desktop px-6 md:px-margin-desktop bg-surface-container-lowest" id="testimonials">
+  <div class="max-w-7xl mx-auto reveal-on-scroll">
+    <div class="text-center mb-12 max-w-2xl mx-auto">
+      <span class="inline-block px-md py-xs bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-label-sm font-bold mb-md uppercase tracking-wider">Coming Soon</span>
+      <h2 class="font-display-lg text-[32px] md:text-display-lg text-on-surface mb-md">Student Feedback Hub</h2>
+      <p class="font-body-lg text-on-surface-variant">We are currently gathering reviews, suggestions, and learning stories from our campus beta testers.</p>
+    </div>
+    <div class="max-w-xl mx-auto">
+      <div class="bg-white rounded-[40px] p-8 border-2 border-surface-container-high text-center">
+        <span class="inline-block px-3 py-1 bg-tertiary-fixed/50 text-on-tertiary-fixed rounded-full text-label-sm font-bold mb-6">
+          <i class="fa-solid fa-hourglass-half mr-1"></i> Under Construction
+        </span>
+        <div class="w-16 h-16 mx-auto rounded-full bg-surface-container flex items-center justify-center mb-6">
+          <i class="fa-solid fa-comments text-primary text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-on-surface text-lg mb-3">Student Reviews & Success Stories</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-6">In our next update, we will feature real feedback from peer students using CampusCompass roadmaps to direct their semester focus. Stay tuned!</p>
+        <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+          <div class="h-full rounded-full bg-gradient-to-r from-transparent via-primary to-transparent coming-soon-progress-fill"></div>
+        </div>
+        <span class="text-on-surface-variant text-xs mt-3 inline-flex items-center gap-2 block"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>Collecting reviews...</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="relative py-20 md:py-32 px-6 md:px-margin-desktop overflow-hidden" id="faq">
+  <!-- Background -->
+  <div class="absolute inset-0 pointer-events-none -z-10">
+    <div class="absolute top-[15%] right-[5%] w-96 h-96 bg-primary/[0.03] rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[10%] left-0 w-72 h-72 bg-secondary/[0.04] rounded-full blur-[90px]"></div>
+    <div class="absolute inset-0 opacity-[0.015]" style="background-image: radial-gradient(circle, #006a63 1px, transparent 1px); background-size: 48px 48px;"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+
+      <!-- Left Column: Sticky visual panel -->
+      <div class="lg:col-span-2 lg:sticky lg:top-32 reveal-on-scroll">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-secondary/10 to-primary/10 text-secondary rounded-full text-label-sm font-bold mb-6 uppercase tracking-wider border border-secondary/20">
+          <span class="material-symbols-outlined text-[16px]">help</span>
+          FAQ
+        </span>
+        <h2 class="font-display-lg text-[30px] md:text-[42px] leading-tight text-on-surface mb-4">
+          Common<br/><span class="text-primary">Questions</span>
+        </h2>
+        <p class="text-on-surface-variant text-[15px] leading-relaxed mb-8 max-w-sm">Everything you need to know about CampusCompass, roadmaps, and how to contribute.</p>
+
+        <!-- Visual card decoration -->
+        <div class="hidden lg:block relative">
+          <div class="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[28px] p-6 border border-surface-container-high/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <i class="fa-solid fa-lightbulb text-primary text-xs"></i>
+              </div>
+              <span class="text-sm font-bold text-on-surface">Quick Tip</span>
+            </div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Can't find your answer here? Browse our <span class="text-primary font-semibold">CONTRIBUTING.md</span> or open an issue on GitHub.</p>
+            <div class="mt-4 flex gap-2">
+              <span class="inline-flex items-center gap-1 bg-white px-3 py-1.5 rounded-full text-xs font-bold text-on-surface-variant border border-surface-container-high">
+                <i class="fa-solid fa-book text-primary text-[10px]"></i> Docs
+              </span>
+              <span class="inline-flex items-center gap-1 bg-white px-3 py-1.5 rounded-full text-xs font-bold text-on-surface-variant border border-surface-container-high">
+                <i class="fa-brands fa-github text-[10px]"></i> Issues
+              </span>
+              <span class="inline-flex items-center gap-1 bg-white px-3 py-1.5 rounded-full text-xs font-bold text-on-surface-variant border border-surface-container-high">
+                <i class="fa-solid fa-comments text-secondary text-[10px]"></i> Discuss
+              </span>
+            </div>
+          </div>
+          <!-- Stats mini row -->
+          <div class="mt-4 grid grid-cols-2 gap-3">
+            <div class="bg-white rounded-2xl p-4 border border-surface-container-high/60 text-center">
+              <p class="text-2xl font-bold text-primary">4</p>
+              <span class="text-on-surface-variant text-xs">Answers below</span>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-surface-container-high/60 text-center">
+              <p class="text-2xl font-bold text-secondary">30s</p>
+              <span class="text-on-surface-variant text-xs">Avg read time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: FAQ accordion -->
+      <div class="lg:col-span-3 reveal-on-scroll" style="animation-delay: 0.15s;">
+        <!-- Single unified FAQ box -->
+        <div class="relative rounded-[32px] overflow-hidden shadow-xl shadow-primary/[0.04] border border-surface-container-high/40">
+          <!-- Top accent gradient bar -->
+          <div class="h-1.5 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
+
+          <div class="bg-white p-6 md:p-8">
+            <!-- Box header -->
+            <div class="flex items-center justify-between mb-6 pb-5 border-b border-surface-container-high/50">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-primary text-[18px]">quiz</span>
+                </div>
+                <span class="font-bold text-on-surface text-sm">Frequently Asked</span>
+              </div>
+              <span class="text-on-surface-variant text-xs bg-surface-container-low px-3 py-1 rounded-full border border-surface-container-high/50">4 questions</span>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="space-y-1">
+
+              <!-- FAQ Item 1 -->
+              <div class="faq-item group rounded-2xl px-4 py-1 transition-all duration-400 hover:bg-primary/[0.02]">
+                <button class="faq-question w-full flex items-center justify-between py-4 md:py-5 text-left gap-4">
+                  <span class="flex items-center gap-4 font-bold text-on-surface">
+                    <span class="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-sm shadow-primary/25 group-hover:scale-105 transition-transform duration-300">
+                      <i class="fa-solid fa-sparkles text-white text-xs"></i>
+                    </span>
+                    <span class="text-[14px] md:text-[15px] leading-snug">What makes CampusCompass unique?</span>
+                  </span>
+                  <span class="w-8 h-8 min-w-[32px] rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary/10 transition-all duration-300">
+                    <i class="fa-solid fa-plus faq-chevron text-on-surface-variant text-[10px]"></i>
+                  </span>
+                </button>
+                <div class="faq-answer text-on-surface-variant text-[14px] leading-relaxed">
+                  <div class="pb-4 pl-14 pr-2">
+                    <div class="bg-gradient-to-br from-primary/[0.03] to-transparent rounded-xl p-4 border-l-3 border-primary/30">
+                      <p>Unlike other platforms, CampusCompass does not use AI recommendations. It relies on curated, peer-vetted static JSON roadmaps. This ensures the curriculum is focused, structured, and free of AI hallucinations.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Separator -->
+              <div class="mx-4 border-b border-dashed border-surface-container-high/50"></div>
+
+              <!-- FAQ Item 2 -->
+              <div class="faq-item group rounded-2xl px-4 py-1 transition-all duration-400 hover:bg-secondary/[0.02]">
+                <button class="faq-question w-full flex items-center justify-between py-4 md:py-5 text-left gap-4">
+                  <span class="flex items-center gap-4 font-bold text-on-surface">
+                    <span class="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-secondary to-secondary-container flex items-center justify-center shadow-sm shadow-secondary/25 group-hover:scale-105 transition-transform duration-300">
+                      <i class="fa-solid fa-square-poll-vertical text-white text-xs"></i>
+                    </span>
+                    <span class="text-[14px] md:text-[15px] leading-snug">How does the progress tracker match my skills?</span>
+                  </span>
+                  <span class="w-8 h-8 min-w-[32px] rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-secondary/10 transition-all duration-300">
+                    <i class="fa-solid fa-plus faq-chevron text-on-surface-variant text-[10px]"></i>
+                  </span>
+                </button>
+                <div class="faq-answer text-on-surface-variant text-[14px] leading-relaxed">
+                  <div class="pb-4 pl-14 pr-2">
+                    <div class="bg-gradient-to-br from-secondary/[0.03] to-transparent rounded-xl p-4 border-l-3 border-secondary/30">
+                      <p>The dashboard reads the skill tags on your profile. It performs a case-insensitive search matching those tag strings against the topic names and descriptions in your roadmap. When matches are found, it checks them off and recalculates your overall progress.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Separator -->
+              <div class="mx-4 border-b border-dashed border-surface-container-high/50"></div>
+
+              <!-- FAQ Item 3 -->
+              <div class="faq-item group rounded-2xl px-4 py-1 transition-all duration-400 hover:bg-tertiary-fixed/[0.04]">
+                <button class="faq-question w-full flex items-center justify-between py-4 md:py-5 text-left gap-4">
+                  <span class="flex items-center gap-4 font-bold text-on-surface">
+                    <span class="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-tertiary to-tertiary-container flex items-center justify-center shadow-sm shadow-tertiary/25 group-hover:scale-105 transition-transform duration-300">
+                      <i class="fa-solid fa-database text-white text-xs"></i>
+                    </span>
+                    <span class="text-[14px] md:text-[15px] leading-snug">Is the database completely offline?</span>
+                  </span>
+                  <span class="w-8 h-8 min-w-[32px] rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-tertiary-fixed/30 transition-all duration-300">
+                    <i class="fa-solid fa-plus faq-chevron text-on-surface-variant text-[10px]"></i>
+                  </span>
+                </button>
+                <div class="faq-answer text-on-surface-variant text-[14px] leading-relaxed">
+                  <div class="pb-4 pl-14 pr-2">
+                    <div class="bg-gradient-to-br from-tertiary-fixed/[0.08] to-transparent rounded-xl p-4 border-l-3 border-tertiary/30">
+                      <p>Yes. The project uses a local, lightweight file database. There are no external database cloud logins or local database servers required, meaning you can boot and develop the project 100% offline.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Separator -->
+              <div class="mx-4 border-b border-dashed border-surface-container-high/50"></div>
+
+              <!-- FAQ Item 4 -->
+              <div class="faq-item group rounded-2xl px-4 py-1 transition-all duration-400 hover:bg-primary/[0.02]">
+                <button class="faq-question w-full flex items-center justify-between py-4 md:py-5 text-left gap-4">
+                  <span class="flex items-center gap-4 font-bold text-on-surface">
+                    <span class="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-sm shadow-primary/25 group-hover:scale-105 transition-transform duration-300">
+                      <i class="fa-solid fa-code-fork text-white text-xs"></i>
+                    </span>
+                    <span class="text-[14px] md:text-[15px] leading-snug">Can I contribute a new career roadmap?</span>
+                  </span>
+                  <span class="w-8 h-8 min-w-[32px] rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary/10 transition-all duration-300">
+                    <i class="fa-solid fa-plus faq-chevron text-on-surface-variant text-[10px]"></i>
+                  </span>
+                </button>
+                <div class="faq-answer text-on-surface-variant text-[14px] leading-relaxed">
+                  <div class="pb-4 pl-14 pr-2">
+                    <div class="bg-gradient-to-br from-primary/[0.03] to-transparent rounded-xl p-4 border-l-3 border-primary/30">
+                      <p>Absolutely! We welcome student contributions, particularly during open-source events. You can create a new career JSON file under <code class="bg-surface-container px-1.5 py-0.5 rounded text-xs font-mono text-primary border border-primary/10">data/roadmaps/</code> and add it to our config files. Read our CONTRIBUTING.md file for details.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Card footer -->
+            <div class="mt-6 pt-5 border-t border-surface-container-high/50 flex items-center justify-between">
+              <p class="text-on-surface-variant text-xs">Can't find your answer?</p>
+              <a href="https://github.com/arpit2006/CampussCompass.git" target="_blank" class="inline-flex items-center gap-1.5 text-primary font-bold text-xs hover:underline bg-primary/5 px-3 py-1.5 rounded-lg border border-primary/10 hover:bg-primary/10 transition-colors">
+                <i class="fa-brands fa-github"></i> Ask on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section with Leaderboard Visual -->
+<section class="px-6 md:px-margin-desktop py-16 md:py-xl">
+  <div class="max-w-7xl mx-auto bg-secondary-container rounded-[60px] p-8 md:p-xl relative overflow-hidden flex flex-col md:flex-row items-center gap-12 reveal-on-scroll">
+    <div class="flex-1 z-10">
+      <!-- Decorative floating elements -->
+      <div class="absolute top-6 left-6 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-rocket text-on-secondary-container/60"></i>
+      </div>
+      <div class="absolute bottom-8 left-16 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-graduation-cap text-on-secondary-container/60 text-xs"></i>
+      </div>
+
+      <span class="inline-block px-3 py-1 bg-white/30 text-on-secondary-container rounded-full text-label-sm font-bold mb-6">
+        <i class="fa-solid fa-star mr-1"></i> 100% Free & Open Source
+      </span>
+      <h2 class="font-display-lg text-[28px] md:text-display-lg text-on-secondary-container mb-md">Ready to navigate your career?</h2>
+      <p class="font-body-lg text-on-secondary-container/80 mb-8">Sign up now, configure your custom profile, and follow peer-vetted semester roadmaps tailored to your tech goals.</p>
+      <div class="flex flex-wrap gap-md">
+        <a href="/register" class="bg-on-secondary-container text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform flex items-center gap-sm btn-interactive">
+          Create Free Account <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="https://github.com/arpit2006/CampussCompass.git" target="_blank" class="bg-white/30 backdrop-blur text-on-secondary-container px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform btn-interactive">
+          <i class="fa-brands fa-github mr-1"></i> Contribute
+        </a>
+      </div>
+    </div>
+
+    <div class="flex-1 w-full relative">
+      <!-- Leaderboard Visual -->
+      <div class="bg-secondary rounded-[40px] p-6 space-y-4 shadow-2xl transform md:rotate-3">
+        <div class="flex justify-between items-center text-white mb-4">
+          <span class="font-bold">Campus Leaderboard</span>
+          <div class="flex gap-2">
+            <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"><span class="material-symbols-outlined text-sm">explore</span></span>
+            <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"><span class="material-symbols-outlined text-sm">settings</span></span>
+          </div>
+        </div>
+        <!-- Item 1 -->
+        <div class="bg-primary-container p-4 rounded-3xl flex items-center justify-between border-b-4 border-primary">
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-white">#1</span>
+            <div class="w-10 h-10 rounded-full bg-white/30"></div>
+            <span class="font-bold text-white">Elizabeth</span>
+          </div>
+          <span class="bg-white text-primary px-3 py-1 rounded-full text-label-sm font-bold">35% XP</span>
+        </div>
+        <!-- Item 2 -->
+        <div class="bg-white p-4 rounded-3xl flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-on-surface">#2</span>
+            <div class="w-10 h-10 rounded-full bg-surface-variant"></div>
+            <span class="font-bold text-on-surface">Marcus</span>
+          </div>
+          <span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-bold">61% XP</span>
+        </div>
+        <!-- Item 3 -->
+        <div class="bg-tertiary-fixed p-4 rounded-3xl flex items-center justify-between border-b-4 border-tertiary-container">
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-on-tertiary-fixed">#3</span>
+            <div class="w-10 h-10 rounded-full bg-white/30"></div>
+            <span class="font-bold text-on-tertiary-fixed">Sasha</span>
+          </div>
+          <span class="bg-white text-tertiary px-3 py-1 rounded-full text-label-sm font-bold">52% XP</span>
+        </div>
+      </div>
+    </div>
+    <!-- Background decorative element -->
+    <div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-low w-full rounded-t-[40px] mt-8">
+  <div class="max-w-7xl mx-auto px-6 md:px-margin-desktop py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="flex items-center gap-sm mb-4">
+          <i class="fa-solid fa-compass text-primary text-xl"></i>
+          <span class="font-bold text-lg text-primary">Campus<span class="text-on-surface">Compass</span></span>
+        </a>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-4">Navigating students through their college journey by highlighting what features, skills, and roadmaps to focus on.</p>
+        <div class="flex gap-3">
+          <a href="https://github.com" target="_blank" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://twitter.com" target="_blank" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div>
+        <h4 class="font-bold text-on-surface mb-4 text-sm">Navigation</h4>
+        <ul class="space-y-2">
+          <li><a href="#explore" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Explore Roadmaps</a></li>
+          <li><a href="#how-it-works" class="text-on-surface-variant hover:text-primary text-sm transition-colors">How It Works</a></li>
+          <li><a href="/resources" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Resources Hub</a></li>
+          <li><a href="#testimonials" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Feedback Hub</a></li>
+          <li><a href="#faq" class="text-on-surface-variant hover:text-primary text-sm transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+      <!-- Resources -->
+      <div>
+        <h4 class="font-bold text-on-surface mb-4 text-sm">Resources</h4>
+        <ul class="space-y-2">
+          <li><a href="/register" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Join CampusCompass</a></li>
+          <li><a href="/login" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Account Access</a></li>
+          <li><a href="https://github.com" target="_blank" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Open Source Hub</a></li>
+          <li><a href="/privacy" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="text-on-surface-variant hover:text-primary text-sm transition-colors">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <!-- Community & Tech -->
+      <div>
+        <h4 class="font-bold text-on-surface mb-4 text-sm">Community & Tech</h4>
+        <div class="space-y-2">
+          <span class="inline-block bg-surface-container-high px-3 py-1 rounded-full text-xs font-bold text-on-surface-variant"><i class="fa-solid fa-code-pull-request mr-1"></i> PRs Welcoming</span>
+          <span class="inline-block bg-surface-container-high px-3 py-1 rounded-full text-xs font-bold text-on-surface-variant"><i class="fa-brands fa-node-js mr-1"></i> Node.js & EJS</span>
+          <span class="inline-block bg-surface-container-high px-3 py-1 rounded-full text-xs font-bold text-on-surface-variant"><i class="fa-solid fa-scale-balanced mr-1"></i> MIT License</span>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-surface-container-high pt-6 text-center">
+      <p class="text-on-surface-variant text-xs">&copy; 2024 CampusCompass. Built for students, by the open-source community.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Collaborator Welcome Modal -->
+<div id="collabModal" class="modal-overlay fixed inset-0 z-[200] bg-black/50 backdrop-blur-sm flex items-center justify-center p-6">
+  <div class="bg-white rounded-[32px] p-8 max-w-md w-full relative shadow-2xl">
+    <button id="closeCollabModal" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Close modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="text-center mb-6">
+      <div class="w-14 h-14 mx-auto rounded-full bg-primary-container/30 flex items-center justify-center mb-4">
+        <i class="fa-solid fa-code-pull-request text-primary text-xl"></i>
+      </div>
+      <h2 class="font-bold text-xl text-on-surface">Welcome, <span class="text-primary">Collaborators!</span></h2>
+    </div>
+    <p class="text-on-surface-variant text-sm text-center mb-6">CampusCompass is a completely open-source project built for students, by students. We are proudly welcoming contributors for programs like <strong>GSSoC</strong>, <strong>Hacktoberfest</strong>, and independent developers!</p>
+    <div class="space-y-2 mb-6 bg-surface-container-low rounded-2xl p-4">
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-circle-check text-secondary"></i>
+        <span>Add new career tracks and semesters</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-circle-check text-secondary"></i>
+        <span>Improve UI styling & responsiveness</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-circle-check text-secondary"></i>
+        <span>Fix active issues & implement features</span>
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <a href="https://github.com" target="_blank" id="collabGithubBtn" class="flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold text-center text-sm hover:scale-105 transition-transform">
+        <i class="fa-brands fa-github mr-1"></i> Start Contributing
+      </a>
+      <button id="dismissCollabModal" class="flex-1 bg-surface-container-high text-on-surface-variant py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform">Maybe Later</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Agent Offline Modal -->
+<div id="aiAgentModal" class="modal-overlay fixed inset-0 z-[200] bg-black/50 backdrop-blur-sm flex items-center justify-center p-6">
+  <div class="bg-white rounded-[32px] p-8 max-w-md w-full relative shadow-2xl">
+    <button id="closeAiAgentModal" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Close modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="text-center mb-6">
+      <div class="w-14 h-14 mx-auto rounded-full bg-error-container flex items-center justify-center mb-4">
+        <i class="fa-solid fa-robot text-error text-xl"></i>
+      </div>
+      <h2 class="font-bold text-xl text-on-surface">AI Agent <span class="text-error">Offline</span></h2>
+    </div>
+    <p class="text-on-surface-variant text-sm text-center mb-6">Our AI-powered roadmap generator and study advisor is currently undergoing scheduled maintenance.</p>
+    <div class="space-y-2 mb-6 bg-error-container/20 rounded-2xl p-4">
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-circle-exclamation text-error"></i>
+        <span>System Status: 503 Service Unavailable</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-circle-info text-primary"></i>
+        <span>Alternative: Peer-vetted roadmaps are active</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-on-surface">
+        <i class="fa-solid fa-users text-secondary"></i>
+        <span>Action: Make decisions in Community section</span>
+      </div>
+    </div>
+    <p class="text-on-surface-variant text-xs text-center mb-6">To view what paths, libraries, and resources your peers are choosing, please visit the community decisions page.</p>
+    <div class="flex gap-3">
+      <a href="/register" class="flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold text-center text-sm hover:scale-105 transition-transform">
+        <i class="fa-solid fa-user-plus mr-1"></i> Join Community
+      </a>
+      <button id="dismissAiAgentModal" class="flex-1 bg-surface-container-high text-on-surface-variant py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform">Dismiss</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Consent Banner -->
+<div id="cookieConsentBanner" class="cookie-banner fixed bottom-0 left-0 right-0 z-[150] bg-white border-t border-surface-container-high shadow-lg p-4 md:p-6">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <i class="fa-solid fa-cookie-bite text-tertiary text-xl"></i>
+      <p class="text-on-surface-variant text-sm">We use essential cookies to keep you logged in. By continuing, you agree to our <a href="/privacy" class="text-primary font-bold hover:underline">Privacy Policy</a>.</p>
+    </div>
+    <div class="flex gap-3">
+      <button id="declineCookiesBtn" class="px-4 py-2 rounded-xl border border-surface-container-high text-on-surface-variant font-bold text-sm hover:scale-105 transition-transform">Decline</button>
+      <button id="acceptCookiesBtn" class="px-4 py-2 rounded-xl bg-primary text-on-primary font-bold text-sm hover:scale-105 transition-transform">Accept</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating AI Agent Button -->
+<button id="aiAgentFloatingBtn" class="fixed bottom-6 right-6 z-[100] w-14 h-14 rounded-full bg-primary text-on-primary shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-110 transition-transform" aria-label="AI Advisor" title="Ask AI Advisor">
+  <i class="fa-solid fa-robot text-lg"></i>
+  <span class="pulse-ring text-primary"></span>
+</button>
+
+<script src="js/landing.js"></script>
+</body>
+</html>

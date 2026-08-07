@@ -45,6 +45,9 @@ app.use(async (req, res, next) => {
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve new landing page static assets
+app.use(express.static(path.join(__dirname, 'UI', 'landing')));
+
 // Configure Express Session
 let sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret) {
@@ -110,10 +113,7 @@ app.use('/profile', profileRoutes);
 
 // 404 Error Handler for undefined routes
 app.use((req, res, _next) => {
-  res.status(404).render('landing', {
-    title: '404 - Page Not Found',
-    error: 'The page you are looking for does not exist.'
-  });
+  res.status(404).sendFile(path.join(__dirname, 'UI', 'landing', 'index.html'));
 });
 
 // Start the Express Server only when this file is run directly.
