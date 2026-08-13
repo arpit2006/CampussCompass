@@ -16,7 +16,7 @@
     <% } %>
 
     <!-- Welcome Card -->
-    <section class="welcome-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 32px;">
+    <section class="welcome-card" style="border: 2px solid var(--border-dark); box-shadow: var(--shadow-flat); border-radius: var(--radius-lg); background-color: var(--surface); padding: 32px; position: relative; overflow: hidden; gap: 24px; margin-bottom: 32px;">
       <!-- Subtle internal pattern overlay -->
       <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 35%; background: linear-gradient(135deg, rgba(191, 76, 44, 0.03) 0%, rgba(212, 158, 53, 0.03) 100%); pointer-events: none;"></div>
       
@@ -28,7 +28,7 @@
         </p>
       </div>
 
-      <div class="welcome-badge" style="z-index: 2; flex-shrink: 0; width: 68px; height: 68px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); box-shadow: 4px 4px 0px var(--border-dark); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--primary); animation: floatBadge1 3s ease-in-out infinite;">
+      <div class="welcome-badge" style="z-index: 2; flex-shrink: 0; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); box-shadow: 4px 4px 0px var(--border-dark); display: flex; align-items: center; justify-content: center; color: var(--primary); animation: floatBadge1 3s ease-in-out infinite;">
         <i class="fa-solid fa-compass"></i>
       </div>
     </section>
@@ -191,7 +191,7 @@
                                 <span class="badge badge-pending" style="background-color: var(--bg-darker); color: var(--text-muted); border: 1px solid var(--border); padding: 4px 10px; font-size: 10px; font-weight: 800; text-transform: uppercase; border-radius: var(--radius);">To Do</span>
                               <% } %>
                             </div>
-                            <div style="padding: 20px;">
+                            <div class="topic-desc-wrapper" style="padding: 20px;">
                               <p class="topic-desc" style="font-size: 13.5px; line-height: 1.6; color: var(--text-muted); margin-bottom: 0;"><%= topic.description %></p>
                             </div>
                             
