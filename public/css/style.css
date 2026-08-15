@@ -82,6 +82,7 @@ ul {
 .text-gradient {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -1801,7 +1802,7 @@ ul {
   background-color: var(--surface-alt);
   border: 2px solid var(--border-dark);
   border-radius: var(--radius-lg);
-  padding: 24px 32px;
+  padding: 32px;
   margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
