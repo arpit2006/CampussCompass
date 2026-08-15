@@ -82,6 +82,7 @@ ul {
 .text-gradient {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -1852,7 +1853,7 @@ ul {
   background-color: var(--surface-alt);
   border: 2px solid var(--border-dark);
   border-radius: var(--radius-lg);
-  padding: 24px 32px;
+  padding: 32px;
   margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
@@ -1871,7 +1872,9 @@ ul {
 }
 
 .welcome-badge {
-  font-size: 40px;
+  width: 68px;
+  height: 68px;
+  font-size: 32px;
   color: var(--primary);
   display: flex;
 }
@@ -2974,8 +2977,14 @@ ul {
 
   .welcome-card {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     gap: 16px;
+    padding: 24px !important;
+  }
+
+  .welcome-text-content p {
+    max-width: 100%;
   }
 
   .topic-card-header {
@@ -4156,5 +4165,215 @@ button.student-social-btn:focus-visible {
   0% { transform: scale(0.95); opacity: 0.5; }
   50% { opacity: 0.3; }
   100% { transform: scale(1.15); opacity: 0; }
+}
+
+/* ==========================================
+   RESPONSIVE FIXES - DASHBOARD TABLET/MOBILE
+   (GitHub Issue #18)
+   ========================================== */
+
+/* Prevent any stray wide/unbreakable content from
+   forcing horizontal scroll on the whole page */
+@media (max-width: 992px) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* Text that can contain long, unbroken strings
+   (descriptions, resource links) should always wrap
+   instead of overflowing their card */
+.roadmap-desc-para,
+.topic-desc,
+.progress-tip,
+.info-value,
+.topic-resources li,
+.topic-resources > div > div {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Student Profile info rows: let label/value wrap onto
+   their own line instead of clipping long values */
+.info-list li {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+.info-value {
+  max-width: 100%;
+}
+
+/* Topic card header: allow long topic names to wrap
+   instead of pushing the status badge out of view */
+.topic-card-header {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.topic-card-header h4 {
+  flex: 1 1 200px;
+}
+
+/* Keep flex children from overflowing their row on
+   narrow viewports (default flex min-width is auto) */
+.topic-item,
+.topic-card,
+.roadmap-header-section > div:first-child {
+  min-width: 0;
+}
+
+.topic-resources > div > div {
+  flex-wrap: wrap;
+}
+
+/* Tablet breakpoint */
+@media (max-width: 992px) {
+  .dashboard-container,
+  .container,
+  .nav-container,
+  .hero-container,
+  .footer-container,
+  .profile-container,
+  .profile-setup-container,
+  .auth-container {
+    padding: 0 20px;
+  }
+
+  .dashboard-grid {
+    gap: 20px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 24px 0 100px; /* extra bottom room so the
+      floating AI button never sits over the last card */
+  }
+
+  .roadmap-header-section {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding: 20px !important;
+  }
+
+  .roadmap-header-section h2 {
+    font-size: 19px !important;
+  }
+
+  .roadmap-icon-right {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+  }
+
+  .roadmap-container-card .card-body {
+    padding: 18px !important;
+  }
+
+  .roadmap-desc-para {
+    font-size: 13.5px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .semester-tab-bar {
+    gap: 8px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .sem-tab-btn {
+    padding: 7px 14px !important;
+    font-size: 12.5px !important;
+  }
+
+  .topic-card-header {
+    padding: 14px 16px !important;
+  }
+
+  .topic-card-header h4 {
+    font-size: 14px !important;
+  }
+
+  .topic-desc-wrapper {
+    padding: 16px !important;
+  }
+
+  .topic-resources {
+    padding: 14px 16px !important;
+  }
+
+  .dashboard-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .dashboard-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .db-tab-btn {
+    padding: 12px 16px !important;
+    font-size: 13.5px !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .student-info-card .card-body,
+  .progress-card .card-body {
+    padding: 18px !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .dashboard-container,
+  .container,
+  .nav-container,
+  .hero-container,
+  .footer-container,
+  .profile-container,
+  .profile-setup-container,
+  .auth-container {
+    padding: 0 16px;
+  }
+
+  .welcome-badge {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 22px !important;
+  }
+
+  .welcome-text-content h1 {
+    font-size: 21px !important;
+  }
+
+  .info-list li {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .info-value {
+    text-align: left !important;
+  }
+
+  .roadmap-header-section h2 {
+    font-size: 17px !important;
+  }
+}
+
+/* Floating AI chat button: shrink and pull in on smaller
+   screens, and keep clear of iOS home-indicator safe area,
+   so it never sits on top of important content */
+@media (max-width: 768px) {
+  .ai-agent-floating-btn {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 18px !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 16px !important;
+  }
 }
 
