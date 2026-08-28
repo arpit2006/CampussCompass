@@ -139,7 +139,7 @@
     <!-- Right Column: Student Cards List -->
     <main class="social-main">
       <div class="social-list-header">
-        <h2>Peer Directories (<%= students.length %>)</h2>
+        <h2>Peer Directories (<%= totalStudents %>)</h2>
       </div>
 
       <div class="students-grid">
@@ -221,6 +221,20 @@
 
           </div>
         <% }) %>
+      </div>
+
+      <div class="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px;">
+        <% if (currentPage > 1) { %>
+          <a href="/social?page=<%= currentPage - 1 %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;"><i class="fa-solid fa-chevron-left"></i> Previous</a>
+        <% } %>
+        
+        <% if (totalPages > 0) { %>
+          <span style="font-size: 14px; font-weight: 500; color: #64748b;">Page <%= currentPage %> of <%= totalPages %></span>
+        <% } %>
+        
+        <% if (currentPage < totalPages) { %>
+          <a href="/social?page=<%= currentPage + 1 %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;">Next <i class="fa-solid fa-chevron-right"></i></a>
+        <% } %>
       </div>
     </main>
   </div>
