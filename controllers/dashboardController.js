@@ -76,11 +76,19 @@ exports.getSocial = async (req, res) => {
   try {
     const user = req.user;
 
-    // Fetch all users with completed profiles
-    const students = await User.findAll({
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 12;
+    const offset = (page - 1) * limit;
+
+    // Fetch all users with completed profiles with pagination and projection
+    const { rows: students, count: totalStudents } = await User.findAndCountAll({
       where: {
         isProfileComplete: true
-      }
+      },
+      attributes: ['_id', 'profile'],
+      limit,
+      offset,
+      order: [['_id', 'ASC']]
     });
 
     // Add mock social stats to each student to display in the UI
@@ -122,6 +130,9 @@ exports.getSocial = async (req, res) => {
     res.render('social', {
       user,
       students: studentsWithStats,
+      totalStudents,
+      currentPage: page,
+      totalPages: Math.ceil(totalStudents / limit),
       success,
       error,
       title: 'Community Connect - CampusCompass'
