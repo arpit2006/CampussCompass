@@ -1,0 +1,627 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="studysprint-page" style="padding: 40px 0; position: relative; overflow: hidden;">
+  <!-- Background ambient glow -->
+  <div class="hero-glow-blob" style="position: absolute; width: 400px; height: 400px; top: 5%; right: -50px; background: radial-gradient(circle, rgba(191, 76, 44, 0.06) 0%, rgba(212, 158, 53, 0) 70%); filter: blur(60px); pointer-events: none; z-index: 1;"></div>
+  <div class="hero-glow-blob" style="position: absolute; width: 350px; height: 350px; bottom: 15%; left: -60px; background: radial-gradient(circle, rgba(42, 71, 54, 0.06) 0%, rgba(191, 76, 44, 0) 70%); filter: blur(50px); pointer-events: none; z-index: 1;"></div>
+
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 5;">
+    
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success alert-dismissible" style="margin-bottom: 24px;">
+        <i class="fa-solid fa-circle-check"></i>
+        <span><%= success %></span>
+      </div>
+    <% } %>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger alert-dismissible" style="margin-bottom: 24px;">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span><%= error %></span>
+      </div>
+    <% } %>
+
+    <!-- Exam Mode Active Notice -->
+    <% if (sprint && sprint.isPaused) { %>
+      <div style="background-color: rgba(212, 158, 53, 0.12); border: 2px solid var(--border-dark); border-radius: var(--radius); padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 42px; height: 42px; border-radius: 50%; background-color: var(--accent); color: var(--text-heading); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <h4 style="font-size: 16px; font-weight: 700; margin: 0 0 2px 0; color: var(--text-heading);">Exam Mode Active</h4>
+            <p style="font-size: 13.5px; margin: 0; color: var(--text-muted);">Your study schedule is currently paused until <strong><%= sprint.pausedUntil %></strong> to give you space for semester exams.</p>
+          </div>
+        </div>
+        <form action="/studysprint/resume" method="POST" style="margin: 0;">
+          <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+          <button type="submit" class="btn btn-sm btn-primary" style="white-space: nowrap;">
+            <i class="fa-solid fa-play"></i> Resume Schedule
+          </button>
+        </form>
+      </div>
+    <% } %>
+
+    <!-- Header Section -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 32px;">
+      <div>
+        <span style="display: inline-block; background-color: rgba(191, 76, 44, 0.1); color: var(--primary); font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(191, 76, 44, 0.2); margin-bottom: 8px; letter-spacing: 0.5px;">
+          <i class="fa-solid fa-bolt"></i> Adaptive Planner
+        </span>
+        <h1 style="font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 6px 0; color: var(--text-heading);">
+          Study<span class="text-gradient">Sprint</span> Timetable
+        </h1>
+        <p style="color: var(--text-muted); font-size: 15px; margin: 0;">
+          Target Career Track: <strong><%= user.profile.careerGoal %></strong> &bull; Pace: <strong><%= sprint.dailyStudyHours %> hrs/day</strong> (45-min modules)
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <button type="button" onclick="document.getElementById('gcalModal').style.display='flex'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface); color: var(--text-heading); box-shadow: var(--shadow-flat); font-weight: 700; padding: 10px 18px; border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+          <i class="fa-brands fa-google" style="color: #4285F4;"></i> Add Custom Event / Reminder
+        </button>
+
+        <a href="/studysprint/export-calendar" class="btn btn-outline" style="border: 2px solid var(--border-dark); background-color: var(--surface); color: var(--text-heading); box-shadow: var(--shadow-flat); font-weight: 700; text-decoration: none; padding: 10px 18px; border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-calendar-plus" style="color: #4285F4;"></i> Sync Google / iCal
+        </a>
+
+        <button type="button" onclick="document.getElementById('examModal').style.display='flex'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); color: var(--text-heading); box-shadow: var(--shadow-flat); font-weight: 700; padding: 10px 18px; border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+          <i class="fa-solid fa-pause-circle" style="color: #E67E22;"></i> Exam Mode
+        </button>
+
+        <button type="button" onclick="document.getElementById('settingsModal').style.display='flex'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface); color: var(--text-heading); box-shadow: var(--shadow-flat); font-weight: 700; padding: 10px 18px; border-radius: var(--radius); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+          <i class="fa-solid fa-sliders"></i> Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- Overview Stats Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 36px;">
+      
+      <!-- Streak Card -->
+      <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 24px; box-shadow: var(--shadow-flat); display: flex; align-items: center; gap: 20px;">
+        <div style="width: 58px; height: 58px; border-radius: 14px; background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 2px 2px 0px var(--border-dark);">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Active Streak</span>
+          <h2 style="font-size: 26px; font-weight: 800; margin: 2px 0 0 0; color: var(--text-heading);"><%= sprint.streakCount || 0 %> Days 🔥</h2>
+          <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 700;">Record: <%= Math.max(sprint.maxStreak || 0, sprint.streakCount || 0) %> Days 🏆</span>
+        </div>
+      </div>
+
+      <!-- Roadmap Progress Card -->
+      <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 24px; box-shadow: var(--shadow-flat); display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Sprint Completion</span>
+          <span style="font-size: 14px; font-weight: 800; color: var(--primary);"><%= sprint.progressPercent || 0 %>%</span>
+        </div>
+        <div style="width: 100%; height: 12px; background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); border-radius: 6px; overflow: hidden; position: relative;">
+          <div style="width: <%= sprint.progressPercent || 0 %>%; height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%); transition: width 0.4s ease;"></div>
+        </div>
+        <span style="font-size: 12.5px; color: var(--text-muted); font-weight: 600;"><%= sprint.completedTasks || 0 %> of <%= sprint.totalTasks || 0 %> micro-tasks finished</span>
+      </div>
+
+      <!-- Daily Target Hours -->
+      <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 24px; box-shadow: var(--shadow-flat); display: flex; align-items: center; gap: 20px;">
+        <div style="width: 58px; height: 58px; border-radius: 14px; background: linear-gradient(135deg, #4E65FF 0%, #92EFFD 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 2px 2px 0px var(--border-dark);">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Daily Commitment</span>
+          <h2 style="font-size: 26px; font-weight: 800; margin: 2px 0 0 0; color: var(--text-heading);"><%= sprint.dailyStudyHours || 2 %> Hours</h2>
+        </div>
+      </div>
+
+      <!-- Google Calendar Event Box -->
+      <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 20px 22px; box-shadow: var(--shadow-flat); display: flex; align-items: center; justify-content: space-between; gap: 16px; position: relative;">
+        <div style="display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0;">
+          <div style="width: 54px; height: 54px; min-width: 54px; border-radius: 14px; background: linear-gradient(135deg, #4285F4 0%, #34A853 100%); color: #FFF; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 2px 2px 0px var(--border-dark);">
+            <i class="fa-solid fa-calendar-day" style="font-size: 20px;"></i>
+            <span style="font-size: 9px; font-weight: 800; text-transform: uppercase; margin-top: 2px;">CAL</span>
+          </div>
+          <div style="min-width: 0; flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 2px;">
+              <span style="font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Calendar Event</span>
+              <button type="button" onclick="refreshCalendarEventBox(this)" style="background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 12px; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease;" title="Refresh Calendar Event">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
+            </div>
+            <% if (typeof upcomingTasks !== 'undefined' && upcomingTasks.length > 0) { %>
+              <h4 style="font-size: 15px; font-weight: 800; margin: 0; color: var(--text-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%= upcomingTasks[0].topicName %>">
+                <%= upcomingTasks[0].topicName %>
+              </h4>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--primary);">
+                  <i class="fa-solid fa-clock" style="font-size: 10px;"></i> <%= upcomingTasks[0].dateStr %>
+                </span>
+                <% if (upcomingTasks[0].googleCalendarUrl) { %>
+                  <a href="<%= upcomingTasks[0].googleCalendarUrl %>" target="_blank" style="font-size: 10.5px; font-weight: 800; color: #4285F4; text-decoration: none;" title="Add to Google Calendar">
+                    + Add <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 9px;"></i>
+                  </a>
+                <% } %>
+              </div>
+            <% } else { %>
+              <h4 style="font-size: 14.5px; font-weight: 800; margin: 0; color: var(--text-heading);">
+                No Event Scheduled
+              </h4>
+              <button type="button" onclick="document.getElementById('gcalModal').style.display='flex'" style="background: none; border: none; padding: 0; font-size: 11.5px; font-weight: 700; color: #4285F4; cursor: pointer; margin-top: 2px;">
+                + Add Custom Event
+              </button>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LeetCode Style Daily Streak Tracker -->
+    <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 24px; box-shadow: var(--shadow-flat); margin-bottom: 36px;">
+      
+      <!-- Tracker Header & Metrics -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1.5px dashed var(--border-dark);">
+        <div>
+          <h4 style="font-size: 17px; font-weight: 800; margin: 0 0 4px 0; color: var(--text-heading); display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-fire-flame-curved" style="color: #FF6B6B;"></i> LeetCode Daily Streak Activity Tracker
+          </h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 0;">
+            Track your daily study commitments over the past 28 days to build a unbroken habit.
+          </p>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <div style="background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-heading); display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-fire" style="color: #FF6B6B;"></i> Current: <span style="color: #FF6B6B; font-weight: 800;"><%= sprint.streakCount || 0 %> Days</span>
+          </div>
+          <div style="background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-heading); display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-trophy" style="color: #F1C40F;"></i> Record: <span style="color: #F1C40F; font-weight: 800;"><%= Math.max(sprint.maxStreak || 0, sprint.streakCount || 0) %> Days</span>
+          </div>
+          <div style="background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-heading); display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-calendar-check" style="color: #2ECC71;"></i> Active Days: <span style="color: #2ECC71; font-weight: 800;"><%= (sprint.streakHistory || []).filter(h => h.tasksCompleted > 0).length %></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LeetCode Square Box Grid -->
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-start;">
+          <% if (typeof recentStreakRecord !== 'undefined' && Array.isArray(recentStreakRecord)) { %>
+            <% recentStreakRecord.forEach((day) => { %>
+              <div 
+                style="
+                  width: 38px; 
+                  height: 38px; 
+                  border-radius: 8px; 
+                  display: flex; 
+                  flex-direction: column;
+                  align-items: center; 
+                  justify-content: center; 
+                  position: relative;
+                  cursor: pointer;
+                  transition: all 0.15s ease;
+                  box-shadow: 1px 1px 0px var(--border-dark);
+                  <% if (day.completed && day.tasksCompleted >= 2) { %>
+                    background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%); 
+                    border: 1.5px solid var(--border-dark); 
+                    color: #FFF;
+                  <% } else if (day.completed) { %>
+                    background-color: #2ECC71; 
+                    border: 1.5px solid var(--border-dark); 
+                    color: #FFF;
+                  <% } else if (day.isToday) { %>
+                    background-color: var(--surface-alt); 
+                    border: 2px solid var(--primary); 
+                    color: var(--primary);
+                  <% } else { %>
+                    background-color: var(--surface-alt); 
+                    border: 1.5px solid var(--border-dark); 
+                    opacity: 0.65;
+                    color: var(--text-muted);
+                  <% } %>
+                " 
+                title="<%= day.monthDay %> (<%= day.dayName %>): <%= day.tasksCompleted %> micro-task(s) completed"
+              >
+                <span style="font-size: 9px; font-weight: 800; line-height: 1;"><%= day.dayName %></span>
+                <% if (day.completed) { %>
+                  <i class="fa-solid fa-fire" style="font-size: 11px; margin-top: 3px; color: #FFF;"></i>
+                <% } else if (day.isToday) { %>
+                  <i class="fa-solid fa-crosshair" style="font-size: 10px; margin-top: 3px; color: var(--primary);"></i>
+                <% } else { %>
+                  <span style="font-size: 10px; font-weight: 700; opacity: 0.5; margin-top: 1px;">-</span>
+                <% } %>
+              </div>
+            <% }); %>
+          <% } %>
+        </div>
+
+        <!-- LeetCode Legend -->
+        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; font-size: 11.5px; font-weight: 700; color: var(--text-muted); margin-top: 4px;">
+          <span>Less</span>
+          <div style="width: 16px; height: 16px; border-radius: 4px; background-color: var(--surface-alt); border: 1px solid var(--border-dark); opacity: 0.65;" title="No tasks completed"></div>
+          <div style="width: 16px; height: 16px; border-radius: 4px; background-color: #2ECC71; border: 1px solid var(--border-dark);" title="1 task completed"></div>
+          <div style="width: 16px; height: 16px; border-radius: 4px; background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%); border: 1px solid var(--border-dark);" title="2+ tasks completed"></div>
+          <div style="width: 16px; height: 16px; border-radius: 4px; background-color: var(--surface-alt); border: 2px solid var(--primary);" title="Today"></div>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start;">
+      
+      <!-- Left Column: Today's Micro-Tasks -->
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <h3 style="font-size: 20px; font-weight: 800; margin: 0; color: var(--text-heading); display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-calendar-day" style="color: var(--primary);"></i> Today's Focus Modules (<%= todayStr %>)
+          </h3>
+          <span style="font-size: 13px; font-weight: 700; background-color: var(--surface-alt); padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border-dark);">
+            <%= todayTasks.length %> Modules Scheduled
+          </span>
+        </div>
+
+        <% if (todayTasks.length === 0) { %>
+          <!-- Empty State / All Completed -->
+          <div style="border: 2px dashed var(--border-dark); border-radius: var(--radius); padding: 48px 32px; text-align: center; background-color: var(--surface);">
+            <div style="font-size: 48px; margin-bottom: 16px;">🎉</div>
+            <h4 style="font-size: 18px; font-weight: 800; margin: 0 0 8px 0; color: var(--text-heading);">All Done For Today!</h4>
+            <p style="color: var(--text-muted); font-size: 14px; max-width: 480px; margin: 0 auto 20px auto;">
+              You have completed all scheduled study modules for today or no tasks are assigned for this date. Great job keeping your streak alive!
+            </p>
+          </div>
+        <% } else { %>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <% todayTasks.forEach(task => { %>
+              <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: <%= task.completed ? 'rgba(42, 71, 54, 0.05)' : 'var(--surface)' %>; padding: 22px; box-shadow: var(--shadow-flat); transition: all 0.2s ease; position: relative;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 10px;">
+                  <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
+                      <span style="font-size: 11px; font-weight: 700; background-color: var(--surface-alt); color: var(--text-heading); border: 1px solid var(--border-dark); padding: 2px 8px; border-radius: 4px;">
+                        <%= task.semester %>
+                      </span>
+                      <span style="font-size: 11px; font-weight: 700; background-color: rgba(191, 76, 44, 0.1); color: var(--primary); border: 1px solid rgba(191, 76, 44, 0.2); padding: 2px 8px; border-radius: 4px;">
+                        <i class="fa-solid fa-stopwatch"></i> 45 Mins
+                      </span>
+                      <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">
+                        Session <%= task.sessionIndex %> of <%= task.totalSessions %>
+                      </span>
+                    </div>
+
+                    <h4 style="font-size: 17px; font-weight: 800; margin: 0 0 6px 0; color: var(--text-heading); <%= task.completed ? 'text-decoration: line-through; opacity: 0.75;' : '' %>">
+                      <%= task.topicName %>
+                    </h4>
+                    <p style="font-size: 13.5px; color: var(--text-muted); margin: 0 0 12px 0; line-height: 1.5;">
+                      <%= task.description %>
+                    </p>
+
+                    <% if (task.resources && task.resources.length > 0) { %>
+                      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
+                        <span style="font-size: 11.5px; font-weight: 700; color: var(--text-muted);">Resources:</span>
+                        <% task.resources.forEach(resItem => { %>
+                          <span style="font-size: 11.5px; background-color: var(--surface-alt); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border-dark); color: var(--text-heading);">
+                            <i class="fa-solid fa-bookmark" style="font-size: 10px; color: var(--primary);"></i> <%= resItem %>
+                          </span>
+                        <% }); %>
+                      </div>
+                    <% } %>
+
+                    <% if (task.googleCalendarUrl) { %>
+                      <div style="margin-top: 8px;">
+                        <a href="<%= task.googleCalendarUrl %>" target="_blank" style="font-size: 11.5px; font-weight: 700; color: #4285F4; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; border: 1.5px solid rgba(66, 133, 244, 0.3); background-color: rgba(66, 133, 244, 0.08);" title="Add this task to Google Calendar">
+                          <i class="fa-brands fa-google"></i> + Add to Google Calendar
+                        </a>
+                      </div>
+                    <% } %>
+                  </div>
+
+                  <!-- Completion Toggle Form -->
+                  <form action="/studysprint/toggle-task" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                    <input type="hidden" name="taskId" value="<%= task.id %>">
+                    <input type="hidden" name="completed" value="<%= task.completed ? 'false' : 'true' %>">
+                    
+                    <button type="submit" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-dark); background-color: <%= task.completed ? '#2ECC71' : 'var(--surface-alt)' %>; color: <%= task.completed ? '#FFF' : 'var(--text-muted)' %>; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: all 0.2s ease; box-shadow: 2px 2px 0px var(--border-dark);">
+                      <i class="fa-solid <%= task.completed ? 'fa-check' : 'fa-circle-notch' %>"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+
+        <!-- Past Uncompleted Tasks Alert (if any) -->
+        <% if (pastTasks && pastTasks.length > 0) { %>
+          <div style="margin-top: 32px;">
+            <h4 style="font-size: 16px; font-weight: 800; color: #E67E22; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clock-rotate-left"></i> Catch-Up Needed (<%= pastTasks.length %> missed sessions)
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <% pastTasks.forEach(task => { %>
+                <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                  <div>
+                    <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);"><%= task.dateStr %></span>
+                    <h5 style="font-size: 14.5px; font-weight: 700; margin: 2px 0 0 0; color: var(--text-heading);"><%= task.topicName %> (Part <%= task.sessionIndex %>)</h5>
+                    <% if (task.googleCalendarUrl) { %>
+                      <a href="<%= task.googleCalendarUrl %>" target="_blank" style="font-size: 11px; font-weight: 700; color: #4285F4; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;" title="Add to Google Calendar">
+                        <i class="fa-brands fa-google"></i> + Cal
+                      </a>
+                    <% } %>
+                  </div>
+                  <form action="/studysprint/toggle-task" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                    <input type="hidden" name="taskId" value="<%= task.id %>">
+                    <input type="hidden" name="completed" value="true">
+                    <button type="submit" class="btn btn-sm" style="border: 1.5px solid var(--border-dark); background-color: var(--surface-alt); font-size: 12px; font-weight: 700;">
+                      <i class="fa-solid fa-check"></i> Complete
+                    </button>
+                  </form>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Right Column: Upcoming Timetable -->
+      <div>
+        <div style="border: 2px solid var(--border-dark); border-radius: var(--radius); background-color: var(--surface); padding: 24px; box-shadow: var(--shadow-flat);">
+          <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 16px 0; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-list-check" style="color: var(--accent);"></i> Upcoming Schedule
+          </h3>
+
+          <% if (upcomingTasks.length === 0) { %>
+            <p style="font-size: 13.5px; color: var(--text-muted);">No upcoming tasks scheduled for the next days.</p>
+          <% } else { %>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <% upcomingTasks.forEach(task => { %>
+                <div style="padding-bottom: 12px; border-bottom: 1px solid var(--border-dark);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase;">
+                      <%= task.dateStr %>
+                    </span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <% if (task.googleCalendarUrl) { %>
+                        <a href="<%= task.googleCalendarUrl %>" target="_blank" style="font-size: 10.5px; font-weight: 700; color: #4285F4; text-decoration: none; display: inline-flex; align-items: center; gap: 3px;" title="Add to Google Calendar">
+                          <i class="fa-brands fa-google"></i> Cal
+                        </a>
+                      <% } %>
+                      <span style="font-size: 10.5px; font-weight: 700; background-color: var(--surface-alt); padding: 2px 6px; border-radius: 4px;">
+                        45m
+                      </span>
+                    </div>
+                  </div>
+                  <h5 style="font-size: 13.5px; font-weight: 700; margin: 0 0 2px 0; color: var(--text-heading);">
+                    <%= task.topicName %>
+                  </h5>
+                  <span style="font-size: 11.5px; color: var(--text-muted);">
+                    Part <%= task.sessionIndex %> of <%= task.totalSessions %>
+                  </span>
+                </div>
+              <% }); %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Exam Mode Modal -->
+<div id="examModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background-color: var(--surface); border: 2px solid var(--border-dark); border-radius: var(--radius-lg); box-shadow: var(--shadow-flat); max-width: 460px; width: 100%; padding: 28px; position: relative;">
+    <button onclick="document.getElementById('examModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; border: none; background: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">&times;</button>
+
+    <div style="width: 50px; height: 50px; border-radius: 50%; background-color: rgba(230, 126, 34, 0.15); color: #E67E22; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px;">
+      <i class="fa-solid fa-graduation-cap"></i>
+    </div>
+    
+    <h3 style="font-size: 20px; font-weight: 800; margin: 0 0 8px 0; color: var(--text-heading);">Pause for Semester Exams</h3>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+      Need to freeze your StudySprint schedule for mid-terms or finals? We will shift all future uncompleted modules forward so you don't break your progress.
+    </p>
+
+    <form action="/studysprint/pause" method="POST">
+      <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-heading);">Select Pause Duration:</label>
+        <select name="pauseDays" class="form-control" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+          <option value="3">3 Days (Quick Test)</option>
+          <option value="7" selected>7 Days (1 Week Exams)</option>
+          <option value="14">14 Days (2 Weeks Finals)</option>
+        </select>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button type="button" onclick="document.getElementById('examModal').style.display='none'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 700;">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="font-weight: 700;">Activate Exam Pause</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background-color: var(--surface); border: 2px solid var(--border-dark); border-radius: var(--radius-lg); box-shadow: var(--shadow-flat); max-width: 460px; width: 100%; padding: 28px; position: relative;">
+    <button onclick="document.getElementById('settingsModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; border: none; background: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">&times;</button>
+
+    <h3 style="font-size: 20px; font-weight: 800; margin: 0 0 8px 0; color: var(--text-heading);">Adjust StudySprint Pace</h3>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+      Change your daily study commitment. Updating hours will recalculate your module schedule.
+    </p>
+
+    <form action="/studysprint/setup" method="POST">
+      <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-heading);">Daily Study Hours:</label>
+        <select name="dailyStudyHours" class="form-control" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+          <option value="1" <%= sprint.dailyStudyHours == 1 ? 'selected' : '' %>>1 Hour / day (1 module)</option>
+          <option value="2" <%= sprint.dailyStudyHours == 2 ? 'selected' : '' %>>2 Hours / day (2 modules)</option>
+          <option value="3" <%= sprint.dailyStudyHours == 3 ? 'selected' : '' %>>3 Hours / day (3 modules)</option>
+          <option value="4" <%= sprint.dailyStudyHours == 4 ? 'selected' : '' %>>4+ Hours / day (Intense)</option>
+        </select>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button type="button" onclick="document.getElementById('settingsModal').style.display='none'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 700;">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="font-weight: 700;">Regenerate Schedule</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Custom Google Calendar Event & Notification Modal -->
+<div id="gcalModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background-color: var(--surface); border: 2px solid var(--border-dark); border-radius: var(--radius-lg); box-shadow: var(--shadow-flat); max-width: 500px; width: 100%; padding: 28px; position: relative;">
+    <button onclick="document.getElementById('gcalModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; border: none; background: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">&times;</button>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background-color: rgba(66, 133, 244, 0.12); color: #4285F4; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid rgba(66, 133, 244, 0.3);">
+        <i class="fa-brands fa-google"></i>
+      </div>
+      <div>
+        <h3 style="font-size: 20px; font-weight: 800; margin: 0; color: var(--text-heading);">Add Custom Event / Reminder</h3>
+        <span style="font-size: 12.5px; color: var(--text-muted);">Schedule any detail, exam date, or study task directly to Google Calendar</span>
+      </div>
+    </div>
+
+    <form id="gcalCustomForm" onsubmit="handleGCalSubmit(event)">
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Event Title / Topic *</label>
+        <input type="text" id="gcalTitle" required placeholder="e.g. Data Structures Mid-Term Exam Prep" class="form-control" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Details / Notes</label>
+        <textarea id="gcalDetails" rows="2" placeholder="e.g. Review trees, graph algorithms, and dynamic programming problems" class="form-control" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600; resize: vertical;"></textarea>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+        <div>
+          <label style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Date *</label>
+          <input type="date" id="gcalDate" required class="form-control" style="width: 100%; padding: 8px 12px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Start Time *</label>
+          <input type="time" id="gcalTime" required class="form-control" style="width: 100%; padding: 8px 12px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+        <div>
+          <label style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Duration</label>
+          <select id="gcalDuration" class="form-control" style="width: 100%; padding: 8px 12px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+            <option value="15">15 Minutes</option>
+            <option value="30">30 Minutes</option>
+            <option value="45" selected>45 Minutes (Micro-task)</option>
+            <option value="60">1 Hour</option>
+            <option value="120">2 Hours</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Notification Alert</label>
+          <select id="gcalReminder" class="form-control" style="width: 100%; padding: 8px 12px; border-radius: var(--radius); border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 600;">
+            <option value="10" selected>10 Mins Before</option>
+            <option value="30">30 Mins Before</option>
+            <option value="60">1 Hour Before</option>
+            <option value="1440">1 Day Before</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
+        <button type="button" onclick="document.getElementById('gcalModal').style.display='none'" class="btn" style="border: 2px solid var(--border-dark); background-color: var(--surface-alt); font-weight: 700;">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="font-weight: 700; display: flex; align-items: center; gap: 8px; background-color: #4285F4; border-color: #3367D6;">
+          <i class="fa-brands fa-google"></i> Open in Google Calendar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const dateInput = document.getElementById("gcalDate");
+    const timeInput = document.getElementById("gcalTime");
+    if (dateInput && !dateInput.value) {
+      dateInput.value = new Date().toISOString().split("T")[0];
+    }
+    if (timeInput && !timeInput.value) {
+      timeInput.value = "10:00";
+    }
+  });
+
+  function handleGCalSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById("gcalTitle").value.trim();
+    const details = document.getElementById("gcalDetails").value.trim();
+    const dateVal = document.getElementById("gcalDate").value;
+    const timeVal = document.getElementById("gcalTime").value;
+    const durationMins = parseInt(document.getElementById("gcalDuration").value, 10) || 45;
+    const reminderMins = parseInt(document.getElementById("gcalReminder").value, 10) || 10;
+
+    if (!title || !dateVal || !timeVal) return;
+
+    const startDt = new Date(`${dateVal}T${timeVal}:00`);
+    const endDt = new Date(startDt.getTime() + durationMins * 60 * 1000);
+
+    const formatGCalIso = (d) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    const startIso = formatGCalIso(startDt);
+    const endIso = formatGCalIso(endDt);
+
+    const reminderNote = `[CampusCompass Reminder Alert: Set for ${reminderMins} mins before event]\n\n${details}`;
+
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("[CampusCompass] " + title)}&details=${encodeURIComponent(reminderNote)}&location=${encodeURIComponent("CampusCompass StudySprint")}&dates=${startIso}/${endIso}`;
+
+    if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
+      Notification.requestPermission();
+    }
+
+    const msUntilEvent = startDt.getTime() - Date.now() - (reminderMins * 60 * 1000);
+    if (msUntilEvent > 0 && msUntilEvent < 86400000) {
+      setTimeout(() => {
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("🔔 Study Reminder: " + title, {
+            body: `Starting in ${reminderMins} minutes! ${details}`,
+            icon: "/favicon.ico"
+          });
+        }
+        alert(`🔔 Study Reminder Alert: "${title}" is starting in ${reminderMins} minutes!`);
+      }, msUntilEvent);
+    }
+
+    window.open(gcalUrl, "_blank");
+    document.getElementById("gcalModal").style.display = "none";
+  }
+
+  function refreshCalendarEventBox(btn) {
+    const icon = btn ? (btn.querySelector("i") || btn) : null;
+    if (icon) {
+      icon.style.transition = "transform 0.5s ease";
+      icon.style.transform = "rotate(360deg)";
+      setTimeout(() => {
+        icon.style.transform = "rotate(0deg)";
+      }, 500);
+    }
+
+    const toast = document.createElement("div");
+    toast.className = "alert alert-success alert-dismissible";
+    toast.style.cssText = "position: fixed; top: 80px; right: 24px; z-index: 9999; margin: 0; box-shadow: var(--shadow-flat); border: 2px solid var(--border-dark);";
+    toast.innerHTML = `<i class="fa-brands fa-google" style="color: #4285F4;"></i> <span>Google Calendar event schedule refreshed & synced!</span>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.transition = "all 0.35s ease";
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(-10px)";
+      setTimeout(() => toast.remove(), 350);
+    }, 3000);
+  }
+</script>
+
+<%- include('partials/footer') %>

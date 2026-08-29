@@ -4,7 +4,11 @@ const User = require('../models/User');
 exports.getRegister = (req, res) => {
   const error = req.session.error;
   delete req.session.error;
-  res.render('register', { error, title: 'Register - CampusCompass' });
+  res.render('register', {
+    error,
+    title: 'Register - CampusCompass',
+    googleClientId: process.env.GOOGLE_CLIENT_ID || ''
+  });
 };
 
 // Handle Registration POST
@@ -14,17 +18,17 @@ exports.postRegister = async (req, res) => {
   // Simple validation
   if (!email || !password || !confirmPassword) {
     req.session.error = 'All fields are required';
-    return res.redirect('/register');
+    return req.session.save(() => res.redirect('/register'));
   }
 
   if (password.length < 6) {
     req.session.error = 'Password must be at least 6 characters long';
-    return res.redirect('/register');
+    return req.session.save(() => res.redirect('/register'));
   }
 
   if (password !== confirmPassword) {
     req.session.error = 'Passwords do not match';
-    return res.redirect('/register');
+    return req.session.save(() => res.redirect('/register'));
   }
 
   try {
@@ -32,7 +36,7 @@ exports.postRegister = async (req, res) => {
     const userExists = await User.findOne({ email });
     if (userExists) {
       req.session.error = 'An account with this email already exists';
-      return res.redirect('/register');
+      return req.session.save(() => res.redirect('/register'));
     }
 
     // Create new user
@@ -43,11 +47,11 @@ exports.postRegister = async (req, res) => {
     req.session.userId = user._id;
 
     // Redirect to profile setup
-    res.redirect('/profile/setup');
+    req.session.save(() => res.redirect('/profile/setup'));
   } catch (error) {
     console.error('Registration Error:', error);
     req.session.error = 'An error occurred during registration. Please try again.';
-    res.redirect('/register');
+    req.session.save(() => res.redirect('/register'));
   }
 };
 
@@ -57,7 +61,12 @@ exports.getLogin = (req, res) => {
   const success = req.session.success;
   delete req.session.error;
   delete req.session.success;
-  res.render('login', { error, success, title: 'Login - CampusCompass' });
+  res.render('login', {
+    error,
+    success,
+    title: 'Login - CampusCompass',
+    googleClientId: process.env.GOOGLE_CLIENT_ID || ''
+  });
 };
 
 // Handle Login POST
@@ -66,7 +75,7 @@ exports.postLogin = async (req, res) => {
 
   if (!email || !password) {
     req.session.error = 'All fields are required';
-    return res.redirect('/login');
+    return req.session.save(() => res.redirect('/login'));
   }
 
   try {
@@ -74,14 +83,14 @@ exports.postLogin = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       req.session.error = 'Invalid email or password';
-      return res.redirect('/login');
+      return req.session.save(() => res.redirect('/login'));
     }
 
     // Check if password matches
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
       req.session.error = 'Invalid email or password';
-      return res.redirect('/login');
+      return req.session.save(() => res.redirect('/login'));
     }
 
     // Set session
@@ -89,14 +98,14 @@ exports.postLogin = async (req, res) => {
 
     // Check if profile is complete to determine where to redirect
     if (user.isProfileComplete) {
-      res.redirect('/dashboard');
+      req.session.save(() => res.redirect('/dashboard'));
     } else {
-      res.redirect('/profile/setup');
+      req.session.save(() => res.redirect('/profile/setup'));
     }
   } catch (error) {
     console.error('Login Error:', error);
     req.session.error = 'An error occurred during login. Please try again.';
-    res.redirect('/login');
+    req.session.save(() => res.redirect('/login'));
   }
 };
 
@@ -116,7 +125,7 @@ exports.getMockOAuth = (req, res) => {
 
   if (platform !== 'github' && platform !== 'leetcode') {
     req.session.error = 'Invalid authentication provider';
-    return res.redirect('/login');
+    return req.session.save(() => res.redirect('/login'));
   }
 
   // Generate a mock suggested username
@@ -139,7 +148,7 @@ exports.postMockOAuth = async (req, res) => {
 
   if (!username || username.trim().length === 0) {
     req.session.error = 'Username is required to mock authorize';
-    return res.redirect(`/auth/${platform}`);
+    return req.session.save(() => res.redirect(`/auth/${platform}`));
   }
 
   const cleanUsername = username.trim();
@@ -180,14 +189,97 @@ exports.postMockOAuth = async (req, res) => {
 
     if (user.isProfileComplete) {
       req.session.success = `Welcome back! Authenticated via ${platform === 'github' ? 'GitHub' : 'LeetCode'}`;
-      res.redirect('/dashboard');
+      req.session.save(() => res.redirect('/dashboard'));
     } else {
       req.session.success = `Successfully authenticated via ${platform === 'github' ? 'GitHub' : 'LeetCode'}! Please complete your student profile.`;
-      res.redirect('/profile/setup');
+      req.session.save(() => res.redirect('/profile/setup'));
     }
   } catch (error) {
     console.error('Mock OAuth POST Error:', error);
     req.session.error = 'An error occurred during authentication. Please try again.';
-    res.redirect('/login');
+    req.session.save(() => res.redirect('/login'));
   }
 };
+
+// Handle Google Authentication & Verified Email Login
+const { OAuth2Client } = require('google-auth-library');
+
+exports.postGoogleAuth = async (req, res) => {
+  const { credential, idToken } = req.body;
+  const token = credential || idToken;
+
+  if (!token) {
+    req.session.error = 'Google authentication failed: missing token credential';
+    return req.session.save(() => res.redirect('/login'));
+  }
+
+  try {
+    let email;
+    let name;
+    let emailVerified = false;
+
+    const googleClientId = process.env.GOOGLE_CLIENT_ID;
+    const isJwt = typeof token === 'string' && token.split('.').length === 3;
+
+    if (googleClientId && isJwt) {
+      // Real Google Identity Services JWT token
+      const client = new OAuth2Client(googleClientId);
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: googleClientId
+      });
+      const payload = ticket.getPayload();
+      email = payload.email;
+      name = payload.name;
+      emailVerified = payload.email_verified;
+    } else {
+      // Base64 JSON token (development / manual prompt fallback)
+      try {
+        const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf8'));
+        email = decoded.email;
+        name = decoded.name;
+        emailVerified = decoded.email_verified !== false;
+      } catch (e) {
+        email = token.includes('@') ? token : `${token}@gmail.com`;
+        name = 'Google Student';
+        emailVerified = true;
+      }
+    }
+
+    if (!emailVerified) {
+      req.session.error = 'Google authentication failed: Email address is not verified by Google.';
+      return req.session.save(() => res.redirect('/login'));
+    }
+
+    // Check if user already exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user with verified Google email
+      user = new User({
+        email,
+        password: 'google_oauth_authenticated_user_secure_hash_placeholder',
+        profile: {
+          fullName: name || ''
+        }
+      });
+      await user.save();
+    }
+
+    // Set session ID
+    req.session.userId = user._id;
+
+    if (user.isProfileComplete) {
+      req.session.success = `Welcome back! Authenticated with verified email: ${user.email}`;
+      req.session.save(() => res.redirect('/dashboard'));
+    } else {
+      req.session.success = `Google Authentication successful! Verified email (${user.email}). Please complete your student profile.`;
+      req.session.save(() => res.redirect('/profile/setup'));
+    }
+  } catch (error) {
+    console.error('Google Auth Error:', error);
+    req.session.error = 'Failed to verify Google Authentication credential. Please try again.';
+    req.session.save(() => res.redirect('/login'));
+  }
+};
+

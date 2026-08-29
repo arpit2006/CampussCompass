@@ -51,9 +51,17 @@ exports.postProfileSetup = async (req, res) => {
       return res.redirect('/login');
     }
 
+    const cleanGithub = req.body.githubUsername
+      ? req.body.githubUsername.trim().replace(/^https?:\/\/(www\.)?github\.com\//, '').replace(/\/$/, '')
+      : (user.profile.githubUsername || '');
+    const cleanLinkedin = req.body.linkedinUsername
+      ? req.body.linkedinUsername.trim().replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/$/, '')
+      : (user.profile.linkedinUsername || '');
+
     user.profile = {
       ...validation.profile,
-      githubUsername: user.profile.githubUsername || '',
+      githubUsername: cleanGithub,
+      linkedinUsername: cleanLinkedin,
       leetcodeUsername: user.profile.leetcodeUsername || ''
     };
     user.isProfileComplete = true;
@@ -128,9 +136,17 @@ exports.postProfileUpdate = async (req, res) => {
       return res.redirect('/login');
     }
 
+    const cleanGithub = req.body.githubUsername
+      ? req.body.githubUsername.trim().replace(/^https?:\/\/(www\.)?github\.com\//, '').replace(/\/$/, '')
+      : (user.profile.githubUsername || '');
+    const cleanLinkedin = req.body.linkedinUsername
+      ? req.body.linkedinUsername.trim().replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/$/, '')
+      : (user.profile.linkedinUsername || '');
+
     user.profile = {
       ...validation.profile,
-      githubUsername: user.profile.githubUsername || '',
+      githubUsername: cleanGithub,
+      linkedinUsername: cleanLinkedin,
       leetcodeUsername: user.profile.leetcodeUsername || ''
     };
 
@@ -161,11 +177,19 @@ exports.connectAccount = async (req, res) => {
       return res.redirect('/login');
     }
 
+    const cleanInput = username.trim()
+      .replace(/^https?:\/\/(www\.)?github\.com\//, '')
+      .replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '')
+      .replace(/\/$/, '');
+
     if (platform === 'github') {
-      user.profile = { ...user.profile, githubUsername: username.trim() };
+      user.profile = { ...user.profile, githubUsername: cleanInput };
       req.session.success = 'GitHub account connected successfully!';
+    } else if (platform === 'linkedin') {
+      user.profile = { ...user.profile, linkedinUsername: cleanInput };
+      req.session.success = 'LinkedIn account connected successfully!';
     } else if (platform === 'leetcode') {
-      user.profile = { ...user.profile, leetcodeUsername: username.trim() };
+      user.profile = { ...user.profile, leetcodeUsername: cleanInput };
       req.session.success = 'LeetCode account connected successfully!';
     } else {
       req.session.error = 'Invalid platform';
@@ -199,6 +223,9 @@ exports.disconnectAccount = async (req, res) => {
     if (platform === 'github') {
       user.profile = { ...user.profile, githubUsername: '' };
       req.session.success = 'GitHub account disconnected.';
+    } else if (platform === 'linkedin') {
+      user.profile = { ...user.profile, linkedinUsername: '' };
+      req.session.success = 'LinkedIn account disconnected.';
     } else if (platform === 'leetcode') {
       user.profile = { ...user.profile, leetcodeUsername: '' };
       req.session.success = 'LeetCode account disconnected.';

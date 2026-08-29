@@ -131,6 +131,50 @@
                 </div>
               <% } %>
             </div>
+
+            <!-- LinkedIn Box -->
+            <div class="my-social-stat-box">
+              <div class="stat-box-platform linkedin" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div>
+                  <i class="fa-brands fa-linkedin" style="color: #0A66C2;"></i>
+                  <span>LinkedIn</span>
+                </div>
+                <% if (user.profile.linkedinUsername) { %>
+                  <form action="/profile/disconnect" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="platform" value="linkedin">
+                    <button type="submit" class="btn-disconnect-social" style="font-size: 10px;" title="Disconnect LinkedIn" aria-label="Disconnect LinkedIn"><i class="fa-solid fa-link-slash"></i></button>
+                  </form>
+                <% } %>
+              </div>
+              
+              <% if (user.profile.linkedinUsername) { %>
+                <div class="stat-box-data">
+                  <div class="stat-data-item">
+                    <span class="stat-val"><i class="fa-solid fa-circle-check" style="color: #0A66C2;"></i></span>
+                    <span class="stat-lbl">Connected</span>
+                  </div>
+                </div>
+                <div class="stat-box-user">
+                  <a href="https://linkedin.com/in/<%= user.profile.linkedinUsername %>" target="_blank" style="color: var(--primary); text-decoration: none;">in/<%= user.profile.linkedinUsername %></a>
+                </div>
+              <% } else { %>
+                <div class="stat-box-empty">
+                  <button type="button" class="btn btn-connect-social" onclick="toggleConnectForm('linkedin')" style="font-size: 11px; width: 100%; text-align: center; justify-content: center;"><i class="fa-solid fa-link"></i> Connect LinkedIn</button>
+                  <div id="connect-form-linkedin" class="social-connect-inline-form" style="display: none; margin-top: 8px; padding: 6px;">
+                    <form action="/profile/connect" method="POST">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <input type="hidden" name="platform" value="linkedin">
+                      <div class="social-input-group">
+                        <input type="text" name="username" placeholder="LinkedIn handle/url" required style="padding: 4px 6px; font-size: 11px;">
+                        <button type="submit" class="btn btn-primary btn-xs" style="padding: 2px 6px;">Link</button>
+                        <button type="button" class="btn btn-secondary btn-xs" onclick="toggleConnectForm('linkedin')" style="padding: 2px 6px;" aria-label="Close LinkedIn connect form"><i class="fa-solid fa-xmark"></i></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              <% } %>
+            </div>
           </div>
         </div>
       </div>
@@ -138,6 +182,45 @@
 
     <!-- Right Column: Student Cards List -->
     <main class="social-main">
+      <% if (typeof pendingRequests !== 'undefined' && pendingRequests.length > 0) { %>
+        <div style="background-color: var(--surface); border: 2px solid var(--border-dark); border-radius: var(--radius-lg); padding: 20px 24px; box-shadow: var(--shadow-flat); margin-bottom: 28px;">
+          <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 16px 0; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-user-plus" style="color: var(--primary);"></i> Pending Friend Requests (<%= pendingRequests.length %>)
+          </h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+            <% pendingRequests.forEach(reqUser => { %>
+              <div style="background-color: var(--bg); border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 2px 2px 0px var(--border-dark);">
+                <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                  <div style="width: 38px; height: 38px; border-radius: 50%; background-color: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; border: 1px solid var(--border-dark);">
+                    <%= reqUser.profile.fullName ? reqUser.profile.fullName.split(' ').map(n => n[0]).join('') : 'U' %>
+                  </div>
+                  <div style="min-width: 0;">
+                    <h4 style="font-size: 14px; font-weight: 800; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-heading);"><%= reqUser.profile.fullName %></h4>
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;"><%= reqUser.profile.careerGoal %></span>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <form action="/social/friend/accept" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="targetUserId" value="<%= reqUser._id %>">
+                    <button type="submit" class="btn btn-primary btn-xs" style="padding: 4px 10px; font-size: 11.5px; border: 1px solid var(--border-dark);" title="Accept Friend Request">
+                      <i class="fa-solid fa-check"></i> Accept
+                    </button>
+                  </form>
+                  <form action="/social/friend/reject" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="targetUserId" value="<%= reqUser._id %>">
+                    <button type="submit" class="btn btn-secondary btn-xs" style="padding: 4px 8px; font-size: 11.5px; border: 1px solid var(--border-dark);" title="Decline Friend Request">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      <% } %>
+
       <div class="social-list-header">
         <h2>Peer Directories (<%= students.length %>)</h2>
       </div>
@@ -219,11 +302,195 @@
               </div>
             <% } %>
 
+            <!-- Friend & Discussion Actions -->
+            <% if (student._id !== user._id) { %>
+              <div style="margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed var(--border-dark); display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                <% if (student.friendStatus === 'friends') { %>
+                  <span style="font-size: 11px; font-weight: 800; color: #2ECC71; background-color: rgba(46, 204, 113, 0.12); border: 1px solid rgba(46, 204, 113, 0.3); padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-handshake"></i> Friends
+                  </span>
+                  <button type="button" onclick="openChatModal('<%= student._id %>', '<%= (student.profile.fullName || '').replace(/'/g, "\\'") %>')" class="btn btn-primary btn-xs" style="padding: 5px 12px; font-size: 11.5px; font-weight: 800; border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-comments"></i> Chat & Discuss
+                  </button>
+                <% } else if (student.friendStatus === 'sent_request') { %>
+                  <span style="font-size: 11.5px; font-weight: 700; color: var(--text-muted); background-color: var(--surface-alt); border: 1px solid var(--border-dark); padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; gap: 5px; width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Request Pending
+                  </span>
+                <% } else if (student.friendStatus === 'incoming_request') { %>
+                  <form action="/social/friend/accept" method="POST" style="margin: 0; width: 100%;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="targetUserId" value="<%= student._id %>">
+                    <button type="submit" class="btn btn-primary btn-xs" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 11.5px; font-weight: 800; border: 1px solid var(--border-dark);">
+                      <i class="fa-solid fa-user-check"></i> Accept Request
+                    </button>
+                  </form>
+                <% } else { %>
+                  <form action="/social/friend/request" method="POST" style="margin: 0; width: 100%;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="targetUserId" value="<%= student._id %>">
+                    <button type="submit" class="btn btn-secondary btn-xs" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 11.5px; font-weight: 800; border: 1px solid var(--border-dark); background-color: var(--surface); color: var(--text); box-shadow: 2px 2px 0px var(--border-dark);">
+                      <i class="fa-solid fa-user-plus"></i> Add Friend
+                    </button>
+                  </form>
+                <% } %>
+              </div>
+            <% } %>
+
           </div>
         <% }) %>
       </div>
     </main>
   </div>
 </div>
+
+<!-- Live Direct Chat & Discussion Modal -->
+<div id="socialChatModal" style="display: none; position: fixed; inset: 0; z-index: 10000; background-color: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
+  <div style="background-color: var(--surface); border: 2.5px solid var(--border-dark); border-radius: var(--radius-lg); box-shadow: 6px 6px 0px var(--border-dark); width: 100%; max-width: 520px; height: 580px; display: flex; flex-direction: column; overflow: hidden; animation: modalSlideIn 0.3s ease;">
+    
+    <!-- Modal Header -->
+    <div style="padding: 16px 20px; background: linear-gradient(135deg, var(--bg-darker) 0%, var(--surface-alt) 100%); border-bottom: 2px solid var(--border-dark); display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark);">
+          <span id="chatFriendAvatar">F</span>
+        </div>
+        <div>
+          <h3 id="chatFriendName" style="font-size: 16px; font-weight: 800; margin: 0; color: var(--text-heading);">Friend Name</h3>
+          <span id="chatFriendGoal" style="font-size: 11.5px; font-weight: 700; color: var(--text-muted);"><i class="fa-solid fa-comments"></i> Peer Discussion</span>
+        </div>
+      </div>
+      <button type="button" onclick="closeChatModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" aria-label="Close Chat">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div id="chatMessagesContainer" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background-color: var(--bg);">
+      <div style="text-align: center; color: var(--text-muted); font-size: 12px; margin: auto;">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 8px;"></i>
+        <div>Loading conversation...</div>
+      </div>
+    </div>
+
+    <!-- Message Input Form -->
+    <form id="chatSendForm" onsubmit="handleSendChatMessage(event)" style="padding: 16px; border-top: 2px solid var(--border-dark); background-color: var(--surface); display: flex; gap: 10px; align-items: center; margin: 0;">
+      <input type="hidden" id="chatTargetFriendId" value="">
+      <input type="text" id="chatInputText" placeholder="Type a message or start a discussion..." required style="flex: 1; border: 1.5px solid var(--border-dark); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; outline: none; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.05); font-family: var(--font-sans);">
+      <button type="submit" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; font-weight: 800; border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); display: inline-flex; align-items: center; gap: 6px;">
+        <span>Send</span> <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+  let currentChatFriendId = null;
+  let chatPollTimer = null;
+  const currentUserId = "<%= user._id %>";
+
+  function openChatModal(friendId, friendName) {
+    currentChatFriendId = friendId;
+    document.getElementById("chatTargetFriendId").value = friendId;
+    document.getElementById("chatFriendName").textContent = friendName;
+    document.getElementById("chatFriendAvatar").textContent = friendName ? friendName.charAt(0).toUpperCase() : "F";
+    
+    document.getElementById("socialChatModal").style.display = "flex";
+    fetchChatMessages();
+
+    // Auto-poll messages every 3 seconds while chat is active
+    if (chatPollTimer) clearInterval(chatPollTimer);
+    chatPollTimer = setInterval(fetchChatMessages, 3000);
+  }
+
+  function closeChatModal() {
+    document.getElementById("socialChatModal").style.display = "none";
+    currentChatFriendId = null;
+    if (chatPollTimer) clearInterval(chatPollTimer);
+  }
+
+  async function fetchChatMessages() {
+    if (!currentChatFriendId) return;
+    const container = document.getElementById("chatMessagesContainer");
+
+    try {
+      const res = await fetch(`/social/chat/${currentChatFriendId}`);
+      if (!res.ok) return;
+      const data = await res.json();
+
+      if (data.friend) {
+        document.getElementById("chatFriendGoal").textContent = data.friend.careerGoal || "Student Peer";
+      }
+
+      if (!data.messages || data.messages.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); font-size: 13px; margin: auto; padding: 20px;">
+            <i class="fa-solid fa-comments" style="font-size: 32px; color: var(--primary); margin-bottom: 10px; opacity: 0.6;"></i>
+            <div style="font-weight: 700; color: var(--text-heading);">Start a Discussion</div>
+            <div>No previous messages yet. Send a friendly hello!</div>
+          </div>
+        `;
+        return;
+      }
+
+      const isScrolledToBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 50;
+
+      container.innerHTML = data.messages.map(msg => {
+        const isMine = msg.senderId === currentUserId;
+        const timeStr = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
+        return `
+          <div style="display: flex; flex-direction: column; align-items: ${isMine ? 'flex-end' : 'flex-start'};">
+            <div style="max-width: 80%; background-color: ${isMine ? 'var(--primary)' : 'var(--surface)'}; color: ${isMine ? '#FFF' : 'var(--text)'}; border: 1.5px solid var(--border-dark); border-radius: 12px; padding: 10px 14px; box-shadow: 2px 2px 0px var(--border-dark); font-size: 13px; line-height: 1.4; word-break: break-word;">
+              ${msg.text}
+            </div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted); margin-top: 3px; padding: 0 4px;">
+              ${timeStr}
+            </span>
+          </div>
+        `;
+      }).join('');
+
+      if (isScrolledToBottom) {
+        container.scrollTop = container.scrollHeight;
+      }
+    } catch (err) {
+      console.error("Chat Fetch Error:", err);
+    }
+  }
+
+  async function handleSendChatMessage(e) {
+    e.preventDefault();
+    const input = document.getElementById("chatInputText");
+    const text = input.value.trim();
+    const receiverId = document.getElementById("chatTargetFriendId").value;
+
+    if (!text || !receiverId) return;
+
+    input.value = "";
+
+    try {
+      const csrfInput = document.querySelector('input[name="_csrf"]');
+      const csrfToken = csrfInput ? csrfInput.value : '';
+
+      const res = await fetch('/social/chat/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({ receiverId, text, _csrf: csrfToken })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        fetchChatMessages();
+      } else if (data.error) {
+        alert(data.error);
+      }
+    } catch (err) {
+      console.error("Send Chat Error:", err);
+    }
+  }
+</script>
 
 <%- include('partials/footer') %>

@@ -38,6 +38,18 @@
             <div class="sidebar-meta" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: center;">
               <span class="track-tag" style="background-color: var(--surface); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: var(--text); border-radius: var(--radius); font-size: 12px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-compass" style="color: var(--primary);"></i> <%= user.profile.careerGoal %></span>
               <span class="year-tag" style="background-color: var(--surface-alt); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: var(--text); border-radius: var(--radius); font-size: 12px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-graduation-cap"></i> <%= user.profile.currentYear %></span>
+              
+              <% if (user.profile.githubUsername) { %>
+                <a href="https://github.com/<%= user.profile.githubUsername %>" target="_blank" style="text-decoration: none; background-color: var(--surface); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: var(--text); border-radius: var(--radius); font-size: 11.5px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;">
+                  <i class="fa-brands fa-github"></i> @<%= user.profile.githubUsername %>
+                </a>
+              <% } %>
+
+              <% if (user.profile.linkedinUsername) { %>
+                <a href="https://linkedin.com/in/<%= user.profile.linkedinUsername %>" target="_blank" style="text-decoration: none; background-color: var(--surface); border: 1.5px solid var(--border-dark); box-shadow: 2px 2px 0px var(--border-dark); color: #0A66C2; border-radius: var(--radius); font-size: 11.5px; font-weight: 700; padding: 4px 12px; display: inline-flex; align-items: center; gap: 6px;">
+                  <i class="fa-brands fa-linkedin" style="color: #0A66C2;"></i> in/<%= user.profile.linkedinUsername %>
+                </a>
+              <% } %>
             </div>
           </div>
 
@@ -192,6 +204,35 @@
                       <input type="text" id="interests" name="interests" value="<%= user.profile.interests ? user.profile.interests.join(', ') : '' %>" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
                     </div>
                     <p class="form-hint-text" style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Separate your academic or extracurricular interests with commas (e.g. Open Source, Machine Learning, Web3).</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Section: Connected Social Accounts -->
+              <div style="margin-bottom: 36px;">
+                <h4 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #0A66C2; border-bottom: 1.5px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-link"></i> Connected Social Profiles & Accounts
+                </h4>
+                
+                <div class="form-grid">
+                  <!-- GitHub Username -->
+                  <div class="form-group">
+                    <label for="githubUsername">GitHub Handle / Profile</label>
+                    <div class="input-wrapper">
+                      <i class="fa-brands fa-github"></i>
+                      <input type="text" id="githubUsername" name="githubUsername" value="<%= user.profile.githubUsername || '' %>" placeholder="e.g. octocat or github.com/octocat" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                    <p class="form-hint-text" style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">Connect GitHub to display public repos and stats.</p>
+                  </div>
+
+                  <!-- LinkedIn Username -->
+                  <div class="form-group">
+                    <label for="linkedinUsername">LinkedIn Handle / Profile</label>
+                    <div class="input-wrapper">
+                      <i class="fa-brands fa-linkedin" style="color: #0A66C2;"></i>
+                      <input type="text" id="linkedinUsername" name="linkedinUsername" value="<%= user.profile.linkedinUsername || '' %>" placeholder="e.g. john-doe or linkedin.com/in/john-doe" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                    <p class="form-hint-text" style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">Connect LinkedIn to link your professional profile.</p>
                   </div>
                 </div>
               </div>

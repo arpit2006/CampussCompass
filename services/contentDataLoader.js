@@ -43,6 +43,35 @@ const readJsonFile = (filePath) => {
   }
 };
 
+const readJsonFileAsync = async (filePath) => {
+  try {
+    const rawData = await fs.promises.readFile(filePath, 'utf8');
+    return JSON.parse(rawData);
+  } catch (error) {
+    console.error(`Error loading JSON data asynchronously from ${filePath}:`, error.message);
+    return null;
+  }
+};
+
+const preloadContentData = async () => {
+  const roadmapPromises = Object.entries(ROADMAP_FILES).map(async ([careerGoal, filename]) => {
+    const filePath = path.join(ROADMAPS_DIR, filename);
+    const roadmap = await readJsonFileAsync(filePath);
+    if (roadmap) {
+      cache.roadmaps.set(careerGoal, roadmap);
+    }
+  });
+
+  const playlistsPromise = (async () => {
+    const playlists = await readJsonFileAsync(PLAYLISTS_PATH);
+    if (playlists) {
+      cache.playlists = playlists;
+    }
+  })();
+
+  await Promise.all([...roadmapPromises, playlistsPromise]);
+};
+
 const getRoadmapData = (careerGoal) => {
   const filename = ROADMAP_FILES[careerGoal];
   if (!filename) return null;
@@ -50,6 +79,21 @@ const getRoadmapData = (careerGoal) => {
   if (!cache.roadmaps.has(careerGoal)) {
     const filePath = path.join(ROADMAPS_DIR, filename);
     const roadmap = readJsonFile(filePath);
+
+    if (!roadmap) return null;
+    cache.roadmaps.set(careerGoal, roadmap);
+  }
+
+  return cloneData(cache.roadmaps.get(careerGoal));
+};
+
+const getRoadmapDataAsync = async (careerGoal) => {
+  const filename = ROADMAP_FILES[careerGoal];
+  if (!filename) return null;
+
+  if (!cache.roadmaps.has(careerGoal)) {
+    const filePath = path.join(ROADMAPS_DIR, filename);
+    const roadmap = await readJsonFileAsync(filePath);
 
     if (!roadmap) return null;
     cache.roadmaps.set(careerGoal, roadmap);
@@ -109,5 +153,7 @@ module.exports = {
   getAvailablePlaylistTracks,
   getPlaylistData,
   getRoadmapData,
+  getRoadmapDataAsync,
+  preloadContentData,
   resolvePlaylistTrackKeyFromCareerGoal
 };

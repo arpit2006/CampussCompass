@@ -15,8 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const fetchGitHubStats = async () => {
       try {
         const [starsRes, forksRes] = await Promise.all([
-          fetch("https://img.shields.io/github/stars/arpit2006/CampussCompass.json"),
-          fetch("https://img.shields.io/github/forks/arpit2006/CampussCompass.json")
+          fetch(
+            "https://img.shields.io/github/stars/arpit2006/CampussCompass.json",
+          ),
+          fetch(
+            "https://img.shields.io/github/forks/arpit2006/CampussCompass.json",
+          ),
         ]);
 
         if (!starsRes.ok || !forksRes.ok) {
@@ -25,13 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const [starsData, forksData] = await Promise.all([
           starsRes.json(),
-          forksRes.json()
+          forksRes.json(),
         ]);
 
         const stats = {
           stars: parseInt(starsData.value || starsData.message, 10) || 4,
           forks: parseInt(forksData.value || forksData.message, 10) || 9,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
 
         localStorage.setItem(CACHE_KEY, JSON.stringify(stats));
@@ -141,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeBtn.addEventListener("click", () => {
       alert.style.opacity = "0";
       alert.style.transform = "translateY(-10px)";
-      alert.style.transition = "all 0.3s ease";
+      alert.style.transition = "all 0.1s ease";
       setTimeout(() => {
         alert.remove();
       }, 300);
@@ -264,34 +268,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- AI Agent Offline Modal Logic ---
-  const aiAgentFloatingBtn = document.getElementById('aiAgentFloatingBtn');
-  const aiAgentModal = document.getElementById('aiAgentModal');
-  const closeAiAgentModal = document.getElementById('closeAiAgentModal');
-  const dismissAiAgentModal = document.getElementById('dismissAiAgentModal');
-  const aiAgentGoToCommunityBtn = document.getElementById('aiAgentGoToCommunityBtn');
+  const aiAgentFloatingBtn = document.getElementById("aiAgentFloatingBtn");
+  const aiAgentModal = document.getElementById("aiAgentModal");
+  const closeAiAgentModal = document.getElementById("closeAiAgentModal");
+  const dismissAiAgentModal = document.getElementById("dismissAiAgentModal");
+  const aiAgentGoToCommunityBtn = document.getElementById(
+    "aiAgentGoToCommunityBtn",
+  );
 
   if (aiAgentModal && aiAgentFloatingBtn) {
-    aiAgentFloatingBtn.addEventListener('click', () => {
-      aiAgentModal.classList.add('active');
+    aiAgentFloatingBtn.addEventListener("click", () => {
+      aiAgentModal.classList.add("active");
     });
 
     const hideAiModal = () => {
-      aiAgentModal.classList.remove('active');
+      aiAgentModal.classList.remove("active");
     };
 
     if (closeAiAgentModal) {
-      closeAiAgentModal.addEventListener('click', hideAiModal);
+      closeAiAgentModal.addEventListener("click", hideAiModal);
     }
 
     if (dismissAiAgentModal) {
-      dismissAiAgentModal.addEventListener('click', hideAiModal);
+      dismissAiAgentModal.addEventListener("click", hideAiModal);
     }
 
     if (aiAgentGoToCommunityBtn) {
-      aiAgentGoToCommunityBtn.addEventListener('click', hideAiModal);
+      aiAgentGoToCommunityBtn.addEventListener("click", hideAiModal);
     }
 
-    aiAgentModal.addEventListener('click', (e) => {
+    aiAgentModal.addEventListener("click", (e) => {
       if (e.target === aiAgentModal) {
         hideAiModal();
       }
@@ -690,6 +696,88 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  // --- Auto-Dismiss Success & Error Alert Notifications ---
+  const dismissAlert = (alert) => {
+    if (!alert || alert.classList.contains("dismissing")) return;
+    alert.classList.add("dismissing");
+
+    alert.style.transition = "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)";
+    alert.style.opacity = "0";
+    alert.style.transform = "translateY(-8px)";
+
+    setTimeout(() => {
+      alert.style.maxHeight = "0px";
+      alert.style.marginBottom = "0px";
+      alert.style.paddingTop = "0px";
+      alert.style.paddingBottom = "0px";
+      alert.style.overflow = "hidden";
+      alert.style.border = "none";
+    }, 150);
+
+    setTimeout(() => {
+      if (alert.parentNode) {
+        alert.parentNode.removeChild(alert);
+      }
+    }, 400);
+  };
+
+  const autoDismissAlerts = () => {
+    const alerts = document.querySelectorAll(
+      ".alert, .alert-success, .alert-danger, .alert-dismissible",
+    );
+
+    alerts.forEach((alert) => {
+      if (alert.dataset.dismissInitialized) return;
+      alert.dataset.dismissInitialized = "true";
+
+      alert.style.position = "relative";
+
+      // Add close button if not present
+      if (
+        !alert.querySelector(".alert-close-btn") &&
+        !alert.querySelector(".btn-close")
+      ) {
+        const closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "alert-close-btn";
+        closeBtn.innerHTML = "&times;";
+        closeBtn.setAttribute("aria-label", "Close notification");
+        closeBtn.style.cssText =
+          "background: none; border: none; font-size: 18px; font-weight: bold; cursor: pointer; color: inherit; opacity: 0.7; margin-left: auto; padding: 0 6px; line-height: 1; transition: opacity 0.2s ease;";
+        closeBtn.addEventListener("mouseover", () => {
+          closeBtn.style.opacity = "1";
+        });
+        closeBtn.addEventListener("mouseout", () => {
+          closeBtn.style.opacity = "0.7";
+        });
+
+        closeBtn.addEventListener("click", () => {
+          dismissAlert(alert);
+        });
+
+        alert.appendChild(closeBtn);
+      }
+
+      // Auto-dismiss timer (4 seconds)
+      let timer = setTimeout(() => {
+        dismissAlert(alert);
+      }, 4000);
+
+      // Pause timer on hover, resume on mouse leave
+      alert.addEventListener("mouseenter", () => {
+        if (timer) clearTimeout(timer);
+      });
+
+      alert.addEventListener("mouseleave", () => {
+        timer = setTimeout(() => {
+          dismissAlert(alert);
+        }, 2000);
+      });
+    });
+  };
+
+  autoDismissAlerts();
 });
 // Global function to toggle social connection forms in the dashboard sidebar
 // eslint-disable-next-line no-unused-vars
@@ -725,3 +813,111 @@ function toggleStudentSocialStats(studentId, platform) {
     }
   }
 }
+
+// --- Security & API Lag Monitor Module ---
+(function initSecurityAndLagProtection() {
+  // 1. Automatic Form Double-Submit & Spam Guard
+  document.addEventListener("submit", (e) => {
+    const form = e.target;
+    if (!form || form.tagName !== "FORM") return;
+
+    const submitBtn = form.querySelector(
+      'button[type="submit"], input[type="submit"]',
+    );
+    if (submitBtn && !submitBtn.disabled) {
+      const originalHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.dataset.originalContent = originalHtml;
+
+      if (submitBtn.tagName === "BUTTON") {
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+      }
+
+      // Safety fallback: re-enable after 8s if navigation doesn't occur
+      setTimeout(() => {
+        if (submitBtn && submitBtn.disabled) {
+          submitBtn.disabled = false;
+          if (submitBtn.dataset.originalContent) {
+            submitBtn.innerHTML = submitBtn.dataset.originalContent;
+          }
+        }
+      }, 8000);
+    }
+  });
+
+  // 2. Safe Client API Call Wrapper with Latency Watchdog & Timeout
+  window.safeFetch = async function (url, options = {}) {
+    const timeoutMs = options.timeout || 10000;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+    const csrfInput = document.querySelector('input[name="_csrf"]');
+    const csrfToken = csrfInput ? csrfInput.value : null;
+
+    options.headers = {
+      "X-Requested-With": "XMLHttpRequest",
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      ...(options.headers || {}),
+    };
+    options.signal = controller.signal;
+
+    const startTime = performance.now();
+
+    try {
+      const response = await fetch(url, options);
+      clearTimeout(timer);
+
+      const duration = Math.round(performance.now() - startTime);
+
+      // Lag Detection Warning Toast (if request took > 2500ms)
+      if (duration > 2500) {
+        console.warn(
+          `[LAG MONITOR] Slow API response (${duration}ms) for ${url}`,
+        );
+        showSecurityNotice(
+          "⚠️ Slow network connection detected. Request is taking longer than expected.",
+          "warning",
+        );
+      }
+
+      // Security Rate Limit (429) Handling
+      if (response.status === 429) {
+        showSecurityNotice(
+          "🛑 Security limit reached. Please wait a moment before sending more requests.",
+          "danger",
+        );
+      }
+
+      return response;
+    } catch (err) {
+      clearTimeout(timer);
+      if (err.name === "AbortError") {
+        console.error(
+          `[SECURITY TIMEOUT] API request timed out after ${timeoutMs}ms: ${url}`,
+        );
+        showSecurityNotice(
+          "⏱️ Request timed out due to network lag. Please try again.",
+          "danger",
+        );
+      }
+      throw err;
+    }
+  };
+
+  // Helper function to render security & lag notice toasts
+  function showSecurityNotice(msg, type = "info") {
+    const toast = document.createElement("div");
+    toast.className = `alert alert-${type === "warning" ? "danger" : "info"} alert-dismissible`;
+    toast.style.cssText =
+      "position: fixed; bottom: 24px; right: 24px; z-index: 99999; margin: 0; box-shadow: var(--shadow-flat); border: 2px solid var(--border-dark); max-width: 380px; animation: fadeIn 0.3s ease;";
+    toast.innerHTML = `<span>${msg}</span>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.transition = "all 0.35s ease";
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(10px)";
+      setTimeout(() => toast.remove(), 350);
+    }, 4500);
+  }
+})();

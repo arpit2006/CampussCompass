@@ -13,7 +13,7 @@ try {
 
 let sequelize;
 
-if (process.env.DATABASE_URL) {
+if (process.env.DATABASE_URL && process.env.NODE_ENV !== 'test') {
   console.log('--- Database Setup ---');
   console.log('Connecting to SQL Database (Production Mode)');
 

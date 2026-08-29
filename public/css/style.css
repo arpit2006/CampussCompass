@@ -1638,6 +1638,24 @@ ul {
   transform: translate(-1px, -1px);
 }
 
+.btn-google-login {
+  grid-column: span 2;
+  background-color: var(--surface);
+  border: 1px solid var(--border-dark);
+  color: var(--text);
+  box-shadow: 2px 2px 0px var(--border-dark);
+  font-size: 13px;
+  padding: 10px 14px;
+}
+
+.btn-google-login:hover {
+  background-color: #f8fafc;
+  border-color: #4285f4;
+  color: #1a73e8;
+  box-shadow: 3px 3px 0px #4285f4;
+  transform: translate(-1px, -1px);
+}
+
 /* Mock OAuth Page Styles */
 .oauth-badge {
   display: inline-block;

@@ -7,6 +7,8 @@ const {
   getAvailablePlaylistTracks,
   getPlaylistData,
   getRoadmapData,
+  getRoadmapDataAsync,
+  preloadContentData,
   resolvePlaylistTrackKeyFromCareerGoal
 } = require('../services/contentDataLoader');
 
@@ -18,6 +20,28 @@ test('loads roadmap data for a supported career goal', () => {
   assert.strictEqual(roadmap.title, 'Software Engineer');
   assert.ok(Array.isArray(roadmap.semesters));
   assert.ok(roadmap.semesters.length > 0);
+});
+
+test('loads roadmap data asynchronously for a supported career goal', async () => {
+  clearContentDataCache();
+
+  const roadmap = await getRoadmapDataAsync('Software Engineer');
+
+  assert.strictEqual(roadmap.title, 'Software Engineer');
+  assert.ok(Array.isArray(roadmap.semesters));
+  assert.ok(roadmap.semesters.length > 0);
+});
+
+test('preloads all roadmaps and playlists into memory at startup', async () => {
+  clearContentDataCache();
+
+  await preloadContentData();
+
+  const roadmap = getRoadmapData('Web Developer');
+  assert.strictEqual(roadmap.title, 'Web Developer');
+
+  const { trackData } = getPlaylistData('web-developer');
+  assert.strictEqual(trackData.title, 'Web Developer Playlists');
 });
 
 test('returns null for unsupported roadmap career goals', () => {

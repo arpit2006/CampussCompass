@@ -12,12 +12,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
-  <!-- Vercel Web Analytics & Speed Insights -->
+  <!-- Vercel Web Analytics & Speed Insights (production only, gracefully degraded) -->
+  <% if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'production') { %>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script defer src="/_vercel/insights/script.js" onerror="void(0)"></script>
+  <script defer src="/_vercel/speed-insights/script.js" onerror="void(0)"></script>
+  <% } %>
 </head>
 <body>

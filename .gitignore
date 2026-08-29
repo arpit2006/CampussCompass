@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Session files (file-based session store)
+sessions/
+
 # Environment variables
 .env
 .env.local

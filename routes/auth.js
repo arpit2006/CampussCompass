@@ -14,6 +14,9 @@ router.post('/login', ensureGuest, authController.postLogin);
 // GET Logout
 router.get('/logout', ensureAuth, authController.logout);
 
+// Google Authentication (Verified Email)
+router.post('/auth/google', ensureGuest, authController.postGoogleAuth);
+
 // Mock Social OAuth Logins
 router.get('/auth/:platform', ensureGuest, authController.getMockOAuth);
 router.post('/auth/:platform', ensureGuest, authController.postMockOAuth);

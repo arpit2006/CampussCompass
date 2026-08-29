@@ -79,7 +79,11 @@ User.init(
           interests: val.interests || [],
           dailyStudyHours: val.dailyStudyHours !== undefined ? val.dailyStudyHours : null,
           githubUsername: val.githubUsername || '',
+          linkedinUsername: val.linkedinUsername || '',
           leetcodeUsername: val.leetcodeUsername || '',
+          friends: val.friends || [],
+          friendRequests: val.friendRequests || [],
+          chatMessages: val.chatMessages || [],
           ...val
         };
       }
