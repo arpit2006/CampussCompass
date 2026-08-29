@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { getRoadmapData } = require('../services/contentDataLoader');
+const { getRoadmapDataAsync } = require('../services/contentDataLoader');
 
 // Helper to calculate progress dynamically based on matching user skills to roadmap topics
 const calculateProgress = (userSkills, roadmap) => {
@@ -50,8 +50,8 @@ exports.getDashboard = async (req, res) => {
     // req.user is already populated by the ensureProfileComplete middleware
     const user = req.user;
 
-    // Load the matching roadmap
-    const roadmap = getRoadmapData(user.profile.careerGoal);
+    // Load the matching roadmap asynchronously
+    const roadmap = await getRoadmapDataAsync(user.profile.careerGoal);
 
     // Calculate progress
     const progress = calculateProgress(user.profile.skills, roadmap);

@@ -5,11 +5,10 @@ const dotenv = require('dotenv');
 const crypto = require('crypto');
 const { connectDB, sequelize } = require('./config/db');
 const { csrfProtection } = require('./services/csrfProtection');
+const { preloadContentData } = require('./services/contentDataLoader');
 
 // Load environment variables from .env file
 dotenv.config();
-
-
 
 // Initialize Express App
 const app = express();
@@ -33,6 +32,7 @@ app.use(async (req, res, next) => {
     try {
       await connectDB();
       await sequelize.sync();
+      await preloadContentData();
       dbInitialized = true;
       console.log('Database connected and models synchronized successfully.');
     } catch (error) {

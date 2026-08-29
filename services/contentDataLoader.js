@@ -43,6 +43,36 @@ const readJsonFile = (filePath) => {
   }
 };
 
+const readJsonFileAsync = async (filePath) => {
+  try {
+    const rawData = await fs.promises.readFile(filePath, 'utf8');
+    return JSON.parse(rawData);
+  } catch (error) {
+    console.error(`Error loading JSON data from ${filePath}:`, error.message);
+    return null;
+  }
+};
+
+const preloadContentData = async () => {
+  const roadmapEntries = Object.entries(ROADMAP_FILES);
+  const roadmapPromises = roadmapEntries.map(async ([careerGoal, filename]) => {
+    const filePath = path.join(ROADMAPS_DIR, filename);
+    const roadmap = await readJsonFileAsync(filePath);
+    if (roadmap) {
+      cache.roadmaps.set(careerGoal, roadmap);
+    }
+  });
+
+  const playlistsPromise = (async () => {
+    const playlists = await readJsonFileAsync(PLAYLISTS_PATH);
+    if (playlists) {
+      cache.playlists = playlists;
+    }
+  })();
+
+  await Promise.all([...roadmapPromises, playlistsPromise]);
+};
+
 const getRoadmapData = (careerGoal) => {
   const filename = ROADMAP_FILES[careerGoal];
   if (!filename) return null;
@@ -58,13 +88,26 @@ const getRoadmapData = (careerGoal) => {
   return cloneData(cache.roadmaps.get(careerGoal));
 };
 
+const getRoadmapDataAsync = async (careerGoal) => {
+  const filename = ROADMAP_FILES[careerGoal];
+  if (!filename) return null;
+
+  if (!cache.roadmaps.has(careerGoal)) {
+    const filePath = path.join(ROADMAPS_DIR, filename);
+    const roadmap = await readJsonFileAsync(filePath);
+
+    if (!roadmap) return null;
+    cache.roadmaps.set(careerGoal, roadmap);
+  }
+
+  return cloneData(cache.roadmaps.get(careerGoal));
+};
+
 const getAllPlaylistData = () => {
   if (!cache.playlists) {
     cache.playlists = readJsonFile(PLAYLISTS_PATH) || {};
   }
 
-  // Internal only: this returns the raw cache reference.
-  // Callers must clone playlist data before exposing or mutating it.
   return cache.playlists;
 };
 
@@ -84,8 +127,6 @@ const resolvePlaylistTrackKeyFromCareerGoal = (careerGoal) => {
   if (!careerGoal) return null;
 
   const goal = careerGoal.toLowerCase();
-  // Order matters: more specific terms are checked before broader terms
-  // to avoid mis-mapping compound goals like "cloud data engineer".
   if (goal.includes('ai') || goal.includes('artificial')) return 'ai-engineer';
   if (goal.includes('cloud')) return 'cloud-engineer';
   if (goal.includes('cyber')) return 'cyber-security';
@@ -109,5 +150,7 @@ module.exports = {
   getAvailablePlaylistTracks,
   getPlaylistData,
   getRoadmapData,
+  getRoadmapDataAsync,
+  preloadContentData,
   resolvePlaylistTrackKeyFromCareerGoal
 };

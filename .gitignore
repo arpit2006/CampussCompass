@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Session storage
+sessions/
+
 # Environment variables
 .env
 .env.local
@@ -42,3 +45,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 .vercel/project.json
+
+# Local Agent customizations
+.agents/
