@@ -1,0 +1,165 @@
+name: 🛡️ Critical File Change Detector
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Detect Critical File Changes
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                per_page: 100
+              }
+            );
+
+            const labels = new Set();
+            const changed = [];
+
+            function add(file, label, type) {
+              changed.push(`• ${file} (${type})`);
+              labels.add(label);
+            }
+
+            for (const f of files) {
+              const file = f.filename;
+
+              // GitHub Actions
+              if (file.startsWith(".github/workflows/")) {
+                add(file, "ci/cd", "GitHub Actions");
+              }
+
+              // Dependencies
+              if (
+                file === "package.json" ||
+                file === "package-lock.json" ||
+                file === "pnpm-lock.yaml" ||
+                file === "yarn.lock" ||
+                file === "requirements.txt" ||
+                file === "requirements-dev.txt" ||
+                file === "poetry.lock"
+              ) {
+                add(file, "dependencies", "Dependencies");
+              }
+
+              // Docker
+              if (
+                file === "Dockerfile" ||
+                file === "docker-compose.yml" ||
+                file === "docker-compose.yaml"
+              ) {
+                add(file, "docker", "Docker");
+              }
+
+              // Environment
+              if (
+                file === ".env.example" ||
+                file === ".env.sample"
+              ) {
+                add(file, "environment", "Environment");
+              }
+
+              // Config
+              if (
+                file.startsWith("vite.config") ||
+                file.startsWith("tsconfig") ||
+                file.startsWith("tailwind.config") ||
+                file.startsWith("eslint.config") ||
+                file.startsWith("prettier.config") ||
+                file === "next.config.js"
+              ) {
+                add(file, "configuration", "Configuration");
+              }
+
+              // Security
+              if (
+                file.includes("security") ||
+                file.includes("auth") ||
+                file.includes("middleware")
+              ) {
+                add(file, "security-review", "Security");
+              }
+            }
+
+            if (labels.size === 0) {
+              console.log("No critical files changed.");
+              return;
+            }
+
+            // Add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: [...labels]
+            });
+
+            const body = `## 🛡️ Critical File Change Detector
+
+            This Pull Request modifies **important project files**.
+
+            ### Changed Files
+
+            ${changed.join("\n")}
+
+            ### Labels Added
+
+            ${[...labels].map(l => `🏷️ \`${l}\``).join("\n")}
+
+            ### Reviewer Checklist
+
+            - [ ] Verify dependency updates
+            - [ ] Review CI/CD workflow changes
+            - [ ] Check build configuration
+            - [ ] Verify Docker changes
+            - [ ] Check for security implications
+            - [ ] Ensure backward compatibility
+
+            ---
+            *Generated automatically by Critical File Change Detector.*`;
+
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number
+            });
+
+            const existing = comments.data.find(c =>
+              c.body.includes("Generated automatically by Critical File Change Detector.")
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body
+              });
+            }

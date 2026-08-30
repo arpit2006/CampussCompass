@@ -1,33 +1,5 @@
-const path = require('path');
-const fs = require('fs');
 const User = require('../models/User');
-
-// Map career goals to roadmap JSON files
-const ROADMAP_FILES = {
-  'Data Scientist': 'data-scientist.json',
-  'Software Engineer': 'software-engineer.json',
-  'Web Developer': 'web-developer.json',
-  'AI Engineer': 'ai-engineer.json',
-  'Cyber Security': 'cyber-security.json',
-  'Cloud Engineer': 'cloud-engineer.json'
-};
-
-// Helper function to read roadmap JSON data
-const getRoadmapData = (careerGoal) => {
-  const filename = ROADMAP_FILES[careerGoal];
-  if (!filename) return null;
-
-  try {
-    const filePath = path.join(__dirname, '../data/roadmaps', filename);
-    if (fs.existsSync(filePath)) {
-      const rawData = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(rawData);
-    }
-  } catch (error) {
-    console.error(`Error loading roadmap for ${careerGoal}:`, error);
-  }
-  return null;
-};
+const { getRoadmapData } = require('../services/contentDataLoader');
 
 // Helper to calculate progress dynamically based on matching user skills to roadmap topics
 const calculateProgress = (userSkills, roadmap) => {

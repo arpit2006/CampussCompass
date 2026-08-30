@@ -1,0 +1,142 @@
+name: 🏷️ PR Review Labels
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review-labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update labels based on review
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const prNumber = context.payload.pull_request.number;
+            const reviewState = context.payload.review.state;
+
+            console.log(`PR #${prNumber}`);
+            console.log(`Review state: ${reviewState}`);
+
+            // Labels used by this workflow
+            const labels = [
+              "changes-required",
+              "under-review",
+              "approved",
+              "ready-to-merge"
+            ];
+
+            // Create a label if it doesn't already exist
+            async function ensureLabel(label) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner,
+                  repo,
+                  name: label
+                });
+
+                console.log(`Label already exists: ${label}`);
+              } catch (error) {
+                if (error.status === 404) {
+                  console.log(`Creating missing label: ${label}`);
+
+                  await github.rest.issues.createLabel({
+                    owner,
+                    repo,
+                    name: label
+                  });
+
+                  console.log(`Created label: ${label}`);
+                } else {
+                  throw error;
+                }
+              }
+            }
+
+            // Add label
+            async function addLabel(label) {
+              try {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: prNumber,
+                  labels: [label]
+                });
+
+                console.log(`Added label: ${label}`);
+              } catch (error) {
+                console.log(
+                  `Failed to add ${label}: ${error.status} ${error.message}`
+                );
+              }
+            }
+
+            // Remove label
+            async function removeLabel(label) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number: prNumber,
+                  name: label
+                });
+
+                console.log(`Removed label: ${label}`);
+              } catch (error) {
+                if (error.status === 404) {
+                  console.log(`Label not present: ${label}`);
+                } else {
+                  console.log(
+                    `Failed to remove ${label}: ${error.status} ${error.message}`
+                  );
+                }
+              }
+            }
+
+            // Make sure all required labels exist
+            for (const label of labels) {
+              await ensureLabel(label);
+            }
+
+            // Handle review states
+            if (reviewState === "changes_requested") {
+              console.log("Changes requested — updating labels");
+
+              await addLabel("changes-required");
+
+              await removeLabel("under-review");
+              await removeLabel("approved");
+              await removeLabel("ready-to-merge");
+            }
+
+            else if (reviewState === "approved") {
+              console.log("Review approved — updating labels");
+
+              await removeLabel("changes-required");
+              await removeLabel("under-review");
+
+              await addLabel("approved");
+            }
+
+            else if (reviewState === "commented") {
+              console.log("Reviewer commented — marking PR under review");
+
+              await removeLabel("changes-required");
+              await removeLabel("approved");
+              await removeLabel("ready-to-merge");
+
+              await addLabel("under-review");
+            }
+
+            else {
+              console.log(`No label action for review state: ${reviewState}`);
+            }

@@ -1,10 +1,11 @@
 const User = require('../models/User');
+const { validateProfileInput } = require('../services/profileValidation');
 
 // Render Profile Setup Page (Initial)
 exports.getProfileSetup = (req, res) => {
   const error = req.session.error;
   delete req.session.error;
-  
+
   res.render('profile-setup', {
     error,
     title: 'Setup Profile - CampusCompass',
@@ -27,9 +28,20 @@ exports.postProfileSetup = async (req, res) => {
     location
   } = req.body;
 
-  // Basic validation
-  if (!fullName || !collegeName || !branch || !currentYear || !careerGoal) {
-    req.session.error = 'Full Name, College, Branch, Year, and Career Goal are required';
+  const validation = validateProfileInput({
+    fullName,
+    collegeName,
+    branch,
+    currentYear,
+    cgpa,
+    careerGoal,
+    skills,
+    interests,
+    dailyStudyHours
+  });
+
+  if (!validation.isValid) {
+    req.session.error = validation.errors.join(' ');
     return res.redirect('/profile/setup');
   }
 
@@ -40,24 +52,8 @@ exports.postProfileSetup = async (req, res) => {
       return res.redirect('/login');
     }
 
-    // Process lists (skills & interests) from comma-separated values
-    const skillsArray = skills
-      ? skills.split(',').map(s => s.trim()).filter(s => s.length > 0)
-      : [];
-    const interestsArray = interests
-      ? interests.split(',').map(i => i.trim()).filter(i => i.length > 0)
-      : [];
-
     user.profile = {
-      fullName,
-      collegeName,
-      branch,
-      currentYear,
-      cgpa: cgpa ? parseFloat(cgpa) : null,
-      careerGoal,
-      skills: skillsArray,
-      interests: interestsArray,
-      dailyStudyHours: dailyStudyHours ? parseInt(dailyStudyHours, 10) : null,
+      ...validation.profile,
       location: location ? location.trim() : '',
       githubUsername: user.profile.githubUsername || '',
       leetcodeUsername: user.profile.leetcodeUsername || ''
@@ -111,8 +107,20 @@ exports.postProfileUpdate = async (req, res) => {
     location
   } = req.body;
 
-  if (!fullName || !collegeName || !branch || !currentYear || !careerGoal) {
-    req.session.error = 'Full Name, College, Branch, Year, and Career Goal are required';
+  const validation = validateProfileInput({
+    fullName,
+    collegeName,
+    branch,
+    currentYear,
+    cgpa,
+    careerGoal,
+    skills,
+    interests,
+    dailyStudyHours
+  });
+
+  if (!validation.isValid) {
+    req.session.error = validation.errors.join(' ');
     return res.redirect('/profile');
   }
 
@@ -123,23 +131,8 @@ exports.postProfileUpdate = async (req, res) => {
       return res.redirect('/login');
     }
 
-    const skillsArray = skills
-      ? skills.split(',').map(s => s.trim()).filter(s => s.length > 0)
-      : [];
-    const interestsArray = interests
-      ? interests.split(',').map(i => i.trim()).filter(i => i.length > 0)
-      : [];
-
     user.profile = {
-      fullName,
-      collegeName,
-      branch,
-      currentYear,
-      cgpa: cgpa ? parseFloat(cgpa) : null,
-      careerGoal,
-      skills: skillsArray,
-      interests: interestsArray,
-      dailyStudyHours: dailyStudyHours ? parseInt(dailyStudyHours, 10) : null,
+      ...validation.profile,
       location: location ? location.trim() : '',
       githubUsername: user.profile.githubUsername || '',
       leetcodeUsername: user.profile.leetcodeUsername || ''

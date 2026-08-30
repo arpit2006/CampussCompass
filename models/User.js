@@ -40,23 +40,23 @@ User.init(
     _id: {
       type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: () => Date.now().toString(),
+      defaultValue: () => Date.now().toString()
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
-      },
+        isEmail: true
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     isProfileComplete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     profile: {
       type: DataTypes.JSON,
@@ -83,8 +83,8 @@ User.init(
           leetcodeUsername: val.leetcodeUsername || '',
           ...val
         };
-      },
-    },
+      }
+    }
   },
   {
     sequelize,

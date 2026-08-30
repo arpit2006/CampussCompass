@@ -7,7 +7,9 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "node --test test/**/*.test.js",
+    "test:smoke": "node --test test/app-smoke.test.js"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

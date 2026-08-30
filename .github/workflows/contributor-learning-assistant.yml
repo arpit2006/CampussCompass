@@ -1,0 +1,283 @@
+name: 🎓 Contributor Learning Assistant
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
+
+jobs:
+  learning-assistant:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Welcome Contributor
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pr = context.payload.pull_request;
+
+            // Get changed files
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner,
+                repo,
+                pull_number: pr.number,
+                per_page: 100
+              }
+            );
+
+            const changedFiles = files.map(f => f.filename);
+
+            let labels = new Set();
+            let sections = [];
+
+            function addSection(title, label, body) {
+              labels.add(label);
+              sections.push(`## ${title}\n${body}`);
+            }
+
+            // ---------- Detect project areas ----------
+
+            if (changedFiles.some(f => f.startsWith("frontend/"))) {
+              addSection(
+                "🎨 Frontend Contribution",
+                "frontend",
+                `
+              **Helpful Resources**
+              - React Component Guidelines
+              - Tailwind CSS Best Practices
+              - Responsive Design Guide
+              - Accessibility Checklist
+              
+              **Before Review**
+              - [ ] UI is responsive
+              - [ ] ESLint passes
+              - [ ] TypeScript has no errors
+              - [ ] Screenshots attached (if UI changed)
+              `
+                            );
+                          }
+              
+                          if (changedFiles.some(f => f.startsWith("backend/"))) {
+                            addSection(
+                              "⚙️ Backend Contribution",
+                              "backend",
+                              `
+              **Helpful Resources**
+              - API Development Guide
+              - Error Handling Standards
+              - Logging Best Practices
+              - Validation Rules
+              
+              **Before Review**
+              - [ ] API tested
+              - [ ] Error handling added
+              - [ ] Logging verified
+              - [ ] Unit tests updated
+              `
+                            );
+                          }
+              
+                          if (
+                            changedFiles.some(f =>
+                              f.includes("migration") ||
+                              f.endsWith(".sql") ||
+                              f.includes("schema") ||
+                              f.includes("database")
+                            )
+                          ) {
+                            addSection(
+                              "🗄 Database Changes",
+                              "database",
+                              `
+              **Please Verify**
+              - [ ] Migration tested
+              - [ ] Existing data remains compatible
+              - [ ] Rollback possible
+              - [ ] Queries updated
+              `
+                            );
+                          }
+              
+                          if (changedFiles.some(f => f.startsWith("docs/") || f === "README.md")) {
+                            addSection(
+                              "📚 Documentation",
+                              "documentation",
+                              `
+              **Checklist**
+              - [ ] Markdown formatting
+              - [ ] Working links
+              - [ ] Updated screenshots
+              - [ ] Correct examples
+              `
+                            );
+                          }
+              
+                          if (changedFiles.some(f => f.startsWith("tests/"))) {
+                            addSection(
+                              "🧪 Testing",
+                              "testing",
+                              `
+              Great job updating tests!
+              
+              Before review:
+              
+              - [ ] All tests pass
+              - [ ] Edge cases covered
+              - [ ] No flaky tests
+              `
+                            );
+                          }
+              
+                          if (changedFiles.some(f => f.startsWith(".github/workflows/"))) {
+                            addSection(
+                              "🚀 GitHub Actions",
+                              "ci/cd",
+                              `
+              Workflow changes detected.
+              
+              Please verify:
+              
+              - [ ] Workflow runs successfully
+              - [ ] Permissions are minimal
+              - [ ] Secrets are not exposed
+              `
+                            );
+                          }
+              
+                          if (
+                            changedFiles.some(f =>
+                              f === "Dockerfile" ||
+                              f.startsWith("docker/") ||
+                              f.startsWith("docker-compose")
+                            )
+                          ) {
+                            addSection(
+                              "🐳 Docker",
+                              "docker",
+                              `
+              Docker changes detected.
+              
+              Before review:
+              
+              - [ ] Image builds successfully
+              - [ ] Containers start correctly
+              - [ ] Documentation updated
+              `
+                            );
+                          }
+              
+                          if (
+                            changedFiles.some(f =>
+                              f.startsWith("backend/ml/") ||
+                              f.startsWith("ml/")
+                            )
+                          ) {
+                            addSection(
+                              "🤖 Machine Learning",
+                              "machine-learning",
+                              `
+              ML changes detected.
+              
+              Please verify:
+              
+              - [ ] Model tested
+              - [ ] Performance measured
+              - [ ] Documentation updated
+              `
+                            );
+                          }
+              
+                          // ---------- First-time contributor check ----------
+              
+                          const prs = await github.paginate(
+                            github.rest.pulls.list,
+                            {
+                              owner,
+                              repo,
+                              state: "all",
+                              creator: pr.user.login,
+                              per_page: 100
+                            }
+                          );
+              
+                          const isFirstPR = prs.length === 1;
+              
+                          let intro = "";
+              
+                          if (isFirstPR) {
+                            labels.add("first-time-contributor");
+              
+                            intro = `
+              # 🎉 Welcome to CampusCompass!
+              
+              Hi @${pr.user.login},
+              
+              This is your **first contribution** to the project!
+              
+              Don't worry if maintainers request changes—it's a normal part of open source.
+              
+              Thank you for contributing ❤️
+              
+              ---
+              `;
+                          } else {
+                            intro = `
+              # 👋 Welcome Back!
+              
+              Hi @${pr.user.login},
+              
+              Thanks for contributing to CampusCompass again!
+              
+              We appreciate your continued support ❤️
+              
+              ---
+              `;
+                          }
+              
+                          const body = `
+              ${intro}
+              
+              ${sections.join("\n---\n")}
+              
+              ---
+              
+              ## 🌟 General Tips
+              
+              - Keep commits focused
+              - Respond to review comments
+              - Ask questions if you're unsure
+              - Make sure CI passes before requesting review
+              
+              Happy Coding! 🚀
+              
+              ---
+              *Generated automatically by Contributor Learning Assistant.*
+              `;
+              
+                          // Add labels
+                          if (labels.size > 0) {
+                            await github.rest.issues.addLabels({
+                              owner,
+                              repo,
+                              issue_number: pr.number,
+                              labels: [...labels]
+                            });
+                          }
+              
+                          // Create comment
+                          await github.rest.issues.createComment({
+                            owner,
+                            repo,
+                            issue_number: pr.number,
+                            body
+            });

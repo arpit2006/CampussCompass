@@ -203,6 +203,57 @@ ul {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* GitHub stars & forks badge styles */
+.nav-github-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-dark);
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  box-shadow: 2px 2px 0px var(--border-dark);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.nav-github-badge:hover {
+  background-color: var(--bg-darker);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-hover);
+}
+
+.nav-github-badge .github-icon {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.nav-github-badge .github-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-left: 1px solid var(--border);
+  padding-left: 8px;
+  color: var(--text-muted);
+}
+
+.nav-github-badge:hover .github-stat-item {
+  color: var(--text);
+}
+
+.nav-github-badge .star-icon {
+  color: var(--accent);
+}
+
+.nav-github-badge .fork-icon {
+  color: var(--secondary);
+}
+
 .nav-toggle {
   display: none;
   background: none;
@@ -2838,6 +2889,10 @@ ul {
 }
 
 @media (max-width: 768px) {
+  .nav-github-badge .hide-mobile {
+    display: none;
+  }
+
   .nav-toggle {
     display: block;
   }
@@ -2927,6 +2982,17 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-github-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+    gap: 6px;
+  }
+  .nav-github-badge .github-icon {
+    font-size: 14px;
   }
 }
 

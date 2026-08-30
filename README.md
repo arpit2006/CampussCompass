@@ -1,11 +1,11 @@
 # CampusCompass
 
-![License](https://img.shields.io/github/license/arpit2006/CampusCompass)
-![Issues](https://img.shields.io/github/issues/arpit2006/CampusCompass)
-![Pull Requests](https://img.shields.io/github/issues-pr/arpit2006/CampusCompass)
-![Contributors](https://img.shields.io/github/contributors/arpit2006/CampusCompass)
-![Stars](https://img.shields.io/github/stars/arpit2006/CampusCompass)
-![Forks](https://img.shields.io/github/forks/arpit2006/CampusCompass)
+![License](https://img.shields.io/github/license/arpit2006/CampussCompass)
+![Issues](https://img.shields.io/github/issues/arpit2006/CampussCompass)
+![Pull Requests](https://img.shields.io/github/issues-pr/arpit2006/CampussCompass)
+![Contributors](https://img.shields.io/github/contributors/arpit2006/CampussCompass)
+![Stars](https://img.shields.io/github/stars/arpit2006/CampussCompass)
+![Forks](https://img.shields.io/github/forks/arpit2006/CampussCompass)
 
 > An AI-powered platform designed to help students discover career paths, generate personalized learning roadmaps, and track their academic and professional growth.
 
@@ -24,7 +24,7 @@
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshot
 
 ### Landing Page
 

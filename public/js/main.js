@@ -1,4 +1,75 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Live GitHub Stars & Forks ---
+  const starsEl = document.getElementById("github-stars");
+  const forksEl = document.getElementById("github-forks");
+
+  if (starsEl && forksEl) {
+    const CACHE_KEY = "cc_github_stats";
+    const CACHE_EXPIRY = 2 * 60 * 1000; // 2 minutes
+
+    const updateStatsDOM = (stars, forks) => {
+      starsEl.textContent = stars;
+      forksEl.textContent = forks;
+    };
+
+    const fetchGitHubStats = async () => {
+      try {
+        const [starsRes, forksRes] = await Promise.all([
+          fetch("https://img.shields.io/github/stars/arpit2006/CampussCompass.json"),
+          fetch("https://img.shields.io/github/forks/arpit2006/CampussCompass.json")
+        ]);
+
+        if (!starsRes.ok || !forksRes.ok) {
+          throw new Error("Failed to fetch statistics from Shields.io");
+        }
+
+        const [starsData, forksData] = await Promise.all([
+          starsRes.json(),
+          forksRes.json()
+        ]);
+
+        const stats = {
+          stars: parseInt(starsData.value || starsData.message, 10) || 4,
+          forks: parseInt(forksData.value || forksData.message, 10) || 9,
+          timestamp: Date.now()
+        };
+
+        localStorage.setItem(CACHE_KEY, JSON.stringify(stats));
+        updateStatsDOM(stats.stars, stats.forks);
+      } catch (err) {
+        console.error("Failed to fetch live GitHub stats:", err);
+        // Fallback to cache if available
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedData) {
+          try {
+            const stats = JSON.parse(cachedData);
+            updateStatsDOM(stats.stars, stats.forks);
+          } catch (e) {
+            // Ignore parse errors
+          }
+        }
+      }
+    };
+
+    // Load from cache first to avoid layout shift
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    if (cachedData) {
+      try {
+        const stats = JSON.parse(cachedData);
+        updateStatsDOM(stats.stars, stats.forks);
+
+        // If cache is expired, fetch fresh data in background
+        if (Date.now() - stats.timestamp > CACHE_EXPIRY) {
+          fetchGitHubStats();
+        }
+      } catch (e) {
+        fetchGitHubStats();
+      }
+    } else {
+      fetchGitHubStats();
+    }
+  }
+
   // --- Mobile Navigation Menu Toggle ---
   const navToggle = document.getElementById("navToggle");
   const navMenu = document.getElementById("navMenu");

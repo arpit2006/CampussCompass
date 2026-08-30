@@ -1,0 +1,127 @@
+name: 📏 PR Size Analyzer
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Analyze PR Size
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                per_page: 100
+              }
+            );
+
+            let additions = 0;
+            let deletions = 0;
+
+            for (const file of files) {
+              additions += file.additions;
+              deletions += file.deletions;
+            }
+
+            const total = additions + deletions;
+            const changedFiles = files.length;
+
+            let label = "";
+            let emoji = "";
+            let progress = "";
+
+            if (total <= 50) {
+              label = "XS";
+              emoji = "🟢";
+              progress = "██░░░░░░░░";
+            } else if (total <= 200) {
+              label = "Small";
+              emoji = "🟢";
+              progress = "████░░░░░░";
+            } else if (total <= 500) {
+              label = "Medium";
+              emoji = "🟡";
+              progress = "██████░░░░";
+            } else if (total <= 1000) {
+              label = "Large";
+              emoji = "🟠";
+              progress = "████████░░";
+            } else {
+              label = "Huge";
+              emoji = "🔴";
+              progress = "██████████";
+            }
+
+            const body = `## 📏 Pull Request Size Report
+
+            ${emoji} **Classification:** **${label}**
+
+            | Metric | Value |
+            |--------|------:|
+            | Files Changed | ${changedFiles} |
+            | Lines Added | +${additions} |
+            | Lines Deleted | -${deletions} |
+            | Total Changes | ${total} |
+
+            ### Size Meter
+
+            \`${progress}\`
+
+            ### Recommendation
+
+            ${
+              total <= 200
+              ? "✅ Excellent! This PR is easy to review."
+              : total <= 500
+              ? "👍 Reasonable size, but reviewers may take a little longer."
+              : total <= 1000
+              ? "⚠️ Consider splitting this PR into smaller logical changes."
+              : "🚨 This PR is very large. Splitting it into multiple PRs is strongly recommended."
+            }
+
+            ---
+            *Generated automatically by PR Size Analyzer.*
+            `;
+
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number
+            });
+
+            const existing = comments.data.find(c =>
+              c.body.includes("Generated automatically by PR Size Analyzer.")
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body
+              });
+            }

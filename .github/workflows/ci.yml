@@ -54,21 +54,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify application starts
-        run: |
-          node --check app.js
+      - name: Run Express smoke test
+        run: npm run test:smoke
 
-ci-pass:
-  name: CI Passed
-  runs-on: ubuntu-latest
-  needs: [lint, smoke-test]
-  if: always()
+  ci-pass:
+    name: CI Passed
+    runs-on: ubuntu-latest
+    needs: [lint, smoke-test]
+    if: always()
 
-  steps:
-    - run: |
-        echo "Lint: ${{ needs.lint.result }}"
-        echo "Smoke: ${{ needs.smoke-test.result }}"
+    steps:
+      - run: |
+          echo "Lint: ${{ needs.lint.result }}"
+          echo "Smoke: ${{ needs.smoke-test.result }}"
 
-        if [[ "${{ needs.lint.result }}" == "failure" ]]; then
-          exit 1
-        fi
+          if [[ "${{ needs.lint.result }}" == "failure" || "${{ needs.smoke-test.result }}" == "failure" ]]; then
+            exit 1
+          fi

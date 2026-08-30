@@ -94,18 +94,15 @@ node app.js
 
 ```text
 CampussCompass/
-# 📂 Project Structure
-
-```text
-CampussCompass/
 ├── .github/       # GitHub workflows and templates
 ├── api/           # API-related files
 ├── config/        # Configuration files
 ├── controllers/   # Business logic
 ├── data/          # Roadmaps and datasets
 ├── docs/          # Project documentation
-│   ├── architecture.md   # System design, data flow, and DB schema
-│   └── api-routes.md     # Reference for every HTTP route, its auth rules, and redirects
+│   ├── architecture.md          # System design, data flow, and DB schema
+│   ├── api-routes.md            # Reference for every HTTP route, its auth rules, and redirects
+│   └── issue-creation-guide.md  # Guide on how to create high-quality issues
 ├── models/        # Database models
 ├── public/        # Static assets
 ├── routes/        # Application routes
@@ -163,6 +160,7 @@ To avoid duplicate work:
 ### 1. Find or Create an Issue
 
 * Browse open issues.
+* **Want to create an issue?** Please read our [Issue Creation Guide](docs/issue-creation-guide.md) first.
 * Ask to be assigned.
 * Wait for approval.
 

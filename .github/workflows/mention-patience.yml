@@ -1,0 +1,174 @@
+name: ⏳ Patience Reminder Bot
+
+on:
+  issue_comment:
+    types:
+      - created
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  patience-reminder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check mention and send reminder
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const comment = context.payload.comment.body;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = context.issue.number;
+
+            // Extract @mentions
+            const mentionedUsers = comment.match(/@[a-zA-Z0-9-]+/g) || [];
+
+            if (mentionedUsers.length === 0) {
+              console.log("No mentions found.");
+              return;
+            }
+
+            const users = [
+              ...new Set(
+                mentionedUsers.map(user =>
+                  user.substring(1).toLowerCase()
+                )
+              )
+            ];
+
+            let triggered = false;
+            let mentionedMaintainer = "";
+
+            // Check every mentioned user
+            for (const username of users) {
+              try {
+                // Repository owner
+                if (username === owner.toLowerCase()) {
+                  triggered = true;
+                  mentionedMaintainer = username;
+                  break;
+                }
+
+                // Check repository permission
+                const { data: permission } =
+                  await github.rest.repos.getCollaboratorPermissionLevel({
+                    owner,
+                    repo,
+                    username
+                  });
+
+                const role = permission.permission;
+
+                if (
+                  role === "admin" ||
+                  role === "maintain" ||
+                  role === "write"
+                ) {
+                  triggered = true;
+                  mentionedMaintainer = username;
+                  break;
+                }
+
+              } catch (error) {
+                console.log(
+                  `Could not check @${username}: ${error.message}`
+                );
+              }
+            }
+
+            if (!triggered) {
+              console.log("No owner/collaborator mention detected.");
+              return;
+            }
+
+            // Determine whether this is an Issue or PR
+            const isPR = Boolean(
+              context.payload.issue.pull_request
+            );
+
+            const contentType = isPR
+              ? "Pull Request"
+              : "Issue";
+
+            console.log(
+              `Owner/collaborator @${mentionedMaintainer} mentioned in ${contentType}.`
+            );
+
+            // Get existing comments
+            const { data: comments } =
+              await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                per_page: 100
+              });
+
+            // Prevent duplicate bot responses
+            const alreadyReplied = comments.some(comment =>
+              comment.user.type === "Bot" &&
+              comment.body.includes("Please Be Patient")
+            );
+
+            if (alreadyReplied) {
+              console.log("Reminder already exists.");
+              return;
+            }
+
+            // Different message for PR and Issue
+            let message;
+
+            if (isPR) {
+              message = `
+            ## ⏳ Please Be Patient
+            
+            Hi @${context.payload.comment.user.login} 👋
+            
+            We noticed that you mentioned **@${mentionedMaintainer}** regarding this Pull Request.
+            
+            Your contribution has been received and will be reviewed by the maintainers. **Please be patient while the PR goes through the review and merging process.**
+            
+            Maintainers may need some time to:
+            
+            - 🔍 Review the changes
+            - 🧪 Test the implementation
+            - 💬 Provide feedback
+            - ✅ Approve and merge the PR
+            
+            Please avoid repeatedly mentioning maintainers for merge requests.
+            
+            Thank you for your contribution and patience! ❤️
+            
+            — 🤖 **Automated Repository Bot**
+            `;
+                        } else {
+                          message = `
+            ## ⏳ Please Be Patient
+            
+            Hi @${context.payload.comment.user.login} 👋
+            
+            We noticed that you mentioned **@${mentionedMaintainer}** regarding this Issue.
+            
+            The maintainers will review the issue when they are available. **Please be patient and allow some time for the team to respond.**
+            
+            Repeatedly mentioning maintainers is unnecessary and may make it harder for the team to manage the project's discussions.
+            
+            Thank you for your understanding and contribution! ❤️
+            
+            — 🤖 **Automated Repository Bot**
+            `;
+                        }
+            
+                        // Post reminder
+                        await github.rest.issues.createComment({
+                          owner,
+                          repo,
+                          issue_number: issueNumber,
+                          body: message
+                        });
+            
+                        console.log(
+                          `Patience reminder posted on ${contentType}.`
+                        );

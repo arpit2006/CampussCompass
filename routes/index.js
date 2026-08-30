@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
 const User = require('../models/User');
 const dashboardController = require('../controllers/dashboardController');
 const { ensureGuest, ensureProfileComplete } = require('./middleware');
+const {
+  DEFAULT_PLAYLIST_TRACK,
+  getAvailablePlaylistTracks,
+  getPlaylistData,
+  resolvePlaylistTrackKeyFromCareerGoal
+} = require('../services/contentDataLoader');
 
 // Landing Page (Only for guests, logged-in users get redirected to dashboard)
 router.get('/', ensureGuest, (req, res) => {
@@ -55,39 +59,19 @@ router.get('/resources', async (req, res, next) => {
 // Curated Playlists Page
 router.get('/playlists', async (req, res, next) => {
   try {
-    // Load playlist data
-    const playlistsPath = path.join(__dirname, '../data/curatedPlaylists.json');
-    const playlistsRaw = fs.readFileSync(playlistsPath, 'utf8');
-    const playlistsData = JSON.parse(playlistsRaw);
-
-    const allTracks = [
-      { key: 'web-developer', label: 'Web Developer' },
-      { key: 'data-scientist', label: 'Data Scientist' },
-      { key: 'software-engineer', label: 'Software Engineer' },
-      { key: 'ai-engineer', label: 'AI Engineer' },
-      { key: 'cloud-engineer', label: 'Cloud Engineer' },
-      { key: 'cyber-security', label: 'Cybersecurity Specialist' }
-    ];
-
     let user = null;
-    let trackKey = req.query.track || 'web-developer';
+    let requestedTrackKey = req.query.track || DEFAULT_PLAYLIST_TRACK;
     const isLoggedIn = !!(req.session && req.session.userId);
 
     if (isLoggedIn) {
       user = await User.findById(req.session.userId);
       if (user && user.profile && user.profile.careerGoal) {
-        // Map user's careerGoal to playlist key
-        const goal = user.profile.careerGoal.toLowerCase();
-        if (goal.includes('ai') || goal.includes('artificial')) trackKey = 'ai-engineer';
-        else if (goal.includes('cloud')) trackKey = 'cloud-engineer';
-        else if (goal.includes('cyber')) trackKey = 'cyber-security';
-        else if (goal.includes('data')) trackKey = 'data-scientist';
-        else if (goal.includes('software') || goal.includes('sde')) trackKey = 'software-engineer';
-        else if (goal.includes('web')) trackKey = 'web-developer';
+        requestedTrackKey = resolvePlaylistTrackKeyFromCareerGoal(user.profile.careerGoal) || requestedTrackKey;
       }
     }
 
-    const currentTrackData = playlistsData[trackKey] || playlistsData['web-developer'];
+    const allTracks = getAvailablePlaylistTracks();
+    const { trackKey, trackData } = getPlaylistData(requestedTrackKey);
 
     res.render('playlists', {
       title: 'Vetted Video Playlists - CampusCompass',
@@ -95,7 +79,7 @@ router.get('/playlists', async (req, res, next) => {
       user,
       trackKey,
       allTracks,
-      trackData: currentTrackData
+      trackData
     });
   } catch (err) {
     next(err);
