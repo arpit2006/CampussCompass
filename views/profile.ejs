@@ -156,6 +156,15 @@
                     </div>
                   </div>
 
+                  <!-- Location -->
+                  <div class="form-group">
+                    <label for="location">Location (City / Campus Region)</label>
+                    <div class="input-wrapper">
+                      <i class="fa-solid fa-location-dot"></i>
+                      <input type="text" id="location" name="location" value="<%= user.profile.location || '' %>" placeholder="e.g. New Delhi, NCR" style="border: 1px solid var(--border-dark); box-shadow: 2px 2px 0px rgba(0,0,0,0.05);">
+                    </div>
+                  </div>
+
                   <!-- Daily Study Hours -->
                   <div class="form-group">
                     <label for="dailyStudyHours">Daily Study Hours Goal</label>

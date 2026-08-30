@@ -23,7 +23,8 @@ exports.postProfileSetup = async (req, res) => {
     careerGoal,
     skills,
     interests,
-    dailyStudyHours
+    dailyStudyHours,
+    location
   } = req.body;
 
   // Basic validation
@@ -57,6 +58,7 @@ exports.postProfileSetup = async (req, res) => {
       skills: skillsArray,
       interests: interestsArray,
       dailyStudyHours: dailyStudyHours ? parseInt(dailyStudyHours, 10) : null,
+      location: location ? location.trim() : '',
       githubUsername: user.profile.githubUsername || '',
       leetcodeUsername: user.profile.leetcodeUsername || ''
     };
@@ -105,7 +107,8 @@ exports.postProfileUpdate = async (req, res) => {
     careerGoal,
     skills,
     interests,
-    dailyStudyHours
+    dailyStudyHours,
+    location
   } = req.body;
 
   if (!fullName || !collegeName || !branch || !currentYear || !careerGoal) {
@@ -137,6 +140,7 @@ exports.postProfileUpdate = async (req, res) => {
       skills: skillsArray,
       interests: interestsArray,
       dailyStudyHours: dailyStudyHours ? parseInt(dailyStudyHours, 10) : null,
+      location: location ? location.trim() : '',
       githubUsername: user.profile.githubUsername || '',
       leetcodeUsername: user.profile.leetcodeUsername || ''
     };

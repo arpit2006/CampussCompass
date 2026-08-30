@@ -78,6 +78,7 @@ User.init(
           skills: val.skills || [],
           interests: val.interests || [],
           dailyStudyHours: val.dailyStudyHours !== undefined ? val.dailyStudyHours : null,
+          location: val.location || '',
           githubUsername: val.githubUsername || '',
           leetcodeUsername: val.leetcodeUsername || '',
           ...val

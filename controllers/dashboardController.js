@@ -108,20 +108,31 @@ exports.getSocial = async (req, res) => {
     const limit = parseInt(req.query.limit, 10) || 12;
     const offset = (page - 1) * limit;
 
-    // Fetch all users with completed profiles with pagination and projection
-    const { rows: students, count: totalStudents } = await User.findAndCountAll({
+    const locationQuery = req.query.location ? req.query.location.toLowerCase().trim() : '';
+
+    // Fetch all completed profiles first to handle JSON filtering across dialects
+    const allStudents = await User.findAll({
       where: {
         isProfileComplete: true
       },
       attributes: ['_id', 'profile'],
-      limit,
-      offset,
       order: [['_id', 'ASC']]
     });
 
+    let filteredStudents = allStudents.map(s => s.toJSON());
+    
+    if (locationQuery) {
+      filteredStudents = filteredStudents.filter(student => {
+        const loc = student.profile && student.profile.location ? student.profile.location.toLowerCase() : '';
+        return loc.includes(locationQuery);
+      });
+    }
+
+    const totalStudents = filteredStudents.length;
+    const students = filteredStudents.slice(offset, offset + limit);
+
     // Add mock social stats to each student to display in the UI
-    const studentsWithStats = students.map(studentInstance => {
-      const student = studentInstance.toJSON();
+    const studentsWithStats = students.map(student => {
       // Create seed from username length or ID to keep values stable per render
       const seedVal = student._id ? (student._id.charCodeAt(student._id.length - 1) || 42) : 42;
 
@@ -161,6 +172,7 @@ exports.getSocial = async (req, res) => {
       totalStudents,
       currentPage: page,
       totalPages: Math.ceil(totalStudents / limit),
+      locationQuery: req.query.location || '',
       success,
       error,
       title: 'Community Connect - CampusCompass'

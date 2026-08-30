@@ -138,8 +138,12 @@
 
     <!-- Right Column: Student Cards List -->
     <main class="social-main">
-      <div class="social-list-header">
+      <div class="social-list-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
         <h2>Peer Directories (<%= totalStudents %>)</h2>
+        <form action="/social" method="GET" class="location-filter-form" style="display: flex; gap: 8px;">
+          <input type="text" name="location" value="<%= locationQuery %>" placeholder="Filter by location" style="padding: 6px 12px; border: 1px solid var(--border-dark); border-radius: 4px; box-shadow: 2px 2px 0px rgba(0,0,0,0.05); font-family: var(--font-sans);">
+          <button type="submit" class="btn btn-primary" style="padding: 6px 12px;">Search</button>
+        </form>
       </div>
 
       <div class="students-grid">
@@ -156,6 +160,9 @@
               <div class="student-primary-info">
                 <h3><%= student.profile.fullName %></h3>
                 <p class="student-college"><%= student.profile.collegeName %> • <%= student.profile.branch %></p>
+                <% if (student.profile.location) { %>
+                  <p class="student-location" style="font-size: 12px; color: var(--text-muted); margin: 4px 0;"><i class="fa-solid fa-location-dot"></i> <%= student.profile.location %></p>
+                <% } %>
                 <span class="goal-badge"><%= student.profile.careerGoal %></span>
               </div>
             </div>
@@ -225,7 +232,7 @@
 
       <div class="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px;">
         <% if (currentPage > 1) { %>
-          <a href="/social?page=<%= currentPage - 1 %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;"><i class="fa-solid fa-chevron-left"></i> Previous</a>
+          <a href="/social?page=<%= currentPage - 1 %><%= locationQuery ? '&location=' + encodeURIComponent(locationQuery) : '' %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;"><i class="fa-solid fa-chevron-left"></i> Previous</a>
         <% } %>
         
         <% if (totalPages > 0) { %>
@@ -233,7 +240,7 @@
         <% } %>
         
         <% if (currentPage < totalPages) { %>
-          <a href="/social?page=<%= currentPage + 1 %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;">Next <i class="fa-solid fa-chevron-right"></i></a>
+          <a href="/social?page=<%= currentPage + 1 %><%= locationQuery ? '&location=' + encodeURIComponent(locationQuery) : '' %>" class="btn btn-secondary" style="font-size: 14px; padding: 6px 12px;">Next <i class="fa-solid fa-chevron-right"></i></a>
         <% } %>
       </div>
     </main>
