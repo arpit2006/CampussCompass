@@ -92,7 +92,7 @@ exports.getSocial = async (req, res) => {
     });
 
     let filteredStudents = allStudents.map(s => s.toJSON());
-    
+
     if (locationQuery) {
       filteredStudents = filteredStudents.filter(student => {
         const loc = student.profile && student.profile.location ? student.profile.location.toLowerCase() : '';
