@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const crypto = require('crypto');
 
 // Render Register Page
 exports.getRegister = (req, res) => {
@@ -121,13 +122,18 @@ exports.getMockOAuth = (req, res) => {
 
   // Generate a mock suggested username
   const randNum = Math.floor(Math.random() * 900) + 100;
-  const suggestedUsername = platform === 'github'
-    ? `github_dev_${randNum}`
+  const suggestedUsername = platform === 'github' 
+    ? `github_dev_${randNum}` 
     : `leetcode_coder_${randNum}`;
+
+  // Generate a cryptographic token for CSRF/State bypass protection
+  const oauthToken = crypto.randomBytes(32).toString('hex');
+  req.session.mockOAuthToken = oauthToken;
 
   res.render('mock-oauth', {
     platform,
     suggestedUsername,
+    oauthToken,
     title: `Authorize CampusCompass - ${platform.toUpperCase()}`
   });
 };
@@ -135,7 +141,21 @@ exports.getMockOAuth = (req, res) => {
 // Handle Mock OAuth POST (simulates authorization response)
 exports.postMockOAuth = async (req, res) => {
   const { platform } = req.params;
-  const { username } = req.body;
+  const { username, oauthToken, password } = req.body;
+
+  if (platform !== 'github' && platform !== 'leetcode') {
+    req.session.error = 'Invalid authentication provider';
+    return res.redirect('/login');
+  }
+
+  // Validate state token
+  if (!oauthToken || oauthToken !== req.session.mockOAuthToken) {
+    req.session.error = 'Invalid or expired authorization request. Please try again.';
+    return res.redirect(`/auth/${platform}`);
+  }
+  
+  // Clear the token after use
+  delete req.session.mockOAuthToken;
 
   if (!username || username.trim().length === 0) {
     req.session.error = 'Username is required to mock authorize';
@@ -148,24 +168,37 @@ exports.postMockOAuth = async (req, res) => {
   try {
     // Check if a user with this simulated social email already exists
     let user = await User.findOne({ email: simulatedEmail });
-
+    
     if (!user) {
       // If not, create a new user automatically
       user = new User({
         email: simulatedEmail,
-        password: 'mock_oauth_password_never_matches_plain' // safe hashed placeholder
+        password: require('crypto').randomBytes(24).toString('hex') // safe random placeholder instead of static string
       });
-
+      
       // Auto populate social connection field
       if (platform === 'github') {
         user.profile = { ...user.profile, githubUsername: cleanUsername };
       } else if (platform === 'leetcode') {
         user.profile = { ...user.profile, leetcodeUsername: cleanUsername };
       }
-
+      
       await user.save();
     } else {
-      // If user exists, make sure connection is populated
+      // IDOR Protection: Account already exists with this derived email
+      // We must verify ownership to prevent arbitrary hijacking
+      if (!password) {
+        req.session.error = 'An account with this username already exists. Please provide your password to link your account or log in.';
+        return res.redirect(`/auth/${platform}`);
+      }
+      
+      const isMatch = await user.matchPassword(password);
+      if (!isMatch) {
+        req.session.error = 'Invalid password provided for the existing account.';
+        return res.redirect(`/auth/${platform}`);
+      }
+
+      // If user exists and password is correct, make sure connection is populated
       if (platform === 'github' && !user.profile.githubUsername) {
         user.profile = { ...user.profile, githubUsername: cleanUsername };
         await user.save();
