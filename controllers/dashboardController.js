@@ -52,7 +52,6 @@ exports.getDashboard = async (req, res) => {
 
     // Load the matching roadmap
     const roadmap = getRoadmapData(user.profile.careerGoal);
-
     // Calculate progress
     const progress = calculateProgress(user.profile.skills, roadmap);
 
