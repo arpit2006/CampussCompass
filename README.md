@@ -14,7 +14,7 @@
 ## Features
 
 * 🔐 User Authentication
-* 👤 Student Profiles
+* 👤 Student Profile
 * 🧠 AI-Powered Roadmap Generation
 * 📚 Personalized Study Planner
 * 📊 Progress Tracking Dashboard
